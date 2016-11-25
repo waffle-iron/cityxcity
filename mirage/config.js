@@ -4,6 +4,21 @@ export default function() {
   this.get('cities', (schema) => {
     return schema.cities.all();
   });
+
+  this.get('features', (schema) => {
+    return schema.features.all();
+  });
+
+  // this.get('features/:id', (schema, request) => {
+  //   let feature = schema.features.find(request.params.id);
+  //   return feature;
+  // });
+
+  // this.get('cities/:id/features', (schema, request) => {
+  //   let city = schema.cities.find(request.params.id);
+
+  //   return city.features;
+  // });
   // These comments are here to help you get started. Feel free to delete them.
 
   /*
