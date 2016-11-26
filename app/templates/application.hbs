@@ -1,14 +1,14 @@
-{{!-- <p id="text">
+<p id="text">
   Hello there
 </p>
-
+{{!-- 
 {{#each model as |city|}}
   <br />{{city.name}}
 {{/each}}
  --}}
 {{!-- <iframe width="100%" height="100%" frameborder="0" src="https://mapc.carto.com/u/mystic/builder/39641b1a-b1e8-11e6-99af-0e3ebc282e83/embed" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe> --}}
 
-{{#leaflet-map lat=42 lng=-71 zoom=3 as |layers|}}
+{{#leaflet-map lat=42 lng=-71 zoom=10 as |layers|}}
   {{layers.tile url='http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png'}}
-  {{cartodb-layer url='https://mapc.carto.com/u/mapc-admin/api/v2/viz/77d8c2c8-b1b2-11e6-930e-0e3ff518bd15/viz.json'}}
+  {{cartodb-layer url='https://mapc.carto.com/u/mapc-admin/api/v2/viz/b0248a00-b350-11e6-ac8e-0e3ff518bd15/viz.json'}}
 {{/leaflet-map}}
