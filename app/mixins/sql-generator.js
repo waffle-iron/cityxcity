@@ -1,41 +1,31 @@
 import Ember from 'ember';
+import Generator from '../custom/generator';
 import squel from 'npm:squel';
+import groupby from 'npm:lodash.groupby';
 
 export default Ember.Mixin.create({
-  squel: squel.select(),
+  tables: [],
   init: function() {
-    // equivalence: WHERE {col} = {filter}
-    // boolean: WHERE {col} IS {state}
-    // range: WHERE {col} BETWEEN {filterFrom} AND {filterTo}
-    let queryParams = this.get('queryParams');
+    this._super();
     let filters = this.get('cartodbMapFilters');
+    let grouped = groupby(filters, 'table');
 
-    // needs to group by table
-    // so it returns one query string for one table
-    if(filters) {
-      filters.forEach((col) => {
-        this.buildQueryFromType(col);
-      });      
+    for (var property in grouped) {
+      if (grouped.hasOwnProperty(property)) { 
+        this.buildTableObject(grouped, property);
+      }
     }
   },
-  sql: function() {
-    return this.squel.toString();
-  }.property(),
-  buildQueryFromType: function(col) {
-    switch(col.type) {
-      case "boolean":
-        this.squel.where(col.name + " = " + this.get(col.name));
-        break;
-      case "range":
-        let propertyValue = this.get(col.name);
-        let parsedRangeArray = this.parsedRangeArray(propertyValue);
-        this.squel.where(col.name + " BETWEEN " + parsedRangeArray[0] + " AND " + parsedRangeArray[1]);
-        break;
-      default:
-        this.squel.where(col.name + " = " + this.get(col.name));
-    }
-  },
-  parsedRangeArray: function(string) {
-    return JSON.parse(string);
+  buildTableObject(grouped, property) {
+    let queryParams = this.get('queryParams');
+    let generator;
+    this.get('tables').push(
+      generator = Generator.create({
+        name: property,
+        filters: grouped[property],
+        queryParams,
+        context: this
+      })
+    )
   }
 });
