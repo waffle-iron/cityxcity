@@ -21,10 +21,7 @@ describe('Unit | Mixin | sql generator', function() {
     {
       cartodbMapFilters: [{ name: "redevelopment", 
                             type: "boolean", 
-                            table: "developments" },
-                          { name: "redevelopment", 
-                            type: "boolean", 
-                            table: "investments" }],
+                            table: "developments" }],
       queryParams: ['redevelopment'],
       redevelopment: true
     };
@@ -46,7 +43,6 @@ describe('Unit | Mixin | sql generator', function() {
     let subject = SqlGeneratorObject.create();
     expect(subject.get('tables')[0].get('sql')).to.be.a('string');
 
-    console.log(subject.get('tables')[0].get('sql'));
   });
 
   it('clears out the squel for individual tables', function() {
@@ -58,15 +54,16 @@ describe('Unit | Mixin | sql generator', function() {
   });
 
   it('updates the property values when they change in the controller', function() {
-    let SqlGeneratorObject = Ember.Object.extend(SqlGeneratorMixin, object_config1);
-    let subject = SqlGeneratorObject.create();
-    let queryString = "SELECT WHERE (redevelopment = true)";
-    // expect(subject.get('tables')[1].get('sql')).
-    //   to.equal(queryString);
-    queryString = "SELECT WHERE (redevelopment = false)";
-    subject.set('redevelopment', false);
-    expect(subject.get('tables')[1].get('sql')).
-      to.equal(queryString);
+    Ember.run(function() {    
+      let SqlGeneratorObject = Ember.Object.extend(SqlGeneratorMixin, object_config2);
+      let subject = SqlGeneratorObject.create();
+      let queryString = "SELECT WHERE (redevelopment = false)";
+      subject.set('redevelopment', false);
+
+      expect(subject.get('tables')[0].get('sql')).
+        to.equal(queryString);
+    });
+
   });
 
   it('accepts a table parameter from parent', function() {
@@ -75,7 +72,6 @@ describe('Unit | Mixin | sql generator', function() {
 
     let SqlGeneratorObject = Ember.Object.extend(SqlGeneratorMixin, object_config1);
     let subject = SqlGeneratorObject.create();
-    console.log(subject.get('tables')[0].get('sql'));
     expect(subject.get('tables')[0].get('sql')).to.be.a('string');
     // expect()
   });

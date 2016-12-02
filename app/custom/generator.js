@@ -4,17 +4,19 @@ import squel from 'npm:squel';
 export default Ember.Object.extend({
   squel: null,
   init() {
-    this._super();
+    this._super(...arguments);
     this.set('squel', new squel.select());
     this.runCols();
   },
   bindColumns: function() {
     let context = this.get('context');
+    let buildObj={};
+    
     this.get('filters').forEach((el) => {
-      let binding = Ember.Binding.from("sql").to(`context.${el.name}`);
-      binding.connect(this);
+      buildObj[el] = Ember.computed.alias(`context.${el}`);
     });
-  }.on('init'),
+    return Ember.Object.extend(buildObj).create({ context: this.get('context') });
+  }.property('context.cartodbMapFilters.@each'),
   runCols: function() {
     this.get('filters').forEach((col) => {
       this.buildQueryFromType(col);
@@ -35,7 +37,7 @@ export default Ember.Object.extend({
       default:
         this.get('squel').where(col.name + " = " + this.get('context.' + col.name));
     }
-    console.log(this.squel.toString());
+
     this.set('newSql', this.squel.toString());
   },
   parsedRangeArray: function(string) {
@@ -43,6 +45,7 @@ export default Ember.Object.extend({
   },
   sql: function() {
     this.runCols();
+
     return this.get('squel').toString();
-  }.property()
+  }.property('bindColumns.{}')
 });
