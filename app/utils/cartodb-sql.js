@@ -1,14 +1,14 @@
 import squel from 'npm:squel';
 
-export default function cartodbSql(filters, context, table) {
+export default function cartodbSql(context, filters, table) {
   let query = squel.select();
-  let queryTable = table || filters[0]['table'];
+  let queryTable = table;
   query.from(queryTable);
 
   filters.forEach((el) => {
     let column = `${table}.${el['name']}`
     let value = context.get(el['alias']);
-    if(value) {
+    if(!!value && (el['table'] == queryTable)) {
       switch(el['type']) {
         case "boolean":
           query.where(column + " = " + value);

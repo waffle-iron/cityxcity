@@ -51,11 +51,13 @@ module.exports = function(environment) {
                {  name: "activating", 
                   type: "boolean", 
                   table: "features",
-                  alias: "activating" },
+                  alias: "featureActivating" },
+
                {  name: "type", 
                   type: "type", 
                   alias: "featureType",
                   table: "features" },
+
                {  name: "employer", 
                   type: "boolean", 
                   alias: "employer",
