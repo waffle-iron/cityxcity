@@ -18,16 +18,14 @@ export default Ember.Object.extend({
       )
       this.generateSQL();
     });
-  console.log(this.get('cols.0.dynamicDependencyProp'));
-  }.on('init'),
 
+  }.on('init'),
   generateSQL: function() {
-    console.log("generates");
     let cols = this.get('cols');
     cols.forEach((col)=> {
       this.sortColumnByType(col);
     });
-  }.observes('cols.@each.dynamicDependencyProp'),
+  },
 
   sortColumnByType(el) {
     this.set('squel', new squel.select());
@@ -48,10 +46,9 @@ export default Ember.Object.extend({
   parsedRangeArray: function(string) {
     return JSON.parse(string);
   },
-  testObserver: function() {
-    console.log("observes changes in child objects")
-  }.observes('cols.@each.col.name'),
+
   sql: function() {
+    this.generateSQL();
     return this.get('squel').toString();
-  }.property('cols.@each.name')
+  }.property()
 });

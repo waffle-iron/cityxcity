@@ -18,6 +18,49 @@ module.exports = function(environment) {
     },
 
     APP: {
+      filters: [{  name: "type", 
+                  type: "type", 
+                  table: "investments",
+                  alias: "type" },
+               {  name: "value", 
+                  type: "range", 
+                  table: "investments",
+                  alias: "value" },
+
+               {  name: "bld_area", 
+                  type: "range", 
+                  table: "parcels",
+                  alias: "bld_area" },
+               {  name: "tdi_land_use", 
+                  type: "type", 
+                  table: "parcels",
+                  alias: "tdi_land_use" },
+               {  name: "tdi_for_sale", 
+                  type: "boolean", 
+                  table: "parcels",
+                  alias: "tdi_for_sale" },
+               {  name: "tdi_for_lease", 
+                  type: "boolean", 
+                  table: "parcels",
+                  alias: "tdi_for_lease" },
+               {  name: "year_built", 
+                  type: "range", 
+                  table: "parcels",
+                  alias: "year_built" },
+
+               {  name: "activating", 
+                  type: "boolean", 
+                  table: "features",
+                  alias: "activating" },
+               {  name: "type", 
+                  type: "type", 
+                  alias: "featureType",
+                  table: "features" },
+               {  name: "employer", 
+                  type: "boolean", 
+                  alias: "employer",
+                  table: "features" }
+                  ]
       // Here you can pass flags/options to your application instance
       // when it is created
     }

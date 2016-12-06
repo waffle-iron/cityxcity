@@ -48,15 +48,21 @@ describe('Unit | Mixin | generator', function() {
   it('updates the property values when they change in the controller', function() {
     // this could pass if there's a setTimeout. Could this be something to do with the runloop?
     Ember.run(() => {    
-      let SqlGeneratorObject = Ember.Object.extend(GeneratorMixin, object_config2);
+      let SqlGeneratorObject = Ember.Object.extend(GeneratorMixin, {
+        cartodbMapFilters: [{ name: "redevelopment", 
+                              type: "boolean", 
+                              table: "developments" }],
+        queryParams: ['redevelopment'],
+        redevelopment: true
+      });
       let subject = SqlGeneratorObject.create();
       let queryString = "SELECT WHERE (redevelopment = false)";
+
+      // console.log(subject.get('tables.0.sql'));
       subject.set('redevelopment', false);
-      expect(subject.get('tables')[0].get('sql')).
+
+      expect(subject.get('tables.0.sql')).
         to.equal(queryString);
-        setTimeout(() => {
-          console.log(subject.get('tables')[0].get('sql'));
-        }, 1000);
     });
 
   });
