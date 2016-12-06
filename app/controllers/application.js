@@ -22,6 +22,7 @@ function makeSql(table) {
 export default Ember.Controller.extend({
   queryParams: filters.uniqBy('alias').mapBy('alias'),
   //queryParams: ['activating'],
+  featureActivating: true,
   // activating: false,
   // type: 'equity',
   // featureType: 'Food',
