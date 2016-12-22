@@ -25,9 +25,5 @@ describe('Acceptance | user can view index page', function() {
     expect(currentURL()).to.equal('/');
   });
 
-  it('show some text on the homepage', function() {
-    // expect()
-    let text = find(TEXT).text();
-    expect(text).to.include("Hello");
-  });
+  it('show a grid of city names on home page');
 });
