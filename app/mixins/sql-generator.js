@@ -7,7 +7,7 @@ export default Ember.Mixin.create({
     // equivalence: WHERE {col} = {filter}
     // boolean: WHERE {col} IS {state}
     // range: WHERE {col} BETWEEN {filterFrom} AND {filterTo}
-    let queryParams = this.get('queryParams');
+    // let queryParams = this.get('queryParams');
     let filters = this.get('cartodbMapFilters');
 
     // needs to group by table
@@ -15,7 +15,7 @@ export default Ember.Mixin.create({
     if(filters) {
       filters.forEach((col) => {
         this.buildQueryFromType(col);
-      });      
+      });
     }
   },
   sql: function() {
@@ -23,14 +23,16 @@ export default Ember.Mixin.create({
   }.property(),
   buildQueryFromType: function(col) {
     switch(col.type) {
-      case "boolean":
+      case "boolean": {
         this.squel.where(col.name + " = " + this.get(col.name));
         break;
-      case "range":
+      }
+      case "range": {
         let propertyValue = this.get(col.name);
         let parsedRangeArray = this.parsedRangeArray(propertyValue);
         this.squel.where(col.name + " BETWEEN " + parsedRangeArray[0] + " AND " + parsedRangeArray[1]);
         break;
+      }
       default:
         this.squel.where(col.name + " = " + this.get(col.name));
     }

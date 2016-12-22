@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { describe, it, beforeEach } from 'mocha';
+import { describe, it } from 'mocha';
 import Ember from 'ember';
 import SqlGeneratorMixin from 'cityxcity/mixins/sql-generator';
 
@@ -40,14 +40,14 @@ describe('Unit | Mixin | sql generator', function() {
     // the DSL needs to support a table property
 
     let SqlGeneratorObject = Ember.Object.extend(SqlGeneratorMixin, {
-      cartodbMapFilters: [{ name: "redevelopment", 
-                            type: "boolean", 
+      cartodbMapFilters: [{ name: "redevelopment",
+                            type: "boolean",
                             table: "developments" }],
       queryParams: ['redevelopment'],
       redevelopment: true
     });
     let subject = SqlGeneratorObject.create();
-    // expect(subject.get('sql')).to.be.a('string');
+    expect(subject.get('sql')).to.be.a('string');
   });
 
   it('can receive controller property param values', function() {
