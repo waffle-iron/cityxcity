@@ -47,9 +47,7 @@
     "ember-welcome-page": "^1.0.3",
     "eslint-plugin-ember-suave": "^1.0.0",
     "loader.js": "^4.0.10",
-    "semantic-ui-ember": "2.0.0"
-  },
-  "dependencies": {
+    "semantic-ui-ember": "2.0.0",
     "squel": "^5.5.0"
   }
 }
