@@ -3,8 +3,6 @@ import { expect } from 'chai';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
 
-const TEXT = '#text';
-
 describe('Acceptance | user can view index page', function() {
   let application;
 
