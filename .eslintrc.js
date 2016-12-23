@@ -9,5 +9,8 @@ module.exports = {
     'browser': true
   },
   rules: {
+    "no-unused-vars": "off",
+    "no-case-declarations": "off",
+    "no-undef": "off"
   }
 };

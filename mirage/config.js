@@ -1,13 +1,9 @@
 export default function() {
   this.namespace = '/api';
 
-  this.get('cities', (schema) => {
-    return schema.cities.all();
-  });
+  this.get('cities');
 
-  this.get('features', (schema) => {
-    return schema.features.all();
-  });
+  this.get('features');
 
   // this.get('features/:id', (schema, request) => {
   //   let feature = schema.features.find(request.params.id);
