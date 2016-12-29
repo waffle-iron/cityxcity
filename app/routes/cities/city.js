@@ -6,7 +6,6 @@ export default Ember.Route.extend({
   },
   afterModel(model) {
     let controller = this.controllerFor('cities');
-    // let model = this.get('model');
     controller.send('updateCenter', model);
   }
 });
