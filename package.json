@@ -50,5 +50,8 @@
     "loader.js": "^4.0.10",
     "semantic-ui-ember": "2.0.0",
     "squel": "^5.5.0"
+  },
+  "dependencies": {
+    "ember-cli-sass": "^6.0.0"
   }
 }
