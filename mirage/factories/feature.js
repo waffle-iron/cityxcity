@@ -1,4 +1,4 @@
-import { Factory, faker } from 'ember-cli-mirage';
+import { Factory, faker, association } from 'ember-cli-mirage';
 
 export default Factory.extend({
   name() { return faker.company.companyName(); },
@@ -21,5 +21,6 @@ export default Factory.extend({
   subtype(i) { return faker.list.cycle("Clothing", "Convenience ", "Pharmacy", "Household Goods", "Other Retail")(i) },
   comment() { return faker.lorem.text(); },
   opendate() { return faker.date.past(); },
-  closedate() { return faker.date.recent(); }
+  closedate() { return faker.date.recent(); },
+  city: association()
 });

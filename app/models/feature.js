@@ -10,5 +10,6 @@ export default DS.Model.extend({
   subtype: DS.attr("string"),
   comment: DS.attr("string"),
   opendate: DS.attr("string"),
-  closedate: DS.attr("string")
+  closedate: DS.attr("string"),
+  city: DS.belongsTo("city")
 });
