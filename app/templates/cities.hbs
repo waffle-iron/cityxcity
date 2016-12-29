@@ -1,7 +1,7 @@
 <div class="cities">
   <div class="cities-detail">
     View As: Developer
-    {{#leaflet-map lat=latitude lng=longitude zoom=2}}
+    {{#leaflet-map lat=latitude lng=longitude zoom=5}}
       {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
       {{#each model as |city|}}
         {{#marker-layer lat=city.latitude lng=city.longitude}}
