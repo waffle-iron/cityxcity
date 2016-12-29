@@ -1,4 +1,4 @@
-import { Factory, faker, association } from 'ember-cli-mirage';
+import { Factory, association, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
   name() { return faker.company.companyName(); },
@@ -22,5 +22,6 @@ export default Factory.extend({
   comment() { return faker.lorem.text(); },
   opendate() { return faker.date.past(); },
   closedate() { return faker.date.recent(); },
-  city: association()
+  latitude() { return faker.address.latitude(); },
+  longitude() { return faker.address.longitude(); }
 });

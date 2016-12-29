@@ -11,6 +11,8 @@ Router.map(function() {
     this.route('city', { path: '/:id' });
   });
   this.route('login');
+
+  this.route('features', function() {});
 });
 
 export default Router;

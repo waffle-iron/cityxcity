@@ -7,7 +7,7 @@ export default function() {
   this.get('cities/:id');
 
   this.get('features');
-
+  this.get('features/:id');
 
   function parseFormEncodedString(requestBody) {
     let bodyParams = {};
