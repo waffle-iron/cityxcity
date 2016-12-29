@@ -22,19 +22,17 @@ export default function() {
   this.post('token', ({ users }, request) => {
     // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.
     let parsed = JSON.parse(request.requestBody);
-    let { email, password } = parsed.user;
-
-    console.log(email, password); 
+    let { token, password } = parsed.user;
 
     let foundUser = users.findBy({
-      email
+      token
     });
 
     if (foundUser) {
       let { id } = foundUser;
 
       return {
-        access_token: id,
+        token: id,
         email: foundUser.email
       };
     }
