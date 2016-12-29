@@ -1,11 +1,9 @@
 <div class="cities">
-  <div class="cities-sidebar">
-    <div class="ui link vertical menu">
-      <h2 class="ui attached inverted header">Map Layers</h2>
-    </div>
-  </div>
-
   <div class="cities-detail">
-    {{outlet}}
+    View As: Developer
+    {{#leaflet-map lat=42.1 lng=-71.6 zoom=15}}
+      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+    {{/leaflet-map}}
   </div>
+  {{outlet}}
 </div>

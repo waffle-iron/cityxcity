@@ -1,6 +1,6 @@
 <div class="flex-grid">
   {{#each cities as |city|}}
-    {{#link-to 'cities' class="col"}}
+    {{#link-to 'cities.city' city class="col"}}
       <img class="card-image" src="{{city.splash}}" style="max-width: 100%; max-height: 100%;" />
       <span class="text">{{city.name}}</span>
     {{/link-to}}

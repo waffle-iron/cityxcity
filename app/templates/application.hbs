@@ -1,11 +1,12 @@
 <nav>
   <div class="logo">
+    {{#link-to 'index'}}Home | {{/link-to}}
     {{#link-to 'cities' class="cities-link"}}Cities >{{/link-to}}
   </div>
     {{#each model as |city|}}
-      <div class="city menu">
+      {{#link-to 'cities.city' city class="city menu"}}
         {{city.name}}
-      </div>
+      {{/link-to}}
     {{/each}}
   <div class="menu">
     {{#if session.isAuthenticated}}
