@@ -39,8 +39,13 @@ describe('Acceptance | user views list of cities', function() {
         expect(currentURL()).to.equal('/cities');
       });
 
-      it("shows a map");
-      it("show a sidebar");
+      it("shows a map", function() {
+        expect(find('.leaflet-container').height()).to.be.above(0);
+        expect(find('.leaflet-container').width()).to.be.above(0);
+      });
+      it("show a sidebar", function() {
+        expect(find('.cities-sidebar')).to.be.ok;
+      });
     });
   });
 
