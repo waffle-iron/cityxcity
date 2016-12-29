@@ -12,5 +12,7 @@ export default Factory.extend({
   avatar() { return faker.internet.avatar(); },
   splash() {
     return `http://lorempixel.com/500/300/city/${getRandomInt(1,10)}`;
-  }
+  },
+  latitude() { return faker.address.latitude(); },
+  longitude() { return faker.address.longitude(); }
 });
