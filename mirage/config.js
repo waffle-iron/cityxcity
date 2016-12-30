@@ -16,6 +16,7 @@ export default function() {
 
   this.get('features/:id');
   this.get('investments/:id');
+  this.get('parcels/:id');
 
   function parseFormEncodedString(requestBody) {
     let bodyParams = {};

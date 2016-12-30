@@ -15,6 +15,17 @@
         {{/if}}
       {{/each}}
 
+      {{#each currentParcels as |parcel|}}
+        {{#if parcel.geom}}
+          {{#polygon-layer locations=parcel.geom}}
+            {{#popup-layer}}
+              <h3>{{parcel.name}}</h3>
+              Address: {{parcel.address}}
+            {{/popup-layer}}
+          {{/polygon-layer}}
+        {{/if}}
+      {{/each}}
+
       {{#each currentInvestments as |investment|}}
         {{#if investment.latitude}}
           {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
