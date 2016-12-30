@@ -6,7 +6,7 @@ describeModel(
   'Unit | Model | feature',
   {
     // Specify the other units that are required for this test.
-      needs: []
+      needs: ['model:city']
   },
   function() {
     // Replace this with your real tests.
