@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
       this.set('zoom', zoom);
     },
     transitionToRoute(city) {
-      this.transitionToRoute('cities.city', city);
+      this.transitionToRoute('cities.city.features', city);
     }
   }
 });

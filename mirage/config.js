@@ -6,8 +6,16 @@ export default function() {
   this.get('cities');
   this.get('cities/:id');
 
-  this.get('features');
+  this.get('features', function({ features }) {
+    let json = this.serialize(features.all());
+    json.meta = {
+      "cartodb_query": "SELECT * FROM features WHERE type=1;"
+    };
+    return json;
+  });
+
   this.get('features/:id');
+  this.get('investments/:id');
 
   function parseFormEncodedString(requestBody) {
     let bodyParams = {};

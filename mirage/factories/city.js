@@ -18,6 +18,7 @@ export default Factory.extend({
   afterCreate(city, server) {
     for (var i = 0; i <= 10; i++) {
       server.create('feature', { city });  
+      server.create('investment', { city });  
     }
   }
 });

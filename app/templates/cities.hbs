@@ -3,17 +3,30 @@
     View As: Developer
     {{#leaflet-map lat=latitude lng=longitude zoom=zoom}}
       {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+      {{#each currentFeatures as |feature|}}
+        {{#if feature.latitude}}
+          {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
+            {{#popup-layer}}
+              <h3>{{feature.name}}</h3>
+              Type: {{feature.assetType}}
+            {{/popup-layer}}
+          {{/marker-layer}}
+        {{/if}}
+      {{/each}}
+
+      {{#each currentInvestments as |investment|}}
+        {{#if investment.latitude}}
+          {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
+            {{#popup-layer}}
+              <h3>{{investment.name}}</h3>
+              Address: {{investment.address}}
+            {{/popup-layer}}
+          {{/marker-layer}}
+        {{/if}}
+      {{/each}}
+
       {{#each model as |city|}}
-        {{#each city.features as |feature|}}
-          {{#if feature.latitude}}
-            {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
-              {{#popup-layer}}
-                <h3>{{feature.name}}</h3>
-                Type: {{feature.assetType}}
-              {{/popup-layer}}
-            {{/marker-layer}}
-          {{/if}}
-        {{/each}}
         {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'transitionToRoute' city)}}
         {{/marker-layer}}
       {{/each}}
