@@ -4,9 +4,9 @@ export default function() {
   this.namespace = '/api';
 
   this.get('cities');
-  this.get('cities/:id');
 
   this.get('features');
+
 
   this.post('token', ({ users }, request) => {
     // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.
