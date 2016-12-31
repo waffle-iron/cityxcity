@@ -8,22 +8,10 @@ export default function() {
 
   this.get('features');
 
-
-  function parseFormEncodedString(requestBody) {
-    let bodyParams = {};
-    
-    requestBody.split('&').forEach((p) => {
-      let [key, value] = decodeURIComponent(p).split('=');
-      bodyParams[key] = value;
-    });
-
-    return bodyParams;
-  }
-
   this.post('token', ({ users }, request) => {
     // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.
     let parsed = JSON.parse(request.requestBody);
-    let { token, password } = parsed.user;
+    let { token } = parsed.user;
 
     let foundUser = users.findBy({
       token
