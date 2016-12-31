@@ -1,11 +1,13 @@
 <div class="cities">
-  <div class="cities-sidebar">
-    <div class="ui link vertical menu">
-      <h2 class="ui attached inverted header">Map Layers</h2>
-    </div>
-  </div>
-
   <div class="cities-detail">
-    {{outlet}}
+    View As: Developer
+    {{#leaflet-map lat=latitude lng=longitude zoom=zoom}}
+      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+      {{#each model as |city|}}
+        {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
+        {{/marker-layer}}
+      {{/each}}
+    {{/leaflet-map}}
   </div>
+  {{outlet}}
 </div>
