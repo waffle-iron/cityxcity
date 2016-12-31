@@ -7,5 +7,6 @@ export default Ember.Route.extend({
   afterModel(model) {
     let controller = this.controllerFor('cities');
     controller.send('updateCenter', model);
+    controller.set('boundingBox', this.get('boundingBox'));
   }
 });

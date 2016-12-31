@@ -1,7 +1,7 @@
 <div class="cities">
   <div class="cities-detail">
-    View As: Developer
-    {{#leaflet-map lat=latitude lng=longitude zoom=zoom}}
+    View As: Developer {{boundingBox}}
+    {{#leaflet-map lat=latitude lng=longitude zoom=zoom onMove=(action 'getCurrentCenter')}}
       {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
       {{#each currentFeatures as |feature|}}
@@ -9,7 +9,7 @@
           {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
             {{#popup-layer}}
               <h3>{{feature.name}}</h3>
-              Type: {{feature.assetType}}
+              Type: {{feature.assetType}} <br/>
             {{/popup-layer}}
           {{/marker-layer}}
         {{/if}}

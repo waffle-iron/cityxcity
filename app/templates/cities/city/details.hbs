@@ -1,16 +1,17 @@
-  <div class="cities-sidebar">
-    <div class="ui container">
-      <h2 class="ui attached inverted header">Stats</h2>
-      Viewing:
-      <h1 class="ui header inverted">{{model.name}}</h1>
-      <img src="{{model.splash}}" style="max-width: 100%;" />
-      Investments: 
-      <ul>
-      {{#each currentFeatures as |feature|}}
-        <li>{{feature.name}}</li>
-      {{/each}}
-      </ul>
-      {{outlet}}
-    </div>
+<div class="cities-sidebar">
+  <div class="ui container">
+    <h2 class="ui attached inverted header">Stats</h2>
+    Viewing:
+    <h1 class="ui header inverted">{{model.name}}</h1>
+    <img src="{{model.splash}}" style="max-width: 100%;" />
+    Features:
+    {{currentFeatures.length}}
+    <br/>
+    Investments: 
+    {{currentInvestments.length}}
+    <br/>
+    Parcels:
+    {{currentParcels.length}}
+    {{outlet}}
   </div>
-
+</div>

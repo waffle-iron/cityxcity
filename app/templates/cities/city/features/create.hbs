@@ -1,0 +1,29 @@
+<div class="resource-creation">
+  <div class="ui container">
+    <h2 class="ui attached inverted header">New Feature</h2>
+      name: <br/>
+      {{input type='text' value=model.name label="name"}}<br/>
+      address: <br/>
+      {{input type='text' value=model.address label="address"}}<br/>
+      contact: <br/>
+      {{input type='text' value=model.contact label="contact"}}<br/>
+      employer: <br/>
+      {{input type='text' value=model.employer label="employer"}}<br/>
+      activating: <br/>
+      {{input type='text' value=model.activating label="activating"}}<br/>
+      assetType: <br/>
+      {{input type='text' value=model.assetType label="assetType"}}<br/>
+      subtype: <br/>
+      {{input type='text' value=model.subtype label="subtype"}}<br/>
+      comment: <br/>
+      {{input type='text' value=model.comment label="comment"}}<br/>
+      opendate: <br/>
+      {{input type='text' value=model.opendate label="opendate"}}<br/>
+      closedate: <br/>
+      {{input type='text' value=model.closedate label="closedate"}}<br/>
+
+      <div class="ui button" {{action (route-action 'create') model latitude longitude}}>
+        Create
+      </div>
+  </div>
+</div>

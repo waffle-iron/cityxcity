@@ -18,6 +18,8 @@ export default function() {
   this.get('investments/:id');
   this.get('parcels/:id');
 
+  this.post('features');
+
   function parseFormEncodedString(requestBody) {
     let bodyParams = {};
     

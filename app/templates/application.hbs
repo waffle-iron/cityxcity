@@ -8,6 +8,13 @@
         {{city.name}}
       {{/link-to}}
     {{/each}}
+
+    |
+
+    {{link-to 'Add Feature' 'cities.city.features.create' class='item'}}
+
+    |
+
   <div class="menu">
     {{#if session.isAuthenticated}}
       <a {{action 'invalidateSession'}}>Logout</a>

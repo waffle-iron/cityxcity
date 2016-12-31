@@ -10,6 +10,10 @@ Router.map(function() {
   this.route('cities', function() {
     this.route('city', { path: '/:id' }, function() {
       this.route('details');
+
+      this.route('features', function() {
+        this.route('create');
+      });
     });
   });
   this.route('login');

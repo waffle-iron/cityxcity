@@ -16,6 +16,9 @@ export default Ember.Controller.extend({
     },
     transitionToRoute(city) {
       this.transitionToRoute('cities.city.details', city);
+    },
+    getCurrentCenter(e) {
+      this.set('center', e.target.getCenter());
     }
   }
 });
