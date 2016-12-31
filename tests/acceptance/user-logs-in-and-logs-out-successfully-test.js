@@ -35,10 +35,16 @@ describe('Acceptance | user logs in and logs out successfully', function() {
 
       it("shows login boxes", function() {
         expect(currentURL()).to.equal("/login");
-        click(LOGIN_BUTTON);
-        andThen(function() {
+      });
+
+      describe('logging in', function() {
+        beforeEach(function() {
+          click(LOGIN_BUTTON);
+        });
+
+        it('logs the user in', function() {
           expect(currentURL()).to.equal('/');
-          expect(find(LOGOUT_LINK).text(), 'Logout');  
+          expect(find(LOGOUT_LINK).text(), 'Logout');
         });
       });
     });
