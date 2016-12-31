@@ -1,3 +1,5 @@
+import Mirage from 'ember-cli-mirage';
+
 export default function() {
   this.namespace = '/api';
 
@@ -5,6 +7,27 @@ export default function() {
 
   this.get('features');
 
+
+  this.post('token', ({ users }, request) => {
+    // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.
+    let parsed = JSON.parse(request.requestBody);
+    let { token } = parsed.user;
+
+    let foundUser = users.findBy({
+      token
+    });
+
+    if (foundUser) {
+      let { id } = foundUser;
+
+      return {
+        token: id,
+        email: foundUser.email
+      };
+    }
+
+    return new Mirage.Response(401, {}, { error: 'Invalid username or password' });
+  });
   // this.get('features/:id', (schema, request) => {
   //   let feature = schema.features.find(request.params.id);
   //   return feature;

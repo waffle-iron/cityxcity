@@ -8,7 +8,11 @@
       </div>
     {{/each}}
   <div class="menu">
-    Login
+    {{#if session.isAuthenticated}}
+      <a {{action 'invalidateSession'}}>Logout</a>
+    {{else}}
+      {{link-to 'Login' 'login' class='login-link'}}
+    {{/if}}
   </div>
 </nav>
 <main>
