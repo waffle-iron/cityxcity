@@ -22,7 +22,7 @@ export default Ember.Controller.extend({
       this.set('zoom', zoom);
     },
     selectCity(city) {
-      this.transitionToRoute('cities.city', city);
+      this.transitionToRoute('cities.city.details', city);
     }
   }
 });

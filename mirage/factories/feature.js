@@ -1,11 +1,11 @@
-import { Factory, association, faker } from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
-  name() { return faker.company.companyName(); },
-  address() { return faker.address.streetAddress(); },
-  contact() { return faker.internet.email(); },
-  employer() { return faker.random.boolean(); },
-  activating() { return faker.random.boolean(); },
+  name() { return faker.company.companyName() },
+  address: faker.address.streetAddress,
+  contact: faker.internet.email,
+  employer: faker.random.boolean,
+  activating: faker.random.boolean,
   assetType(i) { return faker.list.cycle( "Food",
                                           "Business",
                                           "Retail",
@@ -19,9 +19,9 @@ export default Factory.extend({
                                           "Parking",
                                           "Public Transit")(i); },
   subtype(i) { return faker.list.cycle("Clothing", "Convenience ", "Pharmacy", "Household Goods", "Other Retail")(i) },
-  comment() { return faker.lorem.text(); },
-  opendate() { return faker.date.past(); },
-  closedate() { return faker.date.recent(); },
-  latitude() { return faker.address.latitude(); },
-  longitude() { return faker.address.longitude(); }
+  comment: faker.lorem.text,
+  opendate: faker.date.past,
+  closedate: faker.date.recent,
+  latitude: faker.address.latitude,
+  longitude: faker.address.longitude
 });

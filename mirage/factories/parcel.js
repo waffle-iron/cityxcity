@@ -1,9 +1,9 @@
-import { Factory } from 'ember-cli-mirage';
+import { Factory, faker } from 'ember-cli-mirage';
 
 export default Factory.extend({
   name() { return faker.company.companyName(); },
-  address() { return faker.address.streetAddress(); },
-  contact() { return faker.internet.email(); },
+  address: faker.address.streetAddress,
+  contact: faker.internet.email,
   geom() {
     let latitude = parseFloat(faker.address.latitude());
     let longitude = parseFloat(faker.address.longitude());
@@ -13,8 +13,6 @@ export default Factory.extend({
                   [(latitude + offset), longitude], 
                   [(latitude + offset), (longitude - offset)], 
                   [latitude, (longitude - offset)] ];
-                  
-    let box = L.polygon(latlngs);
 
     return latlngs;
   }

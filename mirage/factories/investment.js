@@ -3,10 +3,10 @@ import { Factory, faker } from 'ember-cli-mirage';
 export default Factory.extend({
   name() { return faker.company.companyName(); },
 
-  address() { return faker.address.streetAddress(); },
-  contact() { return faker.internet.email(); },
-  employer() { return faker.random.boolean(); },
-  activating() { return faker.random.boolean(); },
-  latitude() { return faker.address.latitude(); },
-  longitude() { return faker.address.longitude(); }
+  address: faker.address.streetAddress,
+  contact: faker.internet.email,
+  employer: faker.random.boolean,
+  activating: faker.random.boolean,
+  latitude: faker.address.latitude,
+  longitude: faker.address.longitude
 });

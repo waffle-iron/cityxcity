@@ -1,6 +1,5 @@
 <nav>
   <div class="logo">
-    {{#link-to 'index'}}Home | {{/link-to}}
     {{#link-to 'cities' class="cities-link"}}Cities >{{/link-to}}
   </div>
     {{#each model as |city|}}
@@ -12,7 +11,7 @@
     {{#if session.isAuthenticated}}
       <a {{action 'invalidateSession'}}>Logout</a>
     {{else}}
-      {{#link-to 'login'}}Login{{/link-to}}
+      {{link-to 'Login' 'login' class='login-link'}}
     {{/if}}
   </div>
 </nav>
