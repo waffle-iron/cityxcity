@@ -19,11 +19,11 @@ describe('Acceptance | user clicks city and sees city detail on map', function()
   });
 
   describe('with cities', function() {
-    let city;
-    let second_city;
+    // let city;
+    // let second_city;
     beforeEach(function() {
-      city = server.create('city', { name: 'Worcester' });
-      second_city = server.create('city', { name: 'Springfield' });
+      server.create('city', { name: 'Worcester' });
+      // second_city = server.create('city', { name: 'Springfield' });
       visit('/');
     });
 
@@ -33,7 +33,7 @@ describe('Acceptance | user clicks city and sees city detail on map', function()
       });
 
       it('shows city detail', function() {
-        let city_name = city.name;
+        // let city_name = city.name;
         expect(find(CITY_DETAIL_NAME).text()).to.equal('Worcester');
       });
 

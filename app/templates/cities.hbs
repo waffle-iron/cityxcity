@@ -38,7 +38,7 @@
       {{/each}}
 
       {{#each model as |city|}}
-        {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'transitionToRoute' city)}}
+        {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
         {{/marker-layer}}
       {{/each}}
     {{/leaflet-map}}
