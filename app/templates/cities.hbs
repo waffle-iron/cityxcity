@@ -1,10 +1,10 @@
 <div class="cities">
   <div class="cities-detail">
     View As: Developer
-    {{#leaflet-map zoom=zoom}}
-      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+    {{#leaflet-map as |layers|}}
+      {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-      {{#each currentFeatures as |feature|}}
+      {{#each layers.city.features as |feature|}}
         {{#if feature.latitude}}
           {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
             {{#popup-layer}}
@@ -15,7 +15,7 @@
         {{/if}}
       {{/each}}
 
-      {{#each currentParcels as |parcel|}}
+      {{#each layers.city.parcels as |parcel|}}
         {{#if parcel.geom}}
           {{#polygon-layer locations=parcel.geom}}
             {{#popup-layer}}
@@ -26,7 +26,7 @@
         {{/if}}
       {{/each}}
 
-      {{#each currentInvestments as |investment|}}
+      {{#each layers.city.investments as |investment|}}
         {{#if investment.latitude}}
           {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
             {{#popup-layer}}

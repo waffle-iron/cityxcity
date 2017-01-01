@@ -9,12 +9,12 @@ export default Ember.Service.extend({
   longitude: SOUTHWICK_LONGITUDE,
   zoom: DEFAULT_ZOOM,
   setCity(city) {
+    this.set('city', city);
     let latitude = city.get('latitude');
     let longitude = city.get('longitude');
-
     this.setProperties({
       latitude,
       longitude
-    })
+    });
   }
 });

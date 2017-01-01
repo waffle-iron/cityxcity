@@ -1,1 +1,16 @@
-{{yield}}
+{{yield (hash
+    tile=(component "tile-layer" parentComponent=this)
+    wms-tile=(component "wms-tile-layer" parentComponent=this)
+    marker=(component "marker-layer" parentComponent=this)
+    circle=(component "circle-layer" parentComponent=this)
+    circle-marker=(component "circle-marker-layer" parentComponent=this)
+    image=(component "image-layer" parentComponent=this)
+    polyline=(component "polyline-layer" parentComponent=this)
+    polygon=(component "polygon-layer" parentComponent=this)
+    geojson=(component "geojson-layer" parentComponent=this)
+
+    wmsTile=(component "wms-tile-layer" parentComponent=this)
+    geoJSON=(component "geojson-layer" parentComponent=this)
+    city=city
+  )}}
+

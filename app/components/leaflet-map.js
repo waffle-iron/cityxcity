@@ -5,5 +5,6 @@ export default LeafletMap.extend({
   currentCity: Ember.inject.service(),
   lat: Ember.computed.alias('currentCity.latitude'),
   lng: Ember.computed.alias('currentCity.longitude'),
-  zoom: Ember.computed.alias('currentCity.zoom')
+  zoom: Ember.computed.alias('currentCity.zoom'),
+  city: Ember.computed.alias('currentCity.city')
 });
