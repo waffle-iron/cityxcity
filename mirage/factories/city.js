@@ -14,9 +14,9 @@ export default Factory.extend({
   latitude: faker.address.latitude,
   longitude: faker.address.longitude,
   afterCreate(city, server) {
-    for (var i = 0; i <= 1; i++) {
+    for (var i = 0; i <= 10; i++) {
       server.create('feature', { city });  
-      // server.create('investment', { city });
+      server.create('investment', { city });
       server.create('parcel', { city });  
     }
   }
