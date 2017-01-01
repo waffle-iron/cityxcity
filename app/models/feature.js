@@ -11,7 +11,7 @@ export default DS.Model.extend({
   comment: DS.attr("string"),
   opendate: DS.attr("string"),
   closedate: DS.attr("string"),
-  city: DS.belongsTo("city"),
   latitude: DS.attr("number"),
-  longitude: DS.attr("number")
+  longitude: DS.attr("number"),
+  city: DS.belongsTo("city")
 });

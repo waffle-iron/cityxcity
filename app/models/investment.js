@@ -6,7 +6,7 @@ export default DS.Model.extend({
   contact: DS.attr("string"),
   employer: DS.attr("string"),
   activating: DS.attr("string"),
-  city: DS.belongsTo("city"),
   latitude: DS.attr("number"),
-  longitude: DS.attr("number")
+  longitude: DS.attr("number"),
+  city: DS.belongsTo("city")
 });
