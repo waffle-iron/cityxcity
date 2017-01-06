@@ -1,41 +1,65 @@
 <div class="cities">
   <div class="cities-detail">
-    View As: Developer
+    {{ui-checkbox label="Investments" checked=investments onChange=(action (mut investments))}}
+    {{ui-checkbox label="Amenities" checked=features onChange=(action (mut features))}}
+    {{ui-checkbox label="Opportunities" checked=parcels onChange=(action (mut parcels))}}
+
+    <br/>
+
+    {{#if investments}}
+      {{ui-checkbox label="Private" checked=privat onChange=(action (mut privat))}}
+      {{ui-checkbox label="Public" checked=publ onChange=(action (mut publ))}}
+      {{ui-checkbox label="Equity" checked=equity onChange=(action (mut equity))}}
+    {{/if}}
+
+    {{#if parcels}}
+    {{/if}}
+
+    {{#if features}}
+    {{/if}}
+
     {{#leaflet-map as |layers|}}
       {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-      {{#each layers.city.features as |feature|}}
-        {{#if feature.latitude}}
-          {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
-            {{#popup-layer}}
-              <h3>{{feature.name}}</h3>
-              Type: {{feature.assetType}}
-            {{/popup-layer}}
-          {{/marker-layer}}
-        {{/if}}
-      {{/each}}
+      {{#if features}}
+        {{#each layers.city.features as |feature|}}
+          {{#if feature.latitude}}
+            {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
+              {{#popup-layer}}
+                <h3>{{feature.name}}</h3>
+                Type: {{feature.assetType}}
+              {{/popup-layer}}
+            {{/marker-layer}}
+          {{/if}}
+        {{/each}}
+      {{/if}}
 
-      {{#each layers.city.parcels as |parcel|}}
-        {{#if parcel.geom}}
-          {{#polygon-layer locations=parcel.geom}}
-            {{#popup-layer}}
-              <h3>{{parcel.name}}</h3>
-              Address: {{parcel.address}}
-            {{/popup-layer}}
-          {{/polygon-layer}}
-        {{/if}}
-      {{/each}}
+      {{#if parcels}}
+        {{#each layers.city.parcels as |parcel|}}
+          {{#if parcel.geom}}
+            {{#polygon-layer locations=parcel.geom}}
+              {{#popup-layer}}
+                <h3>{{parcel.name}}</h3>
+                Address: {{parcel.address}}
+              {{/popup-layer}}
+            {{/polygon-layer}}
+          {{/if}}
+        {{/each}}
+      {{/if}}
 
-      {{#each layers.city.investments as |investment|}}
-        {{#if investment.latitude}}
-          {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
-            {{#popup-layer}}
-              <h3>{{investment.name}}</h3>
-              Address: {{investment.address}}
-            {{/popup-layer}}
-          {{/marker-layer}}
-        {{/if}}
-      {{/each}}
+      {{#if investments}}
+        {{#each layers.city.investments as |investment|}}
+          {{#if investment.latitude}}
+            {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
+              {{#popup-layer}}
+                <h3>{{investment.name}}</h3>
+                Address: {{investment.address}}<br />
+                Type: {{investment.type}}
+              {{/popup-layer}}
+            {{/marker-layer}}
+          {{/if}}
+        {{/each}}
+      {{/if}}
 
       {{#each model as |city|}}
         {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}

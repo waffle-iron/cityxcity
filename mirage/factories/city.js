@@ -10,7 +10,9 @@ export default Factory.extend({
   name() { return faker.address.city() },
   fellows: faker.random.boolean,
   avatar: faker.internet.avatar,
-  splash: `http://lorempixel.com/500/300/city/${getRandomInt(1,10)}`,
+  splash() {
+    return `http://lorempixel.com/500/300/city/${getRandomInt(1,10)}`;
+  },
   latitude: faker.address.latitude,
   longitude: faker.address.longitude,
   afterCreate(city, server) {
