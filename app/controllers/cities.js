@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
+const FEATURE_PARAMS = ['assetType'];
+
 export default Ember.Controller.extend({
-  queryParams: ['investments','features','parcels'],
+  queryParams: ['investments','features','parcels'].concat(FEATURE_PARAMS),
   currentCity: Ember.inject.service(),
 
   assetTypes: '',
@@ -13,6 +15,7 @@ export default Ember.Controller.extend({
   features: false,
   parcels: false,
 
+  //investment filters
   privat: false,
   publ: false,
   equity: false,
@@ -20,7 +23,8 @@ export default Ember.Controller.extend({
 
   actions: {
     selectCity(city) {
-      this.transitionToRoute('cities.city.details', city);
+      let id = city.get('id');
+      this.transitionToRoute('cities.city.details', id);
     }
   }
 });

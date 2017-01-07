@@ -6,6 +6,18 @@ export default function() {
   this.get('cities');
   this.get('cities/:id');
 
+  this.get('cities/:id/features', function({ cities }, { params }) {
+    let city = cities.findBy({
+      id: params.id
+    });
+
+    if (!city) {
+      return [];
+    }
+
+    return city.features;
+  });
+
   this.get('features', function({ features }) {
     let json = this.serialize(features.all());
     json.meta = {

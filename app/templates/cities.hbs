@@ -22,19 +22,10 @@
       {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
       {{#if features}}
-        {{#each layers.city.features as |feature|}}
-          {{#if feature.latitude}}
-            {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
-              {{#popup-layer}}
-                <h3>{{feature.name}}</h3>
-                Type: {{feature.assetType}}
-              {{/popup-layer}}
-            {{/marker-layer}}
-          {{/if}}
-        {{/each}}
+        {{current-city-features city=layers.city assetType=assetType}}
       {{/if}}
 
-      {{#if parcels}}
+{{!--       {{#if parcels}}
         {{#each layers.city.parcels as |parcel|}}
           {{#if parcel.geom}}
             {{#polygon-layer locations=parcel.geom}}
@@ -45,8 +36,8 @@
             {{/polygon-layer}}
           {{/if}}
         {{/each}}
-      {{/if}}
-
+      {{/if}} --}}
+{{!-- 
       {{#if investments}}
         {{#each layers.city.investments as |investment|}}
           {{#if investment.latitude}}
@@ -59,7 +50,7 @@
             {{/marker-layer}}
           {{/if}}
         {{/each}}
-      {{/if}}
+      {{/if}} --}}
 
       {{#each model as |city|}}
         {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
