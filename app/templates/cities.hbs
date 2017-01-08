@@ -1,45 +1,62 @@
 <div class="cities">
   <div class="cities-detail">
-    {{ui-checkbox label="Investments" checked=investments onChange=(action (mut investments))}}
-    {{ui-checkbox label="Amenities" checked=features onChange=(action (mut features))}}
-    {{ui-checkbox label="Opportunities" checked=parcels onChange=(action (mut parcels))}}
+    {{ui-checkbox label="Amenities" checked=showFeatures onChange=(action (mut showFeatures))}}
+    {{ui-checkbox label="Investments" checked=showInvestments onChange=(action (mut showInvestments))}}
+    {{ui-checkbox label="Opportunities" checked=showParcels onChange=(action (mut showParcels))}}
 
     <br/>
 
-    {{#if investments}}
-      {{ui-checkbox label="Private" checked=privat onChange=(action (mut privat))}}
-      {{ui-checkbox label="Public" checked=publ onChange=(action (mut publ))}}
-      {{ui-checkbox label="Equity" checked=equity onChange=(action (mut equity))}}
+    {{#if showFeatures}}
+      {{ui-checkbox label="Activating" checked=activating onChange=(action (mut activating))}}
+      {{ui-checkbox label="Open" checked=featureOpen onChange=(action (mut featureOpen))}}
+      {{#each assetTypeOptions as |option|}}
+        {{ui-checkbox 
+          label=option 
+          checked=(array-contains assetTypesArray option)
+          onChange=(action 'composeList' option 'assetTypes')}}
+          
+      {{/each}}
+
     {{/if}}
 
-    {{#if parcels}}
+    {{#if showInvestments}}
+      {{#each investmentTypeOptions as |option|}}
+        {{ui-checkbox 
+          label=option 
+          checked=(array-contains investmentTypesArray option)
+          onChange=(action 'composeList' option 'investmentTypes')}}
+      {{/each}}
     {{/if}}
 
-    {{#if features}}
+    {{#if showParcels}}
+      {{ui-checkbox label="For Lease" checked=forLease onChange=(action (mut forLease))}}
+      {{ui-checkbox label="For Sale" checked=forSale onChange=(action (mut forSale))}}
+      {{#each landuseTypeOptions as |option|}}
+        {{ui-checkbox 
+          label=option 
+          checked=(array-contains landuseTypesArray option)
+          onChange=(action 'composeList' option 'landuseTypes')}}
+      {{/each}}
     {{/if}}
 
     {{#leaflet-map as |layers|}}
       {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-      {{#if features}}
-        {{current-city-features city=layers.city assetType=assetType}}
-      {{/if}}
-
-{{!--       {{#if parcels}}
-        {{#each layers.city.parcels as |parcel|}}
-          {{#if parcel.geom}}
-            {{#polygon-layer locations=parcel.geom}}
+      {{#if showFeatures}}
+        {{#each visibleFeatures as |feature|}}
+          {{#if feature.latitude}}
+            {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
               {{#popup-layer}}
-                <h3>{{parcel.name}}</h3>
-                Address: {{parcel.address}}
+                <h3>{{feature.name}}</h3>
+                Type: {{feature.assetType}}
               {{/popup-layer}}
-            {{/polygon-layer}}
+            {{/marker-layer}}
           {{/if}}
         {{/each}}
-      {{/if}} --}}
-{{!-- 
-      {{#if investments}}
-        {{#each layers.city.investments as |investment|}}
+      {{/if}}
+
+      {{#if showInvestments}}
+        {{#each visibleInvestments as |investment|}}
           {{#if investment.latitude}}
             {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
               {{#popup-layer}}
@@ -50,7 +67,20 @@
             {{/marker-layer}}
           {{/if}}
         {{/each}}
-      {{/if}} --}}
+      {{/if}}
+
+      {{#if showParcels}}
+        {{#each visibleParcels as |parcel|}}
+          {{#if parcel.geom}}
+            {{#polygon-layer locations=parcel.geom}}
+              {{#popup-layer}}
+                <h3>{{parcel.name}}</h3>
+                Address: {{parcel.address}}
+              {{/popup-layer}}
+            {{/polygon-layer}}
+          {{/if}}
+        {{/each}}
+      {{/if}}
 
       {{#each model as |city|}}
         {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}

@@ -9,15 +9,12 @@ export default Ember.Route.extend({
 
     return RSVP.hash({
       city,
-      features: city.get('features')
+      features: city.get('features'),
+      investments: city.get('investments'),
+      parcels: city.get('parcels')
     });
-    // return this.store.findRecord('city', params.id, { include: 'investments,parcels,features' });
-
-      // let investments = this.store.queryAll('investment', { filters: {params.name: name} });
-      // let features = this.store.queryAll('feature');
-      // let parcels = this.store.queryAll('parcel');
-      // return RSVP.hash({investments, features, parcels});
   },
+  
   afterModel(model) {
     let currentCity = this.get('currentCity');
     currentCity.setCity(model.city);
