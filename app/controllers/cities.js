@@ -1,5 +1,7 @@
 import Ember from 'ember';
 import isAnyFilter from '../utils/is-any-filter';
+import isTrueFilter from '../utils/is-true-filter';
+import isWithinFilter from '../utils/is-within-filter';
 
 const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
                                 { 'featureOpen': { type: 'boolean' }}, 
@@ -74,65 +76,36 @@ export default Ember.Controller.extend({
 
   visibleFeatures: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.features', function() {
     let features = this.get('currentCity.city.features');
-    let assetTypes = this.get('assetTypesArray');
-    let activating = this.get('activating');
-    let featureOpen = this.get('featureOpen');
-    let employer = this.get('employer');
+    let { assetTypesArray, activating, featureOpen, employer } 
+        = this.getProperties('assetTypesArray', 'activating', 'featureOpen', 'employer');
 
     return features
-      .filter(isAnyFilter.bind(this, assetTypes, 'assetType'))
-      .filter((feature) => {
-        if(!activating) return true;
-        return feature.get('activating') === activating;
-      })
-      .filter((feature) => {
-        if(!featureOpen) return true;
-        return feature.get('isOpen') === featureOpen;
-      })
-      .filter((feature) => {
-        if(!employer) return true;
-        return feature.get('employer') === employer;
-      });
+      .filter(isAnyFilter.bind(this, assetTypesArray, 'assetType'))
+      .filter(isTrueFilter.bind(this, activating, 'activating'))
+      .filter(isTrueFilter.bind(this, featureOpen, 'isOpen'))
+      .filter(isTrueFilter.bind(this, employer, 'employer'));
   }),
 
   visibleInvestments: Ember.computed(...INVESTMENT_PARAMS, 'currentCity.city.investments', function() {
     let investments = this.get('currentCity.city.investments');
-    let investmentTypes = this.get('investmentTypesArray');
-    let valueMin = this.get('valueMin');
-    let valueMax = this.get('valueMax');
+    let { investmentTypesArray, valueMin, valueMax } 
+        = this.getProperties('investmentTypesArray', 'valueMin', 'valueMax');
 
     return investments
-      .filter(isAnyFilter.bind(this, investmentTypes, 'type'))
-      .filter((investment) => {
-        if(!(valueMin && valueMax)) return true;
-        let value = investment.get('value');
-        return (value >= valueMin) && (value <= valueMax);
-      });
+      .filter(isAnyFilter.bind(this, investmentTypesArray, 'type'))
+      .filter(isWithinFilter.bind(this, valueMin, valueMax, 'value'));
   }),
 
   visibleParcels: Ember.computed(...PARCEL_PARAMS, 'currentCity.city.parcels', function() {
     let parcels = this.get('currentCity.city.parcels');
-    let landuseTypes = this.get('landuseTypesArray');
-    let yearBuiltMin = this.get('yearBuiltMin');
-    let yearBuiltMax = this.get('yearBuiltMax');
-    let forSale = this.get('forSale');
-    let forLease = this.get('forLease');
+    let { landuseTypesArray, yearBuiltMin, yearBuiltMax, forSale, forLease }
+        = this.getProperties('landuseTypesArray', 'yearBuiltMin', 'yearBuiltMax', 'forSale', 'forLease');
 
     return parcels
-      .filter(isAnyFilter.bind(this, landuseTypes, 'landUseType'))
-      .filter((parcel) => {
-        if(!forSale) return true;
-        return parcel.get('forSale') === forSale;
-      })
-      .filter((parcel) => {
-        if(!forLease) return true;
-        return parcel.get('forLease') === forLease;
-      })
-      .filter((parcel) => {
-        if(!(yearBuiltMin && yearBuiltMax)) return true;
-        let value = parcel.get('yearBuilt');
-        return (value >= yearBuiltMin) && (value <= yearBuiltMax);
-      });
+      .filter(isAnyFilter.bind(this, landuseTypesArray, 'landUseType'))
+      .filter(isTrueFilter.bind(this, forSale, 'forSale'))
+      .filter(isTrueFilter.bind(this, forLease, 'forLease'))
+      .filter(isWithinFilter.bind(this, yearBuiltMin, yearBuiltMax, 'yearBuilt'));
   }),
 
   actions: {
