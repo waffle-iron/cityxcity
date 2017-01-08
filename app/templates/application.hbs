@@ -3,7 +3,7 @@
     {{#link-to 'cities' class="cities-link"}}Cities >{{/link-to}}
   </div>
     {{#each model as |city|}}
-      {{#link-to 'cities.city.details' city class="city menu"}}
+      {{#link-to 'cities.city.details' city.id class="city menu"}}
         {{city.name}}
       {{/link-to}}
     {{/each}}

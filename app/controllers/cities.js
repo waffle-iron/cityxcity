@@ -1,19 +1,20 @@
 import Ember from 'ember';
+import isAnyFilter from '../utils/is-any-filter';
 
-const ACTIVATING = 'activating';
+const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
+                                { 'featureOpen': { type: 'boolean' }}, 
+                                { 'forSale'    : { type: 'boolean' }}, 
+                                { 'forLease'   : { type: 'boolean' }},
+                                { 'employer'   : { type: 'boolean' }}];
+
 const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer'];
-const SPECIAL_QUERYP_CONFIG = [{ 'activating': { type: 'boolean' }}, 
-                              { 'featureOpen': { type: 'boolean' }}, 
-                              { 'forSale': { type: 'boolean' }}, 
-                              { 'forLease': { type: 'boolean' }},
-                              { 'employer': { type: 'boolean' }}];
-const FEATURE_TYPES = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
+const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
 
 const INVESTMENT_PARAMS = ['investmentTypes'];
-const INVESTMENT_TYPES = ['MassDev Direct','State Direct (non-MassDev)','Other Public Agency','Private','Public-Private'];
+const INVESTMENT_TYPES  = ['MassDev Direct','State Direct (non-MassDev)','Other Public Agency','Private','Public-Private'];
 
 const PARCEL_PARAMS = ['groundFloorVacancyMin','groundFloorVacancyMax','landuseTypes','forSale','forLease','yearBuiltMin','yearBuiltMax'];
-const PARCEL_TYPES = ['Residential','Commercial Office','Commercial Other','Industrial','Institutional, Other, or Unknown'];
+const PARCEL_TYPES  = ['Residential','Commercial Office','Commercial Other','Industrial','Institutional, Other, or Unknown'];
 
 export default Ember.Controller.extend({
   queryParams: ['showInvestments','showFeatures','showParcels']
@@ -79,10 +80,7 @@ export default Ember.Controller.extend({
     let employer = this.get('employer');
 
     return features
-      .filter((feature) => {
-        if(assetTypes.length <= 1) return true;
-        return assetTypes.isAny('', feature.get('assetType'));
-      })
+      .filter(isAnyFilter.bind(this, assetTypes, 'assetType'))
       .filter((feature) => {
         if(!activating) return true;
         return feature.get('activating') === activating;
@@ -104,10 +102,7 @@ export default Ember.Controller.extend({
     let valueMax = this.get('valueMax');
 
     return investments
-      .filter((investment) => {
-        if(investmentTypes.length <= 1) return true;
-        return investmentTypes.isAny('', investment.get('type'));
-      })
+      .filter(isAnyFilter.bind(this, investmentTypes, 'type'))
       .filter((investment) => {
         if(!(valueMin && valueMax)) return true;
         let value = investment.get('value');
@@ -124,10 +119,7 @@ export default Ember.Controller.extend({
     let forLease = this.get('forLease');
 
     return parcels
-      .filter((parcel) => {
-        if(landuseTypes.length <= 1) return true;
-        return landuseTypes.isAny('', parcel.get('landUseType'));
-      })
+      .filter(isAnyFilter.bind(this, landuseTypes, 'landUseType'))
       .filter((parcel) => {
         if(!forSale) return true;
         return parcel.get('forSale') === forSale;
