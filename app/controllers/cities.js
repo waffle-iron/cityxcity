@@ -2,6 +2,7 @@ import Ember from 'ember';
 import isAnyFilter from '../utils/is-any-filter';
 import isTrueFilter from '../utils/is-true-filter';
 import isWithinFilter from '../utils/is-within-filter';
+import arrayify from '../utils/arrayify';
 
 const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
                                 { 'featureOpen': { type: 'boolean' }}, 
@@ -25,44 +26,23 @@ export default Ember.Controller.extend({
 
   // features
   assetTypes: '',
-  assetTypesArray: Ember.computed('assetTypes', {
-    get() {
-      if (!this.get('assetTypes')) return [];
-      return this.get('assetTypes').split('|');
-    }
-  }),
-  assetTypeOptions: Ember.computed('', function() {
-    return Ember.A(FEATURE_TYPES);
-  }),
+  assetTypesArray: Ember.computed('assetTypes', arrayify('assetTypes', '|')),
+  assetTypeOptions: FEATURE_TYPES,
   activating: null,
   featureOpen: null,
   employer: null,
 
   // investments
   investmentTypes: '',
-  investmentTypesArray: Ember.computed('investmentTypes', {
-    get() {
-      if (!this.get('investmentTypes')) return [];
-      return this.get('investmentTypes').split('|');
-    }
-  }),
-  investmentTypeOptions: Ember.computed('', function() {
-    return Ember.A(INVESTMENT_TYPES);
-  }),
+  investmentTypesArray: Ember.computed('investmentTypes', arrayify('investmentTypes', '|')),
+  investmentTypeOptions: INVESTMENT_TYPES,
   valueMin: 0,
   valueMax: null,
 
   // parcels 
   landuseTypes: '',
-  landuseTypesArray: Ember.computed('landuseTypes', {
-    get() {
-      if (!this.get('landuseTypes')) return [];
-      return this.get('landuseTypes').split('|');
-    }
-  }),
-  landuseTypeOptions: Ember.computed('', function() {
-    return Ember.A(PARCEL_TYPES);
-  }),
+  landuseTypesArray: Ember.computed('landuseTypes', arrayify('landuseTypes', '|')),
+  landuseTypeOptions: PARCEL_TYPES,
   groundFloorVacancyMin: 0,
   groundFloorVacancyMax: null,
   forSale: null,
@@ -70,6 +50,7 @@ export default Ember.Controller.extend({
   yearBuiltMin: 1700,
   yearBuiltMax: null,
 
+  // UI state
   showInvestments: false,
   showFeatures: false,
   showParcels: false,
