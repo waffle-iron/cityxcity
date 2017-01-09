@@ -24,6 +24,10 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV['ember-cli-mirage'] = {
+      enabled: true,
+      namespace: '/api'
+    }
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -46,7 +50,10 @@ module.exports = function(environment) {
     ENV.locationType = 'hash';
     ENV.rootURL = '/cityxcity/';
     ENV.baseURL = '/cityxcity/';
-
+    ENV['ember-cli-mirage'] = {
+      enabled: true,
+      namespace: '/cityxcity/api'
+    }
   }
 
   return ENV;
