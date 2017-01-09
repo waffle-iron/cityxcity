@@ -1,8 +1,22 @@
-<div class="flex-grid">
+<div class="ui three column grid link cards">
   {{#each cities as |city|}}
-    {{#link-to 'cities.city.details' city class="col"}}
-      <img class="card-image" src="{{city.splash}}" style="max-width: 100%; max-height: 100%;" />
-      <span class="text">{{city.name}}</span>
-    {{/link-to}}
+    <div class="column">
+      {{#link-to 'cities.city.details' city.id class="ui fluid card"}}
+        <div class="image">
+          <img class="card-image" src="{{city.splash}}" style="max-width: 100%; max-height: 100%;" />
+        </div>
+        <div class="content">
+          <div class="header">{{city.name}}</div>
+          <div class="meta">
+            {{#if city.fellows}}
+              <i class="user icon"></i>
+              Fellows
+            {{else}}
+              No Fellows
+            {{/if}}
+          </div>
+        </div>
+      {{/link-to}}
+    </div>
   {{/each}}
 </div>

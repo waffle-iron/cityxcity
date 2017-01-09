@@ -11,6 +11,7 @@ export default DS.Model.extend({
   comment: DS.attr("string"),
   opendate: DS.attr("date"),
   closedate: DS.attr("date"),
+  splash: DS.attr("string"),
   isOpen: Ember.computed('closedate', function() {
     let closedate = this.get('closedate');
     if (!closedate) return true;

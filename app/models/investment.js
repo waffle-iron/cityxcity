@@ -8,6 +8,7 @@ export default DS.Model.extend({
   activating: DS.attr("string"),
   latitude: DS.attr("number"),
   longitude: DS.attr("number"),
+  value: DS.attr("number"),
   type: DS.attr("string"),
   city: DS.belongsTo("city")
 });

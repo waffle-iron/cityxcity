@@ -1,92 +1,145 @@
-<div class="cities">
-  <div class="cities-detail">
-    {{ui-checkbox label="Amenities" checked=showFeatures onChange=(action (mut showFeatures))}}
-    {{ui-checkbox label="Investments" checked=showInvestments onChange=(action (mut showInvestments))}}
-    {{ui-checkbox label="Opportunities" checked=showParcels onChange=(action (mut showParcels))}}
+<div class="cities ui grid">
+  <div class="list-results nine wide column">
+    <div class="filters">
+      <h1>{{currentCity.city.name}}</h1>
+      <h4 class="ui header left floated">Filter By</h4>
+      <div class="ui three item menu">
+        <div class="ui item">
+          {{ui-checkbox label="Amenities" checked=showFeatures onChange=(action (mut showFeatures))}}
+        </div>
+        <div class="ui item">
+          {{ui-checkbox label="Investments" checked=showInvestments onChange=(action (mut showInvestments))}}
+        </div>
+        <div class="ui item">
+          {{ui-checkbox label="Opportunities" checked=showParcels onChange=(action (mut showParcels))}}
+        </div>
+      </div>
 
-    <br/>
+        {{#if showFeatures}}
+          <h4 class="ui horizontal divider header">
+            <i class="anchor icon"></i>
+            Features Filters
+          </h4>
+          <div class="ui segment">
+            <div class="ui top attached label">Types</div>
+            <div class="ui horizontal list">
+              {{#each assetTypeOptions as |option|}}
+                {{ui-checkbox 
+                  label=option 
+                  class="item"
+                  checked=(array-contains assetTypesArray option)
+                  onChange=(action 'composeList' option 'assetTypes')}}
+              {{/each}}
+            </div>
+          </div>
+          <div class="ui segment">
+            <div class="ui top attached label">Other Categories</div>
+            <div class="ui horizontal list">
+              {{ui-checkbox label="Activating" class="item" checked=activating onChange=(action (mut activating))}}
+              {{ui-checkbox label="Open" class="item" checked=featureOpen onChange=(action (mut featureOpen))}}
+            </div>
+          </div>
+        {{/if}}
+        {{#if showInvestments}}
+          <h4 class="ui horizontal divider header">
+            <i class="dollar icon"></i>
+            Investments Filters
+          </h4>
+          <div class="ui segment">
+            <div class="ui top attached label">Types</div>
+            <div class="ui horizontal list">
+              {{#each investmentTypeOptions as |option|}}
+                {{ui-checkbox 
+                  label=option 
+                  class="item"
+                  checked=(array-contains investmentTypesArray option)
+                  onChange=(action 'composeList' option 'investmentTypes')}}
+              {{/each}}
+            </div>
+          </div>
+        {{/if}}
 
-    {{#if showFeatures}}
-      {{ui-checkbox label="Activating" checked=activating onChange=(action (mut activating))}}
-      {{ui-checkbox label="Open" checked=featureOpen onChange=(action (mut featureOpen))}}
-      {{#each assetTypeOptions as |option|}}
-        {{ui-checkbox 
-          label=option 
-          checked=(array-contains assetTypesArray option)
-          onChange=(action 'composeList' option 'assetTypes')}}
-          
-      {{/each}}
-
-    {{/if}}
-
-    {{#if showInvestments}}
-      {{#each investmentTypeOptions as |option|}}
-        {{ui-checkbox 
-          label=option 
-          checked=(array-contains investmentTypesArray option)
-          onChange=(action 'composeList' option 'investmentTypes')}}
-      {{/each}}
-    {{/if}}
-
-    {{#if showParcels}}
-      {{ui-checkbox label="For Lease" checked=forLease onChange=(action (mut forLease))}}
-      {{ui-checkbox label="For Sale" checked=forSale onChange=(action (mut forSale))}}
-      {{#each landuseTypeOptions as |option|}}
-        {{ui-checkbox 
-          label=option 
-          checked=(array-contains landuseTypesArray option)
-          onChange=(action 'composeList' option 'landuseTypes')}}
-      {{/each}}
-    {{/if}}
-
-    {{#leaflet-map as |layers|}}
-      {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
-
-      {{#if showFeatures}}
-        {{#each visibleFeatures as |feature|}}
-          {{#if feature.latitude}}
-            {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
-              {{#popup-layer}}
-                <h3>{{feature.name}}</h3>
-                Type: {{feature.assetType}}
-              {{/popup-layer}}
-            {{/marker-layer}}
-          {{/if}}
-        {{/each}}
-      {{/if}}
-
-      {{#if showInvestments}}
-        {{#each visibleInvestments as |investment|}}
-          {{#if investment.latitude}}
-            {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
-              {{#popup-layer}}
-                <h3>{{investment.name}}</h3>
-                Address: {{investment.address}}<br />
-                Type: {{investment.type}}
-              {{/popup-layer}}
-            {{/marker-layer}}
-          {{/if}}
-        {{/each}}
-      {{/if}}
-
-      {{#if showParcels}}
-        {{#each visibleParcels as |parcel|}}
-          {{#if parcel.geom}}
-            {{#polygon-layer locations=parcel.geom}}
-              {{#popup-layer}}
-                <h3>{{parcel.name}}</h3>
-                Address: {{parcel.address}}
-              {{/popup-layer}}
-            {{/polygon-layer}}
-          {{/if}}
-        {{/each}}
-      {{/if}}
-
-      {{#each model as |city|}}
-        {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
-        {{/marker-layer}}
-      {{/each}}
-    {{/leaflet-map}}
+        {{#if showParcels}}
+          <h4 class="ui horizontal divider header">
+            <i class="block layout icon"></i>
+            Parcels Filters
+          </h4>
+          <div class="ui segment">
+            <div class="ui top attached label">Other Categories</div>
+            <div class="ui horizontal list">
+              {{ui-checkbox label="For Lease" class="item" checked=forLease onChange=(action (mut forLease))}}
+              {{ui-checkbox label="For Sale" class="item" checked=forSale onChange=(action (mut forSale))}}
+            </div>
+          </div>
+          <div class="ui segment">
+            <div class="ui top attached label">Land Use Types</div>
+            <div class="ui horizontal list">
+              {{#each landuseTypeOptions as |option|}}
+                {{ui-checkbox 
+                  label=option 
+                  class="item"
+                  checked=(array-contains landuseTypesArray option)
+                  onChange=(action 'composeList' option 'landuseTypes')}}
+              {{/each}}
+            </div>
+          </div>
+        {{/if}}
+    </div>
+    <div class="city-details">
+      {{outlet}}
+    </div>
   </div>
-  {{outlet}}
+  <div class="map-results seven wide column">
+    {{c3-chart data=aggregate}}
+    <div class="cities-map">
+      {{#leaflet-map as |layers|}}
+        {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+        {{#if showFeatures}}
+          {{#each visibleFeatures as |feature|}}
+            {{#if feature.latitude}}
+              {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
+                {{#popup-layer}}
+                  <h3>{{feature.name}}</h3>
+                  Type: {{feature.assetType}}
+                {{/popup-layer}}
+              {{/marker-layer}}
+            {{/if}}
+          {{/each}}
+        {{/if}}
+
+        {{#if showInvestments}}
+          {{#each visibleInvestments as |investment|}}
+            {{#if investment.latitude}}
+              {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
+                {{#popup-layer}}
+                  <h3>{{investment.name}}</h3>
+                  Address: {{investment.address}}<br />
+                  Type: {{investment.type}}
+                {{/popup-layer}}
+              {{/marker-layer}}
+            {{/if}}
+          {{/each}}
+        {{/if}}
+
+        {{#if showParcels}}
+          {{#each visibleParcels as |parcel|}}
+            {{#if parcel.geom}}
+              {{#polygon-layer locations=parcel.geom}}
+                {{#popup-layer}}
+                  <h3>{{parcel.name}}</h3>
+                  Address: {{parcel.address}}
+                {{/popup-layer}}
+              {{/polygon-layer}}
+            {{/if}}
+          {{/each}}
+        {{/if}}
+
+        {{#each model as |city|}}
+          {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
+          {{/marker-layer}}
+        {{/each}}
+      {{/leaflet-map}}
+    </div>
+  </div>
 </div>
