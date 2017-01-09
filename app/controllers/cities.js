@@ -3,6 +3,7 @@ import isAnyFilter from '../utils/is-any-filter';
 import isTrueFilter from '../utils/is-true-filter';
 import isWithinFilter from '../utils/is-within-filter';
 import arrayify from '../utils/arrayify';
+import applyFiltersTo from '../utils/apply-filter-to';
 
 const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
                                 { 'featureOpen': { type: 'boolean' }}, 
@@ -55,17 +56,43 @@ export default Ember.Controller.extend({
   showFeatures: false,
   showParcels: false,
 
-  visibleFeatures: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.features', function() {
-    let features = this.get('currentCity.city.features');
-    let { assetTypesArray, activating, featureOpen, employer } 
-        = this.getProperties('assetTypesArray', 'activating', 'featureOpen', 'employer');
+  visibleFeatures: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.features', 
+    applyFiltersTo('currentCity.city.features', [
+      { 
+        property: 'assetType',
+        filter: 'assetTypesArray',
+        filterType: 'isAny'
+      },
+      { 
+        property: 'activating',
+        filter: 'activating',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'isOpen',
+        filter: 'featureOpen',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'employer',
+        filter: 'employer',
+        filterType: 'isTrue'
+      }
+    ])),
 
-    return features
-      .filter(isAnyFilter.bind(this, assetTypesArray, 'assetType'))
-      .filter(isTrueFilter.bind(this, activating, 'activating'))
-      .filter(isTrueFilter.bind(this, featureOpen, 'isOpen'))
-      .filter(isTrueFilter.bind(this, employer, 'employer'));
-  }),
+  // visibleInvestments: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.investments', 
+  //   applyFiltersTo('currentCity.city.investments', [
+  //     { 
+  //       property: 'type',
+  //       filter: 'investmentTypesArray',
+  //       filterType: 'isAny'
+  //     },
+  //     { 
+  //       property: 'activating',
+  //       filter: 'activating',
+  //       filterType: 'isWithin'
+  //     }
+  //   ])),
 
   visibleInvestments: Ember.computed(...INVESTMENT_PARAMS, 'currentCity.city.investments', function() {
     let investments = this.get('currentCity.city.investments');
