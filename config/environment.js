@@ -48,7 +48,7 @@ module.exports = function(environment) {
     ENV.baseURL = '/cityxcity/';
     ENV['ember-cli-mirage'] = {
       enabled: true,
-      namespace: '/cityxcity/api'
+      namespace: '/api'
     }
   }
 
