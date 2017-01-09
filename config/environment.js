@@ -45,7 +45,11 @@ module.exports = function(environment) {
   if (environment === 'production') {
     ENV.locationType = 'hash';
     ENV.rootURL = '/cityxcity/';
-
+    ENV.baseURL = '/cityxcity/';
+    ENV['ember-cli-mirage'] = {
+      enabled: true,
+      namespace: '/cityxcity/api'
+    }
   }
 
   return ENV;
