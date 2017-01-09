@@ -180,7 +180,7 @@ module.exports = function(environment) {
     ENV['ember-cli-mirage'] = {
       enabled: true
     }
-    ENV.prepend = 'https://mapc.github.io/trailmap2/';
+    ENV.prepend = 'https://mapc.github.io/cityxcity/';
 
   }
 
