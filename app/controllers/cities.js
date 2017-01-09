@@ -5,20 +5,23 @@ import isWithinFilter from '../utils/is-within-filter';
 import arrayify from '../utils/arrayify';
 import applyFiltersTo from '../utils/apply-filter-to';
 
+import {  FEATURE_PARAMS, 
+          FEATURE_TYPES,
+          FEATURE_FILTERS_CONFIG } from '../models/feature';
+
+import {  INVESTMENT_PARAMS,
+          INVESTMENT_TYPES,
+          INVESTMENT_FILTERS_CONFIG } from '../models/investment';
+
+import {  PARCEL_PARAMS,
+          PARCEL_TYPES,
+          PARCEL_FILTERS_CONFIG } from '../models/parcel';
+
 const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
                                 { 'featureOpen': { type: 'boolean' }}, 
                                 { 'forSale'    : { type: 'boolean' }}, 
                                 { 'forLease'   : { type: 'boolean' }},
                                 { 'employer'   : { type: 'boolean' }}];
-
-const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer'];
-const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
-
-const INVESTMENT_PARAMS = ['investmentTypes'];
-const INVESTMENT_TYPES  = ['MassDev Direct','State Direct (non-MassDev)','Other Public Agency','Private','Public-Private'];
-
-const PARCEL_PARAMS = ['groundFloorVacancyMin','groundFloorVacancyMax','landuseTypes','forSale','forLease','yearBuiltMin','yearBuiltMax'];
-const PARCEL_TYPES  = ['Residential','Commercial Office','Commercial Other','Industrial','Institutional, Other, or Unknown'];
 
 export default Ember.Controller.extend({
   queryParams: ['showInvestments','showFeatures','showParcels']
@@ -57,64 +60,13 @@ export default Ember.Controller.extend({
   showParcels: false,
 
   visibleFeatures: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.features', 
-    applyFiltersTo('currentCity.city.features', [
-      { 
-        property: 'assetType',
-        filter: 'assetTypesArray',
-        filterType: 'isAny'
-      },
-      { 
-        property: 'activating',
-        filter: 'activating',
-        filterType: 'isTrue'
-      },
-      {
-        property: 'isOpen',
-        filter: 'featureOpen',
-        filterType: 'isTrue'
-      },
-      {
-        property: 'employer',
-        filter: 'employer',
-        filterType: 'isTrue'
-      }
-    ])),
+    applyFiltersTo('currentCity.city.features', FEATURE_FILTERS_CONFIG)),
 
-  // visibleInvestments: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.investments', 
-  //   applyFiltersTo('currentCity.city.investments', [
-  //     { 
-  //       property: 'type',
-  //       filter: 'investmentTypesArray',
-  //       filterType: 'isAny'
-  //     },
-  //     { 
-  //       property: 'activating',
-  //       filter: 'activating',
-  //       filterType: 'isWithin'
-  //     }
-  //   ])),
+  visibleInvestments: Ember.computed(...INVESTMENT_PARAMS, 'currentCity.city.investments', 
+    applyFiltersTo('currentCity.city.investments', INVESTMENT_FILTERS_CONFIG)),
 
-  visibleInvestments: Ember.computed(...INVESTMENT_PARAMS, 'currentCity.city.investments', function() {
-    let investments = this.get('currentCity.city.investments');
-    let { investmentTypesArray, valueMin, valueMax } 
-        = this.getProperties('investmentTypesArray', 'valueMin', 'valueMax');
-
-    return investments
-      .filter(isAnyFilter.bind(this, investmentTypesArray, 'type'))
-      .filter(isWithinFilter.bind(this, valueMin, valueMax, 'value'));
-  }),
-
-  visibleParcels: Ember.computed(...PARCEL_PARAMS, 'currentCity.city.parcels', function() {
-    let parcels = this.get('currentCity.city.parcels');
-    let { landuseTypesArray, yearBuiltMin, yearBuiltMax, forSale, forLease }
-        = this.getProperties('landuseTypesArray', 'yearBuiltMin', 'yearBuiltMax', 'forSale', 'forLease');
-
-    return parcels
-      .filter(isAnyFilter.bind(this, landuseTypesArray, 'landUseType'))
-      .filter(isTrueFilter.bind(this, forSale, 'forSale'))
-      .filter(isTrueFilter.bind(this, forLease, 'forLease'))
-      .filter(isWithinFilter.bind(this, yearBuiltMin, yearBuiltMax, 'yearBuilt'));
-  }),
+  visibleParcels: Ember.computed(...PARCEL_PARAMS, 'currentCity.city.parcels', 
+    applyFiltersTo('currentCity.city.parcels', PARCEL_FILTERS_CONFIG)),
 
   actions: {
     selectCity(city) {

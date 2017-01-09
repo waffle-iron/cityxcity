@@ -5,13 +5,22 @@ import isWithinFilter from '../utils/is-within-filter';
 export default function applyFilterTo(enumerable, config) {
   return {
     get() {
-      // debugger;
       let models = this.get(enumerable);
 
       config.forEach((propertyConfig) => {
-        let filter = this.get(propertyConfig.filter);
-        let property = propertyConfig.property;
+        let filter;
+        let filterType = propertyConfig.filterType;
 
+
+        if(propertyConfig.filterType == "isWithin") {
+          let [ min, max ] = propertyConfig.filter;
+          filter = [this.get(min), this.get(max)];
+        } else {
+          filter = this.get(propertyConfig.filter);
+        }
+
+        let property = propertyConfig.property;
+        
         models = models.filter(
           (findFilterFunction(propertyConfig.filterType))
           .bind(this, filter, property)
