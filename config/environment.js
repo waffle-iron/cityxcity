@@ -176,7 +176,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.rootURL = '/cityxcity/';
+    ENV.baseUrl = '/cityxcity/';
     ENV['ember-cli-mirage'] = {
       enabled: true
     }
