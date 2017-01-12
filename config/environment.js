@@ -176,11 +176,12 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.baseUrl = '/cityxcity/';
+    ENV.rootURL = '/cityxcity/'
+    ENV.baseUrl = 'https://allthesignals.github.io/cityxcity';
     ENV['ember-cli-mirage'] = {
       enabled: true
     }
-    ENV.prepend = 'https://mapc.github.io/cityxcity/';
+    ENV.prepend = 'https://allthesignals.github.io/cityxcity/';
     
   }
 
