@@ -2,7 +2,7 @@ import Mirage from 'ember-cli-mirage';
 import config from '../config/environment';
 
 export default function() {
-  this.namespace = config['ember-cli-mirage'].namespace;
+  this.namespace = '/api';
 
   this.get('cities');
   this.get('cities/:id');
