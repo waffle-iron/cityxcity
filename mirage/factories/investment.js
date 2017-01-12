@@ -14,6 +14,8 @@ export default Factory.extend({
                             'Private',
                             'Public-Private')(i);
   },
+  opendate: faker.date.past,
+  closedate: faker.date.recent,
   value: faker.finance.amount,
   latitude: faker.address.latitude,
   longitude: faker.address.longitude

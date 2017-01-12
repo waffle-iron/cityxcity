@@ -181,7 +181,7 @@ module.exports = function(environment) {
       enabled: true
     }
     ENV.prepend = 'https://mapc.github.io/cityxcity/';
-
+    
   }
 
   return ENV;

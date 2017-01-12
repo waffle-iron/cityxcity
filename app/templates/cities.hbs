@@ -96,27 +96,29 @@
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
         {{#if showFeatures}}
+        {{#marker-cluster-layer}}
           {{#each visibleFeatures as |feature|}}
             {{#if feature.latitude}}
               {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
-                {{#popup-layer}}
+{{!--                 {{#popup-layer}}
                   <h3>{{feature.name}}</h3>
                   Type: {{feature.assetType}}
-                {{/popup-layer}}
+                {{/popup-layer}} --}}
               {{/marker-layer}}
             {{/if}}
           {{/each}}
+          {{/marker-cluster-layer}}
         {{/if}}
 
         {{#if showInvestments}}
           {{#each visibleInvestments as |investment|}}
             {{#if investment.latitude}}
               {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
-                {{#popup-layer}}
+{{!--                 {{#popup-layer}}
                   <h3>{{investment.name}}</h3>
                   Address: {{investment.address}}<br />
                   Type: {{investment.type}}
-                {{/popup-layer}}
+                {{/popup-layer}} --}}
               {{/marker-layer}}
             {{/if}}
           {{/each}}
@@ -125,12 +127,12 @@
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}
             {{#if parcel.geom}}
-              {{#polygon-layer locations=parcel.geom}}
-                {{#popup-layer}}
+              {{#geojson-layer geoJSON=parcel.geojson}}
+{{!--                 {{#popup-layer}}
                   <h3>{{parcel.name}}</h3>
                   Address: {{parcel.address}}
-                {{/popup-layer}}
-              {{/polygon-layer}}
+                {{/popup-layer}} --}}
+              {{/geojson-layer}}
             {{/if}}
           {{/each}}
         {{/if}}

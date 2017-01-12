@@ -11,7 +11,10 @@ export default DS.Model.extend({
   comment: DS.attr("string"),
   opendate: DS.attr("date"),
   closedate: DS.attr("date"),
-  splash: DS.attr("string"),
+  splash: Ember.computed('latitude,longitude', function() {
+    let { latitude, longitude } = this.getProperties('latitude','longitude');
+    return `https://maps.googleapis.com/maps/api/streetview?size=250x250&location=${latitude},${longitude}&key=AIzaSyCO654zBIabvjSOV4Ys59Pku8pmzM387ps`;
+  }),
   isOpen: Ember.computed('closedate', function() {
     let closedate = this.get('closedate');
     if (!closedate) return true;

@@ -48,6 +48,7 @@
     "ember-export-application-global": "^1.0.5",
     "ember-leaflet": "3.0.7",
     "ember-leaflet-cartodb": "git://github.com/allthesignals/ember-leaflet-cartodb.git",
+    "ember-leaflet-marker-cluster": "0.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-mocha": "0.9.3",
     "ember-pagefront": "0.11.2",
