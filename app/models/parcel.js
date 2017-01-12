@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import Ember from 'ember';
 
 export default DS.Model.extend({
   name: DS.attr('string'),
@@ -9,6 +10,9 @@ export default DS.Model.extend({
   forLease: DS.attr('boolean'),
   forSale: DS.attr('boolean'),
   geom: DS.attr(),
+  geojson: Ember.computed('geom', function() {
+    return JSON.parse(this.get('geom'));
+  }),
   city: DS.belongsTo('city')
 });
 
