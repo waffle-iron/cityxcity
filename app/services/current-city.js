@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 const SOUTHWICK_LATITUDE = 42.1;
 const SOUTHWICK_LONGITUDE = -71.6;
-const DEFAULT_ZOOM = 14;
+const DEFAULT_ZOOM = 17;
 
 const ASSET_TYPES = {
   'privat': false,

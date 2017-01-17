@@ -1,9 +1,8 @@
 import Ember from 'ember';
-import isAnyFilter from '../utils/is-any-filter';
-import isTrueFilter from '../utils/is-true-filter';
-import isWithinFilter from '../utils/is-within-filter';
 import arrayify from '../utils/arrayify';
 import applyFiltersTo from '../utils/apply-filter-to';
+import setChoroplethColor from '../utils/set-choropleth-color';
+import { number_format } from 'ember-string-helpers/utils/functions';
 
 import {  FEATURE_PARAMS, 
           FEATURE_TYPES,
@@ -15,7 +14,8 @@ import {  INVESTMENT_PARAMS,
 
 import {  PARCEL_PARAMS,
           PARCEL_TYPES,
-          PARCEL_FILTERS_CONFIG } from '../models/parcel';
+          PARCEL_FILTERS_CONFIG,
+          PARCEL_MAP_CONFIG } from '../models/parcel';
 
 const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
                                 { 'featureOpen': { type: 'boolean' }}, 
@@ -40,8 +40,8 @@ export default Ember.Controller.extend({
   investmentTypes: '',
   investmentTypesArray: Ember.computed('investmentTypes', arrayify('investmentTypes', '|')),
   investmentTypeOptions: INVESTMENT_TYPES,
-  valueMin: 0,
-  valueMax: null,
+  valueMin: 1,
+  valueMax: 105000000,
 
   // parcels 
   landuseTypes: '',
@@ -59,6 +59,20 @@ export default Ember.Controller.extend({
   showFeatures: false,
   showParcels: false,
 
+  choroplethLayer: 'forSaleLease',
+  parcelsChoroplethMapping: Ember.computed('visibleParcels', 'choroplethLayer', function() {
+    return (feature) => {
+      let color = setChoroplethColor(feature, this.get('choroplethLayer'), PARCEL_MAP_CONFIG);
+      return {
+        color: color
+      }
+    }
+  }),
+  parcelChoroplethSets: PARCEL_MAP_CONFIG.mapBy('setName'),
+
+  currentFeature: null,
+
+  // applied computed filters
   visibleFeatures: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.features', 
     applyFiltersTo('currentCity.city.features', FEATURE_FILTERS_CONFIG)),
 
@@ -71,7 +85,7 @@ export default Ember.Controller.extend({
   actions: {
     selectCity(city) {
       let id = city.get('id');
-      this.transitionToRoute('cities.city.details', id);
+      this.transitionToRoute('cities.city', id);
     },
     composeList(option, optionsList) {
       let list = this.get(optionsList).split('|');
@@ -81,30 +95,25 @@ export default Ember.Controller.extend({
         list.pushObject(option);
       }
       this.set(optionsList, list.join('|'));
+    },
+    updateRanges(test) {
+      this.set('valueMin', test[0]);
+      this.set('valueMax', test[1]);
+    },
+    openModal(name, feature) {
+      $('.ui.' + name + '.modal').modal('show');
+      this.set('currentFeature', feature);
+    },
+    changeProperty(key, value) {
+      this.set(key, value);
     }
   },
 
-  aggregate: Ember.computed('', function() {
-    return  {
-      columns: [
-        ['data1', 30, 20, 50, 40, 60, 50],
-        ['data2', 200, 130, 90, 240, 130, 220],
-        ['data3', 300, 200, 160, 400, 250, 250],
-        ['data4', 200, 130, 90, 240, 130, 220],
-        ['data5', 130, 120, 150, 140, 160, 150],
-        ['data6', 90, 70, 20, 50, 60, 120],
-      ],
-      type: 'bar',
-      types: {
-        data3: 'spline',
-        data4: 'line',
-        data6: 'area',
-      },
-      groups: [
-        ['data1', 'data2']
-      ]
-    }
-  }),
   investmentsValues: Ember.computed.mapBy('visibleInvestments', 'value'),
-  maxInvestments: Ember.computed.max('investmentsValues', 'visibleInvestments')
+  maxInvestments: Ember.computed.max('investmentsValues', 'visibleInvestments'),
+
+  tooltipsConfig: [
+    { to: (num) => number_format(num, 0) },
+    { to: (num) => number_format(num, 0) }
+  ]
 });

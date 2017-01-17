@@ -7,7 +7,8 @@
     "semantic-ui": "^2.2.6",
     "leaflet": "1.0.2",
     "d3": "3.5.17",
-    "c3": "~0.4.10"
+    "c3": "~0.4.10",
+    "nouislider": "^8.0.1"
   },
   "devDependencies": {
     "squel": "^5.5.0"

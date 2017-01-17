@@ -40,6 +40,7 @@
             </div>
           </div>
         {{/if}}
+
         {{#if showInvestments}}
           <h4 class="ui horizontal divider header">
             <i class="dollar icon"></i>
@@ -56,6 +57,17 @@
                   onChange=(action 'composeList' option 'investmentTypes')}}
               {{/each}}
             </div>
+            <div class="ui divider"></div>
+              Investment Value:
+              <div class="ui basic segment">
+                {{range-slider start=(array valueMin valueMax)
+                               range=(hash min=1 max=200000000)
+                               tooltips=tooltipsConfig
+                               connect=true
+                               step=1
+                               on-change="updateRanges"
+                }}
+              </div>
           </div>
         {{/if}}
 
@@ -76,7 +88,7 @@
             <div class="ui horizontal list">
               {{#each landuseTypeOptions as |option|}}
                 {{ui-checkbox 
-                  label=option 
+                  label=option  
                   class="item"
                   checked=(array-contains landuseTypesArray option)
                   onChange=(action 'composeList' option 'landuseTypes')}}
@@ -90,49 +102,39 @@
     </div>
   </div>
   <div class="map-results seven wide column">
-    {{!-- {{c3-chart data=aggregate}} --}}
+    <div class="ui menu">
+      {{#each parcelChoroplethSets as |colorSet|}}
+        <a class="item" {{action 'changeProperty' 'choroplethLayer' colorSet}}>
+          {{colorSet}}
+        </a>
+      {{/each}}
+    </div>
     <div class="cities-map">
       {{#leaflet-map as |layers|}}
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
-        {{#if showFeatures}}
         {{#marker-cluster-layer}}
-          {{#each visibleFeatures as |feature|}}
-            {{#if feature.latitude}}
-              {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
-{{!--                 {{#popup-layer}}
-                  <h3>{{feature.name}}</h3>
-                  Type: {{feature.assetType}}
-                {{/popup-layer}} --}}
-              {{/marker-layer}}
-            {{/if}}
-          {{/each}}
-          {{/marker-cluster-layer}}
-        {{/if}}
+          {{#if showFeatures}}
+            {{#each visibleFeatures as |feature|}}
+              {{#if feature.latitude}}
+                {{marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5 onClick=(action 'openModal' 'feature' feature)}}
+              {{/if}}
+            {{/each}}
+          {{/if}}
 
-        {{#if showInvestments}}
-          {{#each visibleInvestments as |investment|}}
-            {{#if investment.latitude}}
-              {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
-{{!--                 {{#popup-layer}}
-                  <h3>{{investment.name}}</h3>
-                  Address: {{investment.address}}<br />
-                  Type: {{investment.type}}
-                {{/popup-layer}} --}}
-              {{/marker-layer}}
-            {{/if}}
-          {{/each}}
-        {{/if}}
+          {{#if showInvestments}}
+            {{#each visibleInvestments as |investment|}}
+              {{#if investment.latitude}}
+                {{marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
+              {{/if}}
+            {{/each}}
+          {{/if}}
+        {{/marker-cluster-layer}}
 
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}
             {{#if parcel.geom}}
-              {{#geojson-layer geoJSON=parcel.geojson}}
-{{!--                 {{#popup-layer}}
-                  <h3>{{parcel.name}}</h3>
-                  Address: {{parcel.address}}
-                {{/popup-layer}} --}}
-              {{/geojson-layer}}
+              {{geojson-layer geoJSON=parcel.geojson style=parcelsChoroplethMapping}}
             {{/if}}
           {{/each}}
         {{/if}}
@@ -145,3 +147,39 @@
     </div>
   </div>
 </div>
+{{#ui-modal name="feature" class="feature" as |modal|}}
+  <i class="close icon"></i>
+  <div class="header">
+    {{currentFeature.name}}
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="{{currentFeature.splash}}">
+    </div>
+    <div class="description">
+      <div class="ui header">{{currentFeature.assetType}} - {{currentFeature.subtype}}</div>
+      <p>{{currentFeature.comment}}</p>
+      <p>{{currentFeature.address}}</p>
+      <p>Is Activating? {{currentFeature.activating}}</p>
+      {{#if (and currentFeature.latitude currentFeature.longitude)}}
+        <div class="ui segment" style="height: 200px; min-width: 200px;">
+{{!--           {{#leaflet-map lat=currentFeature.latitude lng=currentFeature.longitude zoom=18}}
+            {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+            {{marker-layer lat=currentFeature.latitude lng=currentFeature.longitude}}
+          {{/leaflet-map}} --}}
+        </div>
+      {{/if}}
+    </div>
+  </div>
+  {{#if session.isAuthenticated}}
+    <div class="actions">
+      <div class="ui black deny button">
+        Edit
+      </div>
+      <div class="ui positive right labeled icon button">
+        Delete
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+  {{/if}}
+{{/ui-modal}}

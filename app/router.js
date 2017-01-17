@@ -8,10 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('cities', function() {
-    this.route('city', { path: '/:id' }, function() {
-      // todo: shouldn't need details, move up
-      this.route('details');
-    });
+    this.route('city', { path: '/:id' }, function() {});
   });
   this.route('login');
 
