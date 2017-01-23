@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { describeModel, it } from 'ember-mocha';
 
 describeModel(
-  'feature',
-  'Unit | Model | feature',
+  'parcel',
+  'Unit | Model | parcel',
   {
     // Specify the other units that are required for this test.
       needs: ['model:city']

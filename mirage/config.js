@@ -4,9 +4,19 @@ export default function() {
   this.namespace = '/api';
 
   this.get('cities');
+  this.get('cities/:id');
 
-  this.get('features');
+  this.get('features', function({ features }) {
+    let json = this.serialize(features.all());
+    json.meta = {
+      "cartodb_query": "SELECT * FROM features WHERE type=1;"
+    };
+    return json;
+  });
 
+  this.get('features/:id');
+  this.get('investments/:id');
+  this.get('parcels/:id');
 
   this.post('token', ({ users }, request) => {
     // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.

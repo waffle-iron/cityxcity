@@ -1,11 +1,12 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  currentCity: Ember.inject.service(),
   model(params) {
     return this.store.findRecord('city', params.id);
   },
-  afterModel(model) {
-    let controller = this.controllerFor('cities');
-    controller.send('updateCenter', model);
+  afterModel(city) {
+    let currentCity = this.get('currentCity');
+    currentCity.setCity(city);
   }
 });

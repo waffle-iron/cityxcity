@@ -3,9 +3,9 @@
     {{#link-to 'cities' class="cities-link"}}Cities >{{/link-to}}
   </div>
     {{#each model as |city|}}
-      <div class="city menu">
+      {{#link-to 'cities.city.details' city class="city menu"}}
         {{city.name}}
-      </div>
+      {{/link-to}}
     {{/each}}
   <div class="menu">
     {{#if session.isAuthenticated}}

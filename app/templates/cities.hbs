@@ -1,8 +1,42 @@
 <div class="cities">
   <div class="cities-detail">
     View As: Developer
-    {{#leaflet-map lat=latitude lng=longitude zoom=zoom}}
-      {{tile-layer url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+    {{#leaflet-map as |layers|}}
+      {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+      {{#each layers.city.features as |feature|}}
+        {{#if feature.latitude}}
+          {{#marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5}}
+            {{#popup-layer}}
+              <h3>{{feature.name}}</h3>
+              Type: {{feature.assetType}}
+            {{/popup-layer}}
+          {{/marker-layer}}
+        {{/if}}
+      {{/each}}
+
+      {{#each layers.city.parcels as |parcel|}}
+        {{#if parcel.geom}}
+          {{#polygon-layer locations=parcel.geom}}
+            {{#popup-layer}}
+              <h3>{{parcel.name}}</h3>
+              Address: {{parcel.address}}
+            {{/popup-layer}}
+          {{/polygon-layer}}
+        {{/if}}
+      {{/each}}
+
+      {{#each layers.city.investments as |investment|}}
+        {{#if investment.latitude}}
+          {{#marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
+            {{#popup-layer}}
+              <h3>{{investment.name}}</h3>
+              Address: {{investment.address}}
+            {{/popup-layer}}
+          {{/marker-layer}}
+        {{/if}}
+      {{/each}}
+
       {{#each model as |city|}}
         {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
         {{/marker-layer}}
