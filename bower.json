@@ -8,6 +8,7 @@
     "leaflet": "1.0.2",
     "d3": "3.5.17",
     "c3": "~0.4.10",
+    "nouislider": "^8.0.1",
     "leaflet.markercluster": "^1.0.0"
   },
   "devDependencies": {

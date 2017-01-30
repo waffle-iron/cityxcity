@@ -6,7 +6,7 @@
       {{/link-to}}
     </div>
     {{#each model as |city|}}
-      {{#link-to 'cities.city.details' city.id class="item"}}
+      {{#link-to 'cities.city' city.id class="item"}}
         {{city.name}}
       {{/link-to}}
     {{/each}}

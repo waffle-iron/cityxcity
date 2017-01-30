@@ -174,15 +174,15 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
+
   if (environment === 'production') {
     ENV.locationType = 'hash';
-    ENV.rootURL = '/cityxcity/'
-    ENV.baseUrl = 'https://allthesignals.github.io/cityxcity';
+    ENV.rootURL = '/cityxcity/';
     ENV['ember-cli-mirage'] = {
       enabled: true
     }
     ENV.prepend = 'https://allthesignals.github.io/cityxcity/';
-    
+    ENV.rootURL = '/cityxcity/';
   }
 
   return ENV;

@@ -6,7 +6,7 @@ var config = require('./config/environment')(process.env.EMBER_ENV || 'developme
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     fingerprint: {
-      // prepend: config.prepend,
+      prepend: config.prepend,
       exclude: [
         'images/layers-2x.png',
         'images/layers.png',

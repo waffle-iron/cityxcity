@@ -13,7 +13,7 @@ export default DS.Model.extend({
   city: DS.belongsTo("city")
 });
 
-export const INVESTMENT_PARAMS = ['investmentTypes'];
+export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax'];
 export const INVESTMENT_TYPES  = ['MassDev Direct','State Direct (non-MassDev)','Other Public Agency','Private','Public-Private'];
 export const INVESTMENT_FILTERS_CONFIG = [
       { 
