@@ -4,13 +4,13 @@
       <h1>{{currentCity.city.name}}</h1>
       <h4 class="ui header left floated">Filter By</h4>
       <div class="ui three item menu">
-        <div class="ui item">
+        <div class="ui item features-checkbox">
           {{ui-checkbox label="Amenities" checked=showFeatures onChange=(action (mut showFeatures))}}
         </div>
-        <div class="ui item">
+        <div class="ui item investments-checkbox">
           {{ui-checkbox label="Investments" checked=showInvestments onChange=(action (mut showInvestments))}}
         </div>
-        <div class="ui item">
+        <div class="ui item parcels-checkbox">
           {{ui-checkbox label="Opportunities" checked=showParcels onChange=(action (mut showParcels))}}
         </div>
       </div>
@@ -20,7 +20,7 @@
             <i class="anchor icon"></i>
             Features Filters
           </h4>
-          <div class="ui segment">
+          <div class="ui segment feature-types">
             <div class="ui top attached label">Types</div>
             <div class="ui horizontal list">
               {{#each assetTypeOptions as |option|}}
@@ -32,7 +32,7 @@
               {{/each}}
             </div>
           </div>
-          <div class="ui segment">
+          <div class="ui segment other-categories">
             <div class="ui top attached label">Other Categories</div>
             <div class="ui horizontal list">
               {{ui-checkbox label="Activating" class="item" checked=activating onChange=(action (mut activating))}}
@@ -45,7 +45,7 @@
             <i class="dollar icon"></i>
             Investments Filters
           </h4>
-          <div class="ui segment">
+          <div class="ui segment investments-types">
             <div class="ui top attached label">Types</div>
             <div class="ui horizontal list">
               {{#each investmentTypeOptions as |option|}}
@@ -64,14 +64,14 @@
             <i class="block layout icon"></i>
             Parcels Filters
           </h4>
-          <div class="ui segment">
+          <div class="ui segment parcels-categories">
             <div class="ui top attached label">Other Categories</div>
             <div class="ui horizontal list">
               {{ui-checkbox label="For Lease" class="item" checked=forLease onChange=(action (mut forLease))}}
               {{ui-checkbox label="For Sale" class="item" checked=forSale onChange=(action (mut forSale))}}
             </div>
           </div>
-          <div class="ui segment">
+          <div class="ui segment parcels-types">
             <div class="ui top attached label">Land Use Types</div>
             <div class="ui horizontal list">
               {{#each landuseTypeOptions as |option|}}

@@ -12,7 +12,7 @@ export default function applyFilterTo(enumerable, config) {
         let filterType = propertyConfig.filterType;
 
 
-        if(propertyConfig.filterType == "isWithin") {
+        if(filterType == "isWithin") {
           let [ min, max ] = propertyConfig.filter;
           filter = [this.get(min), this.get(max)];
         } else {
@@ -22,7 +22,7 @@ export default function applyFilterTo(enumerable, config) {
         let property = propertyConfig.property;
         
         models = models.filter(
-          (findFilterFunction(propertyConfig.filterType))
+          (findFilterFunction(filterType))
           .bind(this, filter, property)
         );
       });

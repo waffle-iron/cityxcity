@@ -5,7 +5,7 @@
       Features
     </h4>
     {{#each citiesController.visibleFeatures as |feature|}}
-      <div class="column">
+      <div class="column feature-card">
         <div class="ui fluid card">
           <div class="image">
             <img src="{{feature.splash}}" style="max-width: 100%;">
@@ -43,7 +43,7 @@
       Investments
     </h4>
     {{#each (sort-by "value:desc" "name" citiesController.visibleInvestments) as |investment|}}
-      <div class="column">
+      <div class="column investment-card">
         <div class="ui fluid card">
           <div class="content">
             <div class="header">${{investment.value}}</div>
