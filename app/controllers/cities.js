@@ -1,6 +1,6 @@
 import Ember from 'ember';
 import arrayify from '../utils/arrayify';
-import applyFiltersTo from '../utils/apply-filter-to';
+import applyFiltersTo, { getFilter } from '../utils/apply-filter-to';
 import setChoroplethColor from '../utils/set-choropleth-color';
 import { number_format } from 'ember-string-helpers/utils/functions';
 
@@ -64,7 +64,7 @@ export default Ember.Controller.extend({
     return (feature) => {
       let color = setChoroplethColor(feature, this.get('choroplethLayer'), PARCEL_MAP_CONFIG);
       return {
-        color: color
+        color
       }
     }
   }),
@@ -82,7 +82,25 @@ export default Ember.Controller.extend({
   visibleParcels: Ember.computed(...PARCEL_PARAMS, 'currentCity.city.parcels', 
     applyFiltersTo('currentCity.city.parcels', PARCEL_FILTERS_CONFIG)),
 
+
+  // filterParcelsTask: task(function*() {
+  //   return getFilter('currentCity.city.parcels', PARCEL_FILTERS_CONFIG);
+  // }),
+
+
   actions: {
+    // loadVisibleParcels() {
+    //   let filterParcelsTask = this.get('filterParcelsTask');
+    //   filterParcelsTask.perform();
+    // },
+
+    // in cities template:
+    // {{#if filterParcelsTask.isRunning}}
+    //   loading
+    // {{else}}
+    //    render map stuff
+    // {{/if}}
+
     selectCity(city) {
       let id = city.get('id');
       this.transitionToRoute('cities.city', id);
