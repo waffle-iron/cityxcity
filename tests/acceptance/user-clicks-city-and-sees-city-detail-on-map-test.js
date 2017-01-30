@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
 
-const CITY_LINK = '.flex-grid a:first-child';
+const CITY_LINK = '.ui.menu a.item';
 const CITY_DETAIL_NAME = '.cities-sidebar h1';
 const CITY_MARKER = '.leaflet-marker-icon';
 

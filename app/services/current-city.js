@@ -4,12 +4,6 @@ const SOUTHWICK_LATITUDE = 42.1;
 const SOUTHWICK_LONGITUDE = -71.6;
 const DEFAULT_ZOOM = 14;
 
-const ASSET_TYPES = {
-  'privat': false,
-  'publ': false,
-  'equity': false
-}
-
 export default Ember.Service.extend({
   latitude: SOUTHWICK_LATITUDE,
   longitude: SOUTHWICK_LONGITUDE,
@@ -23,7 +17,7 @@ export default Ember.Service.extend({
       longitude
     });
   },
-  applyProperty(property, value) {
+  applyProperty() {
 
   }
 });

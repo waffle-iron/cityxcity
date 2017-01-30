@@ -4,10 +4,10 @@ import startApp from '../helpers/start-app';
 import destroyApp from '../helpers/destroy-app';
 
 // selectors
-const CITIES = '.city.menu';
+const CITIES = '.ui.menu a.item';
 const CITIES_LINK = '.cities-link';
 
-describe('Acceptance | user views list of cities', function() {
+describe('Acceptance | user can visit cities page', function() {
   let application;
 
   beforeEach(function() {
@@ -25,13 +25,16 @@ describe('Acceptance | user views list of cities', function() {
     });
 
     it('shows two cities', function() {
+      
       let cities = find(CITIES);
-      // return pauseTest();
+
+      // return 
       expect(cities).to.have.length(2);
     });
 
     describe('click cities link', function() {
       beforeEach(function() {
+        // pauseTest();
         click(CITIES_LINK);
       });
 

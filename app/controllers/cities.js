@@ -1,7 +1,4 @@
 import Ember from 'ember';
-import isAnyFilter from '../utils/is-any-filter';
-import isTrueFilter from '../utils/is-true-filter';
-import isWithinFilter from '../utils/is-within-filter';
 import arrayify from '../utils/arrayify';
 import applyFiltersTo from '../utils/apply-filter-to';
 
