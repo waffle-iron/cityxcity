@@ -45,7 +45,7 @@
     "ember-cli-uglify": "^1.2.0",
     "ember-composable-helpers": "1.1.2",
     "ember-d3": "0.2.0",
-    "ember-data": "^2.9.0", //upgrade to latest
+    "ember-data": "^2.11.0",
     "ember-export-application-global": "^1.0.5",
     "ember-leaflet": "3.0.7",
     "ember-leaflet-cartodb": "git://github.com/allthesignals/ember-leaflet-cartodb.git",
