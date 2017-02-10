@@ -122,6 +122,9 @@ export default Ember.Controller.extend({
       $('.ui.' + name + '.modal').modal('show');
       this.set('currentFeature', feature);
     },
+    linkTo(route, model) {
+      this.transitionToRoute(route, model);
+    },
     changeProperty(key, value) {
       this.set(key, value);
     }

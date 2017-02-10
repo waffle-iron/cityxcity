@@ -1,14 +1,15 @@
 <div class="cities-sidebar">
+  {{outlet}}
   <div class="ui container">
     <h1 class="ui header inverted">{{model.city.name}}</h1>
-    <div class="ui three column grid link cards">
+    <div class="ui two column grid cards">
       {{#if citiesController.showFeatures}}
         <h4 class="ui horizontal divider header">
           <i class="anchor icon"></i>
           Features
         </h4>
         {{#each (slice 1 20 citiesController.visibleFeatures) as |feature|}}
-          <div class="column" {{action 'openModal' 'feature' feature target=citiesController}}>
+          {{#link-to 'cities.city.features' feature class="column"}}
             <div class="ui fluid card">
               <div class="image">
                 <img src="{{feature.splash}}" style="max-width: 100%;">
@@ -32,7 +33,7 @@
                 </span>
               </div>
             </div>
-          </div>
+          {{/link-to}}
         {{else}}
           <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
             No Results
@@ -46,7 +47,7 @@
           Investments
         </h4>
         {{#each (sort-by "value:desc" "name" citiesController.visibleInvestments) as |investment|}}
-          <div class="column">
+          {{#link-to 'cities.city.features' investment class="column"}}
             <div class="ui fluid card">
               <div class="content">
                 <div class="header">${{number-format investment.value decimals=0}}</div>
@@ -70,7 +71,7 @@
                 <div class="bar"></div>
               {{/ui-progress}}
             </div>
-          </div>
+          {{/link-to}}
         {{else}}
           <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
             No Results
@@ -84,6 +85,5 @@
         </h3>
       {{/if}}
     </div>
-    {{outlet}}
   </div>
 </div>

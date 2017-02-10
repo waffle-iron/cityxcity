@@ -1,0 +1,13 @@
+{{!-- {{#liquid-tether target="#sidebar"
+  targetAttachment='top left'
+  attachment='top left'}} --}}
+  <div class="ui grid detail-full-height">
+    <div class="six wide column detail-full-screen ui segment">
+      <i class="large arrow left icon"></i>
+      <h1>Name: {{model.name}}</h1>
+      <img class="ui image" src={{model.splash}}/>
+    </div>
+  </div>
+{{!-- {{/liquid-tether}} --}}
+
+{{outlet}}

@@ -1,5 +1,5 @@
 <div class="cities ui grid">
-  <div class="list-results nine wide column">
+  <div class="list-results six wide column" id="sidebar">
     <div class="filters">
       <h1>{{currentCity.city.name}}</h1>
       <h4 class="ui header left floated">Filter By</h4>
@@ -101,13 +101,15 @@
       {{outlet}}
     </div>
   </div>
-  <div class="map-results seven wide column">
-    <div class="ui menu">
-      {{#each parcelChoroplethSets as |colorSet|}}
-        <a class="item" {{action 'changeProperty' 'choroplethLayer' colorSet}}>
-          {{colorSet}}
-        </a>
-      {{/each}}
+  <div class="map-results ten wide column">
+    <div class="ui menu choropleth-menu">
+      {{#if showParcels}}
+        {{#each parcelChoroplethSets as |colorSet|}}
+          <a class="item" {{action 'changeProperty' 'choroplethLayer' colorSet}}>
+            {{colorSet}}
+          </a>
+        {{/each}}
+      {{/if}}
     </div>
     <div class="cities-map">
       {{#leaflet-map as |layers|}}
@@ -117,7 +119,7 @@
           {{#if showFeatures}}
             {{#each visibleFeatures as |feature|}}
               {{#if feature.latitude}}
-                {{marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5 onClick=(action 'openModal' 'feature' feature)}}
+                {{marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5 onClick=(action 'linkTo' 'cities.city.features' feature)}}
               {{/if}}
             {{/each}}
           {{/if}}
@@ -125,7 +127,7 @@
           {{#if showInvestments}}
             {{#each visibleInvestments as |investment|}}
               {{#if investment.latitude}}
-                {{marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5}}
+                {{marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5 onClick=(action 'linkTo' 'cities.city.investments' investment)}}
               {{/if}}
             {{/each}}
           {{/if}}
@@ -134,7 +136,7 @@
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}
             {{#if parcel.geom}}
-              {{geojson-layer geoJSON=parcel.geojson style=parcelsChoroplethMapping}}
+              {{geojson-layer geoJSON=parcel.geojson style=parcelsChoroplethMapping onClick=(action 'linkTo' 'cities.city.parcels' parcel)}}
             {{/if}}
           {{/each}}
         {{/if}}
