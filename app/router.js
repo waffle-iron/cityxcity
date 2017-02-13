@@ -8,7 +8,7 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('cities', function() {
-    this.route('city', { path: '/:id' }, function() {
+    this.route('city', { path: '/:city_id' }, function() {
       this.route('features', { path: '/features/:feature_id' });
       this.route('edit-feature', { path: '/features/:feature_id/edit'});
 
@@ -18,6 +18,9 @@ Router.map(function() {
       this.route('investments', { path: '/investments/:investment_id' });
       this.route('edit-investment', { path: '/investments/:investment_id/edit' });
       // just have details view cover filters/list with CSS (position: absolute; left: 0;)
+
+      this.route('new-feature', { path: '/features/new' });
+      this.route('new-investment', { path: '/investments/new' });
 
       // for edit, just have a component with an init that creates the map point through the service
     });

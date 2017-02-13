@@ -1,0 +1,12 @@
+{{#form-for model as |f|}}
+  {{f.text-field "name"}}
+  {{f.text-field "address"}}
+  {{f.text-field "contact"}}
+  {{f.checkbox-field "employer"}}
+  {{f.checkbox-field "activating"}}
+
+  {{!-- these options should be pulled in from the model.. --}}
+  {{f.select-field "assetType" assetTypes}}
+
+  {{f.submit}}
+{{/form-for}}

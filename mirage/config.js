@@ -55,6 +55,10 @@ export default function() {
   this.get('investments/:id');
   this.get('parcels/:id');
 
+  this.post('features');
+  this.post('investments');
+  this.post('parcels');
+
   this.patch('features/:id');
   this.patch('investments/:id');
   this.patch('parcels/:id');

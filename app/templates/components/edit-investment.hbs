@@ -1,0 +1,10 @@
+{{#form-for model as |f|}}
+  {{f.text-field "name"}}
+  {{f.text-field "address"}}
+  {{f.text-field "contact"}}
+  {{f.checkbox-field "activating"}}
+  {{f.text-field "value"}}
+  {{f.select-field "type" investmentTypes}}
+
+  {{f.submit}}
+{{/form-for}}

@@ -5,7 +5,7 @@ export default Ember.Route.extend({
   currentCity: Ember.inject.service(),
   model(params) {
     let cities = this.modelFor('cities');
-    let city = cities.findBy('id', params.id);
+    let city = cities.findBy('id', params.city_id);
 
     return RSVP.hash({
       city,
