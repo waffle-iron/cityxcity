@@ -10,7 +10,7 @@ Router.map(function() {
   this.route('cities', function() {
     this.route('city', { path: '/:id' }, function() {
       this.route('features', { path: '/features/:feature_id' });
-      this.route('edit-feature', { path: '/features/:id/edit'});
+      this.route('edit-feature', { path: '/features/:feature_id/edit'});
 
       this.route('parcels', { path: '/parcels/:parcel_id' });
       this.route('edit-parcel', { path: '/parcels/:parcel_id/edit' });

@@ -47,7 +47,7 @@
           Investments
         </h4>
         {{#each (sort-by "value:desc" "name" citiesController.visibleInvestments) as |investment|}}
-          {{#link-to 'cities.city.features' investment class="column"}}
+          {{#link-to 'cities.city.investments' investment class="column"}}
             <div class="ui fluid card">
               <div class="content">
                 <div class="header">${{number-format investment.value decimals=0}}</div>

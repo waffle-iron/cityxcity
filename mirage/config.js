@@ -55,6 +55,10 @@ export default function() {
   this.get('investments/:id');
   this.get('parcels/:id');
 
+  this.patch('features/:id');
+  this.patch('investments/:id');
+  this.patch('parcels/:id');
+
   this.post('token', ({ users }, request) => {
     // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.
     let parsed = JSON.parse(request.requestBody);

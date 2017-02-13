@@ -1,0 +1,15 @@
+<div class="ui grid detail-full-height">
+  <div class="six wide column detail-full-screen ui segment">
+    {{link-to '' 'cities.city.investments' model class='large arrow left has-pointer icon' tagName='i'}}
+    {{#form-for model as |f|}}
+      {{f.text-field "name"}}
+      {{f.text-field "address"}}
+      {{f.text-field "contact"}}
+      {{f.checkbox-field "activating"}}
+      {{f.text-field "value"}}
+      {{f.select-field "type" investmentTypes}}
+
+      {{f.submit}}
+    {{/form-for}}
+  </div>
+</div>

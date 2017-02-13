@@ -5,7 +5,7 @@ export default DS.Model.extend({
   name: DS.attr("string"),
   address: DS.attr("string"),
   contact: DS.attr("string"),
-  employer: DS.attr("string"),
+  employer: DS.attr("boolean"),
   activating: DS.attr("boolean"),
   assetType: DS.attr("string"),
   subtype: DS.attr("string"),
