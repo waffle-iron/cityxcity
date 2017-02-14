@@ -6,6 +6,42 @@ export default function() {
   this.get('cities');
   this.get('cities/:id');
 
+  this.get('cities/:id/features', function({ cities }, { params }) {
+    let city = cities.findBy({
+      id: params.id
+    });
+
+    if (!city) {
+      return [];
+    }
+
+    return city.features;
+  });
+
+  this.get('cities/:id/investments', function({ cities }, { params }) {
+    let city = cities.findBy({
+      id: params.id
+    });
+
+    if (!city) {
+      return [];
+    }
+
+    return city.investments;
+  });
+
+  this.get('cities/:id/parcels', function({ cities }, { params }) {
+    let city = cities.findBy({
+      id: params.id
+    });
+
+    if (!city) {
+      return [];
+    }
+
+    return city.parcels;
+  });
+
   this.get('features', function({ features }) {
     let json = this.serialize(features.all());
     json.meta = {

@@ -1,20 +1,26 @@
 <nav>
-  <div class="logo">
-    {{#link-to 'cities' class="cities-link"}}Cities >{{/link-to}}
-  </div>
+  <div class="ui menu">
+    <div class="cubes item">
+      {{#link-to 'cities' class='cities-link'}}
+        <i class="grid layout icon"></i>
+      {{/link-to}}
+    </div>
     {{#each model as |city|}}
-      {{#link-to 'cities.city.details' city class="city menu"}}
+      {{#link-to 'cities.city.details' city.id class="item"}}
         {{city.name}}
       {{/link-to}}
     {{/each}}
-  <div class="menu">
-    {{#if session.isAuthenticated}}
-      <a {{action 'invalidateSession'}}>Logout</a>
-    {{else}}
-      {{link-to 'Login' 'login' class='login-link'}}
-    {{/if}}
+    <div class="right menu">
+      <div class="item">
+        {{#if session.isAuthenticated}}
+          <a {{action 'invalidateSession'}}>Logout</a>
+        {{else}}
+          {{link-to 'Login' 'login' class='login-link'}}
+        {{/if}}
+      </div>
+    </div>
   </div>
 </nav>
-<main>
+<main class="ui bottom attached segment">
   {{outlet}}
 </main>

@@ -1,12 +1,22 @@
 import Ember from 'ember';
+import RSVP from 'rsvp';
 
 export default Ember.Route.extend({
   currentCity: Ember.inject.service(),
   model(params) {
-    return this.store.findRecord('city', params.id);
+    let cities = this.modelFor('cities');
+    let city = cities.findBy('id', params.id);
+
+    return RSVP.hash({
+      city,
+      features: city.get('features'),
+      investments: city.get('investments'),
+      parcels: city.get('parcels')
+    });
   },
-  afterModel(city) {
+  
+  afterModel(model) {
     let currentCity = this.get('currentCity');
-    currentCity.setCity(city);
+    currentCity.setCity(model.city);
   }
 });

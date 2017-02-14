@@ -6,6 +6,7 @@ export default DS.Model.extend({
   latitude: DS.attr('number'),
   longitude: DS.attr('number'),
   features: DS.hasMany('feature'),
+  fellows: DS.attr('boolean'),
   parcels: DS.hasMany('parcel'),
   investments: DS.hasMany('investment')
 });

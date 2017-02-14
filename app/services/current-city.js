@@ -16,5 +16,8 @@ export default Ember.Service.extend({
       latitude,
       longitude
     });
+  },
+  applyProperty() {
+
   }
 });

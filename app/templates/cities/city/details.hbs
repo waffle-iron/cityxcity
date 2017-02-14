@@ -1,7 +1,84 @@
-Features: 
-<ul>
-{{#each currentCity.city.features as |feature|}}
-  <li>{{feature.name}}</li>
-{{/each}}
-</ul>
+<div class="ui three column grid link cards">
+  {{#if citiesController.showFeatures}}
+    <h4 class="ui horizontal divider header">
+      <i class="anchor icon"></i>
+      Features
+    </h4>
+    {{#each citiesController.visibleFeatures as |feature|}}
+      <div class="column feature-card">
+        <div class="ui fluid card">
+          <div class="image">
+            <img src="{{feature.splash}}" style="max-width: 100%;">
+          </div>
+          <div class="content">
+            <div class="header">{{feature.name}}</div>
+            <div class="meta">
+              <a>{{feature.type}}</a>
+            </div>
+            <div class="description">
+              {{feature.comments}}
+            </div>
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              Opened
+            </span>
+            <span>
+              <i class="user icon"></i>
+              {{feature.activating}}
+            </span>
+          </div>
+        </div>
+      </div>
+    {{else}}
+      <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
+        No Results
+      </h3>
+    {{/each}}
+  {{/if}}
+
+  {{#if citiesController.showInvestments}}
+    <h4 class="ui horizontal divider header">
+      <i class="anchor icon"></i>
+      Investments
+    </h4>
+    {{#each (sort-by "value:desc" "name" citiesController.visibleInvestments) as |investment|}}
+      <div class="column investment-card">
+        <div class="ui fluid card">
+          <div class="content">
+            <div class="header">${{investment.value}}</div>
+            <div class="meta">
+              <a>{{investment.type}}</a>
+            </div>
+            <div class="description">
+              {{investment.name}}
+            </div>
+          </div>
+          <div class="extra content">
+            <span class="right floated">
+              Opened
+            </span>
+            <span>
+              <i class="user icon"></i>
+              {{investment.activating}}
+            </span>
+          </div>
+          {{#ui-progress value=investment.value total=citiesController.maxInvestments class="ui bottom attached progress"}}
+            <div class="bar"></div>
+          {{/ui-progress}}
+        </div>
+      </div>
+    {{else}}
+      <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
+        No Results
+      </h3>
+    {{/each}}
+  {{/if}}
+
+  {{#if (and (not citiesController.showFeatures) (not citiesController.showInvestments) (not citiesController.showParcels))}}
+    <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
+      Select a Filter Above
+    </h3>
+  {{/if}}
+</div>
 {{outlet}}
