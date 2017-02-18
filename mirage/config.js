@@ -1,4 +1,5 @@
 import Mirage from 'ember-cli-mirage';
+import config from '../config/environment';
 
 export default function() {
   this.namespace = '/api';
@@ -53,6 +54,14 @@ export default function() {
   this.get('features/:id');
   this.get('investments/:id');
   this.get('parcels/:id');
+
+  this.post('features');
+  this.post('investments');
+  this.post('parcels');
+
+  this.patch('features/:id');
+  this.patch('investments/:id');
+  this.patch('parcels/:id');
 
   this.post('token', ({ users }, request) => {
     // NOTE: the authenticator sends this as form-encoded. see: https://github.com/simplabs/ember-simple-auth/blob/master/addon/authenticators/oauth2-password-grant.js#L295.

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { describeModule, it } from 'ember-mocha';
 
-describeModule('controller:cities/city/details', 'Unit | Controller | cities/city/details',
+describeModule('controller:cities/city/investments', 'Unit | Controller | cities/city/investments',
   {
     // Specify the other units that are required for this test.
     // needs: ['controller:foo']
