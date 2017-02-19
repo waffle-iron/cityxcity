@@ -15,11 +15,12 @@
       {{/if}}
     </div>
     <div class="cities-map">
-      {{#leaflet-map onMoveend=(action 'updateNewPoint') as |layers|}}
+      {{#leaflet-map onMove=(action 'updateNewPoint') as |layers|}}
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
         {{#if currentCity.isPlottingPoint}}
-          <i class="crosshair huge marker icon"></i>
+          {{!-- <i class="crosshair huge marker icon"></i> --}}
+          {{marker-layer lat=currentCity.newPointLatitude lng=currentCity.newPointLongitude}}
         {{/if}}
 
         {{#marker-cluster-layer}}

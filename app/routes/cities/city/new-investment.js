@@ -4,14 +4,17 @@ export default Ember.Route.extend({
   currentCity: Ember.inject.service(),
   model(params) {
     let city = this.modelFor('cities.city');
-    let currentCity = this.get('currentCity');
     return this.store.createRecord('investment', {
       // oof
-      latitude: currentCity.get('newPointLatitude'),
-      longitude: currentCity.get('newPointLongitude'),
       city: city.city
     });
   },
+
+  setupController(controller, model){ 
+    this._super(controller, model);
+    controller.set('currentCity', Ember.inject.service('currentCity'));
+  },
+  
   actions: {
     didTransition() {
       console.log('didTransition');
