@@ -24,6 +24,12 @@ html, body {
   z-index: 9999;
 }
 
+.sidebar-tab {
+  position: absolute;
+  left:0;
+  z-index: 9999;
+}
+
 .crosshair {
   position: absolute;
   top: 49%;
@@ -43,6 +49,10 @@ nav {
 
 main {
   height: 100%;
+}
+
+.hide-sidebar {
+  display: none;
 }
 
 .cities {

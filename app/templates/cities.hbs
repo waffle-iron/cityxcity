@@ -1,10 +1,10 @@
 <div class="cities ui grid">
-  <div class="list-results six wide column" id="sidebar">
+  <div class="list-results six wide column" id="sidebar" style="{{if hideSidebar 'display: none;'}}">
     <div class="city-details">
       {{outlet}}
     </div>
   </div>
-  <div class="map-results ten wide column">
+  <div class="map-results ten{{if hideSidebar 'sixteen'}} wide column">
     <div class="ui menu choropleth-menu">
       {{#if showParcels}}
         {{#each parcelChoroplethSets as |colorSet|}}
@@ -15,11 +15,13 @@
       {{/if}}
     </div>
     <div class="cities-map">
-      {{#leaflet-map onMove=(action 'updateNewPoint') as |layers|}}
+      <button class="ui icon button sidebar-tab" onclick={{action 'toggleSidebar'}}>
+        <i class="options icon"></i>
+      </button>
+      {{#leaflet-map onMove=(action 'updateNewPoint') onLoad=(action 'initMap') as |layers|}}
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 
         {{#if currentCity.isPlottingPoint}}
-          {{!-- <i class="crosshair huge marker icon"></i> --}}
           {{marker-layer lat=currentCity.newPointLatitude lng=currentCity.newPointLongitude}}
         {{/if}}
 
