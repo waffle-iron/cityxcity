@@ -20,12 +20,5 @@ export default Ember.Service.extend({
 
   isPlottingPoint: false,
   newPointLatitude: SOUTHWICK_LATITUDE,
-  newPointLongitude: SOUTHWICK_LONGITUDE,
-  updateNewPoint(map) {
-    let center = map.target.getCenter();
-    
-    this.setProperties({
-      'newPointLatitude': center.lat,
-      'newPointLongitude': center.lng });
-  }
+  newPointLongitude: SOUTHWICK_LONGITUDE
 });

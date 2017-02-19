@@ -1,4 +1,4 @@
-{{#form-for model as |f|}}
+{{#form-for model submit=(action 'submit') as |f|}}
   {{f.text-field "name"}}
   {{f.text-field "address"}}
   {{f.text-field "contact"}}
