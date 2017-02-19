@@ -15,21 +15,28 @@
       {{/if}}
     </div>
     <div class="cities-map">
-      {{#leaflet-map as |layers|}}
+      {{#leaflet-map onMove=(action 'updateNewPoint') as |layers|}}
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+        {{#if currentCity.isPlottingPoint}}
+          {{!-- <i class="crosshair huge marker icon"></i> --}}
+          {{marker-layer lat=currentCity.newPointLatitude lng=currentCity.newPointLongitude}}
+        {{/if}}
 
         {{#marker-cluster-layer}}
           {{#if showFeatures}}
             {{#each visibleFeatures as |feature|}}
-              {{#if feature.latitude}}
+              {{#if (and feature.latitude feature.id)}}
                 {{marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5 onClick=(action 'linkTo' 'cities.city.features' feature)}}
               {{/if}}
             {{/each}}
           {{/if}}
+        {{/marker-cluster-layer}}
 
+        {{#marker-cluster-layer}}
           {{#if showInvestments}}
             {{#each visibleInvestments as |investment|}}
-              {{#if investment.latitude}}
+              {{#if (and investment.latitude investment.id)}}
                 {{marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5 onClick=(action 'linkTo' 'cities.city.investments' investment)}}
               {{/if}}
             {{/each}}
@@ -48,6 +55,7 @@
           {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
           {{/marker-layer}}
         {{/each}}
+
       {{/leaflet-map}}
     </div>
   </div>

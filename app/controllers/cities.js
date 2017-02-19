@@ -127,6 +127,18 @@ export default Ember.Controller.extend({
     },
     changeProperty(key, value) {
       this.set(key, value);
+    },
+    updateNewPoint(map) {
+      let currentCity = this.get('currentCity');
+      let center = map.target.getCenter();
+      
+      Ember.run.next(this, () => {
+        currentCity.setProperties({
+          'newPointLatitude': center.lat,
+          'newPointLongitude': center.lng 
+        });
+      });
+
     }
   },
 
