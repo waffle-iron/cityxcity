@@ -1,17 +1,9 @@
-{{!-- {{#liquid-tether target="#sidebar"
-  targetAttachment='top left'
-  attachment='top left'}} --}}
-  <div class="ui grid detail-full-height">
-    <div class="six wide column detail-full-screen ui segment">
-      {{link-to '' 'cities.city' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
-      {{#if session.isAuthenticated}}
-        {{link-to '' 'cities.city.edit-investment' model class='large edit has-pointer icon' tagName='i'}}
-      {{/if}}
-      <h1>Name: {{model.name}}</h1>
-      <h2>Value: {{model.value}}</h2>
-      <h2>Type: {{model.type}}</h2>
-    </div>
-  </div>
-{{!-- {{/liquid-tether}} --}}
+{{link-to '' 'cities.city.city-filters' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
+{{#if session.isAuthenticated}}
+  {{link-to '' 'cities.city.edit-investment' model class='large edit has-pointer icon' tagName='i'}}
+{{/if}}
+<h1>Name: {{model.name}}</h1>
+<h2>Value: {{model.value}}</h2>
+<h2>Type: {{model.type}}</h2>
 
 {{outlet}}

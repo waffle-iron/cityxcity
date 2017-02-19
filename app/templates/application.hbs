@@ -10,7 +10,7 @@
       <i class="dropdown icon"></i>
       <div class="menu">
         {{#each model as |city|}}
-          {{#link-to 'cities.city' city.id class="item" tagName='a'}}
+          {{#link-to 'cities.city.city-filters' city.id class="item" tagName='a'}}
             {{city.name}}
           {{/link-to}}
         {{/each}}

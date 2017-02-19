@@ -9,6 +9,8 @@ const Router = Ember.Router.extend({
 Router.map(function() {
   this.route('cities', function() {
     this.route('city', { path: '/:city_id' }, function() {
+      this.route('city-filters', { path: '/show' });
+
       this.route('features', { path: '/features/:feature_id' });
       this.route('edit-feature', { path: '/features/:feature_id/edit'});
 

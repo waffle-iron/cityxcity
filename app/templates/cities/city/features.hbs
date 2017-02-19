@@ -1,12 +1,9 @@
-<div class="ui grid detail-full-height">
-  <div class="six wide column detail-full-screen ui segment">
-    {{link-to '' 'cities.city' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
-    {{#if session.isAuthenticated}}
-      {{link-to '' 'cities.city.edit-feature' model class='large edit has-pointer icon' tagName='i'}}
-    {{/if}}
-    <h1>Name: {{model.name}}</h1>
-    <img class="ui image" src={{model.splash}}/>
-  </div>
-</div>
+{{link-to '' 'cities.city.city-filters' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
+{{#if session.isAuthenticated}}
+  {{link-to '' 'cities.city.edit-feature' model class='large edit has-pointer icon' tagName='i'}}
+{{/if}}
+<h1>Name: {{model.name}}</h1>
+<img class="ui image" src={{model.splash}}/>
+
 
 {{outlet}}
