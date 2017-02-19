@@ -15,8 +15,10 @@
       {{/if}}
     </div>
     <div class="cities-map">
-      {{#leaflet-map as |layers|}}
+      {{#leaflet-map onMoveend=(action 'updateNewPoint') as |layers|}}
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+        <i class="crosshair huge marker icon"></i>
 
         {{#marker-cluster-layer}}
           {{#if showFeatures}}
@@ -50,6 +52,7 @@
           {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
           {{/marker-layer}}
         {{/each}}
+
       {{/leaflet-map}}
     </div>
   </div>

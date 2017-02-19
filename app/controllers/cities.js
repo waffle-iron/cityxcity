@@ -127,6 +127,10 @@ export default Ember.Controller.extend({
     },
     changeProperty(key, value) {
       this.set(key, value);
+    },
+    updateNewPoint(map) {
+      let currentCity = this.get('currentCity');
+      currentCity.updateNewPoint(map);
     }
   },
 
