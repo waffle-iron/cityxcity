@@ -71,6 +71,7 @@ export default Ember.Controller.extend({
   parcelChoroplethSets: PARCEL_MAP_CONFIG.mapBy('setName'),
 
   currentFeature: null,
+  hideSidebar: false,
 
   // applied computed filters
   visibleFeatures: Ember.computed(...FEATURE_PARAMS, 'currentCity.city.features', 
@@ -105,6 +106,11 @@ export default Ember.Controller.extend({
       let id = city.get('id');
       this.transitionToRoute('cities.city', id);
     },
+    initMap(event) {
+      let map = event.target;
+      this.set('mapInstance', map);
+      map.zoomControl.setPosition('bottomright');
+    },
     composeList(option, optionsList) {
       let list = this.get(optionsList).split('|');
       if(list.isAny('', option)) {
@@ -127,6 +133,13 @@ export default Ember.Controller.extend({
     },
     changeProperty(key, value) {
       this.set(key, value);
+    },
+    toggleSidebar() {
+      let map = this.get('mapInstance');
+      this.toggleProperty('hideSidebar');
+      Ember.run.next(this, () => {
+        map.invalidateSize();
+      });
     },
     updateNewPoint(map) {
       let currentCity = this.get('currentCity');
