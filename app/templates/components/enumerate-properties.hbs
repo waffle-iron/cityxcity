@@ -1,0 +1,16 @@
+<table class="ui basic table">
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each properties as |property|}}
+      <tr>
+        <td>{{property}}</td>
+        <td>{{get model property}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

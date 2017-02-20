@@ -82,6 +82,18 @@
       Parcels Filters
     </h4>
     <div class="ui segment">
+      <div class="ui top attached label">Symbolize Map</div>
+      <div class="ui menu">
+        {{#if cc.showParcels}}
+          {{#each cc.parcelChoroplethSets as |colorSet|}}
+            <a class="item" {{action 'changeProperty' 'choroplethLayer' colorSet target=cc}}>
+              {{colorSet}}
+            </a>
+          {{/each}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="ui segment">
       <div class="ui top attached label">Other Categories</div>
       <div class="ui horizontal list">
         {{ui-checkbox label="For Lease" class="item" checked=cc.forLease onChange=(action (mut forLease) target=cc)}}

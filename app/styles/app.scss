@@ -26,15 +26,20 @@ html, body {
 
 .sidebar-tab {
   position: absolute;
-  left:0;
+  left:-15px;
   z-index: 9999;
+  top:49%;
 }
 
-.crosshair {
-  position: absolute;
-  top: 49%;
-  left: 49%;
-  z-index: 1000;
+.resource-nav-menu {
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+}
+
+.hidden-custom {
+  display: none;
+  visibility: inherit;
 }
 
 /* nav */

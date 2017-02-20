@@ -1,9 +1,17 @@
-{{link-to '' 'cities.city.city-filters' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
-{{#if session.isAuthenticated}}
-  {{link-to '' 'cities.city.edit-investment' model class='large edit has-pointer icon' tagName='i'}}
-{{/if}}
-<h1>Name: {{model.name}}</h1>
-<h2>Value: {{model.value}}</h2>
-<h2>Type: {{model.type}}</h2>
-
-{{outlet}}
+<div class="investments">
+  <h2 class="ui header">
+    <i class="dollar icon"></i>
+    <div class="content">
+      {{model.name}}
+      <div class="sub header">{{model.assetType}}</div>
+    </div>
+  </h2>
+  {{enumerate-properties 
+    model=model
+    properties=(array 'name' 'value' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
+  {{resource-nav-menu 
+    session=session 
+    routeSegment='edit-investment'
+    model=model}}
+</div>
+<br/><br/><br/>

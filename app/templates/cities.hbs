@@ -1,23 +1,12 @@
 <div class="cities ui grid">
-  <div class="list-results six wide column" id="sidebar" style="{{if hideSidebar 'display: none;'}}">
+  <div class="list-results ui segment seven wide column" id="sidebar">
     <div class="city-details">
       {{outlet}}
     </div>
   </div>
-  <div class="map-results ten{{if hideSidebar 'sixteen'}} wide column">
-    <div class="ui menu choropleth-menu">
-      {{#if showParcels}}
-        {{#each parcelChoroplethSets as |colorSet|}}
-          <a class="item" {{action 'changeProperty' 'choroplethLayer' colorSet}}>
-            {{colorSet}}
-          </a>
-        {{/each}}
-      {{/if}}
-    </div>
+  <div class="map-results {{if (not hideSidebar) 'nine'}}{{if hideSidebar 'sixteen'}} wide column" style="padding: 0 !important;">
     <div class="cities-map">
-      <button class="ui icon button sidebar-tab" onclick={{action 'toggleSidebar'}}>
-        <i class="options icon"></i>
-      </button>
+      <i class="large circular white {{if (not hideSidebar) 'compress'}} link icon sidebar-tab {{if hideSidebar 'expand'}}" onclick={{action 'toggleSidebar'}} style="background-color:white"></i>
       {{#leaflet-map onMove=(action 'updateNewPoint') onLoad=(action 'initMap') as |layers|}}
         {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
 

@@ -1,0 +1,11 @@
+<div class="ui horizontal list resource-nav-menu">
+  {{#link-to (concat 'cities.city.city-filters') model.city.id class='item'}}
+    <i class='large black circular arrow link left icon' style="background-color: white;"></i>
+  {{/link-to}}
+
+  {{#if (and session.isAuthenticated routeSegment)}}
+    {{#link-to (concat 'cities.city.' routeSegment) model class='item'}}
+      <i class='large black circular link edit icon' style="background-color: white;"></i>
+    {{/link-to}}
+  {{/if}}
+</div>

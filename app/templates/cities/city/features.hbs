@@ -1,9 +1,17 @@
-{{link-to '' 'cities.city.city-filters' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
-{{#if session.isAuthenticated}}
-  {{link-to '' 'cities.city.edit-feature' model class='large edit has-pointer icon' tagName='i'}}
-{{/if}}
-<h1>Name: {{model.name}}</h1>
-<img class="ui image" src={{model.splash}}/>
-
-
-{{outlet}}
+<div class="features">
+  <h2 class="ui header">
+    <img class="ui circular image" src={{model.splash}}/>
+    <div class="content">
+      {{model.name}}
+      <div class="sub header">{{model.assetType}}</div>
+    </div>
+  </h2>
+  {{enumerate-properties 
+    model=model
+    properties=(array 'name' 'address' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
+  {{resource-nav-menu 
+    session=session 
+    routeSegment='edit-feature'
+    model=model}}
+</div>
+<br/><br/><br/>

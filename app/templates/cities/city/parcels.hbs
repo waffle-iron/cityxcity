@@ -1,7 +1,17 @@
-{{link-to '' 'cities.city.city-filters' model.city.id class='large arrow left has-pointer icon' tagName='i'}}
-{{#if session.isAuthenticated}}
-  {{link-to '' 'cities.city.edit-parcel' model class='large edit has-pointer icon' tagName='i'}}
-{{/if}}
-<h1>Name: {{model.name}}</h1>
-
-{{outlet}}
+<div class="parcels">
+  <h2 class="ui header">
+    <i class="block layout icon"></i>
+    <div class="content">
+      {{model.name}}
+      <div class="sub header">{{model.type}}</div>
+    </div>
+  </h2>
+  {{enumerate-properties 
+    model=model
+    properties=(array 'name' 'value' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
+  {{resource-nav-menu 
+    session=session 
+    routeSegment='edit-parcel'
+    model=model}}
+</div>
+<br/><br/><br/>

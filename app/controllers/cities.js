@@ -138,8 +138,22 @@ export default Ember.Controller.extend({
       let map = this.get('mapInstance');
       this.toggleProperty('hideSidebar');
       Ember.run.next(this, () => {
-        map.invalidateSize();
+        $('.list-results')
+          .transition({
+            animation: 'slide right',
+            className: {
+              'hidden': 'hidden-custom'
+            },
+            onStart() {
+              map.invalidateSize();
+            },
+            onComplete() {
+              map.invalidateSize();
+            }
+          });
+        ;
       });
+
     },
     updateNewPoint(map) {
       let currentCity = this.get('currentCity');
