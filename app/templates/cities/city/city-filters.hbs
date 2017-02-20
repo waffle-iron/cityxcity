@@ -1,23 +1,23 @@
  <div class="ui container">
   <h1>{{currentCity.city.name}}</h1>
 
-  <h4 class="ui header left floated">Filter By</h4>
+  <h4 class="ui header left floated">Add to Map:</h4>
   <div class="ui three item menu">
     <div class="ui item">
-      {{ui-checkbox label="Amenities" checked=cc.showFeatures onChange=(action (mut cc.showFeatures))}}
+      {{ui-checkbox label="Features" checked=cc.showFeatures onChange=(action (mut cc.showFeatures))}}
     </div>
     <div class="ui item">
       {{ui-checkbox label="Investments" checked=cc.showInvestments onChange=(action (mut cc.showInvestments))}}
     </div>
     <div class="ui item">
-      {{ui-checkbox label="Opportunities" checked=cc.showParcels onChange=(action (mut cc.showParcels))}}
+      {{ui-checkbox label="Parcels" checked=cc.showParcels onChange=(action (mut cc.showParcels))}}
     </div>
   </div>
 
   {{#if (and (not cc.showFeatures) (not cc.showInvestments) (not cc.showParcels))}}
-    <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
+    <h4 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
       Select a Filter Above
-    </h3>
+    </h4>
   {{/if}}
 
   {{#if cc.showFeatures}}
@@ -102,85 +102,9 @@
     </div>
   {{/if}}
 
-  <div class="cities-sidebar">
-    <div class="ui container">
-      <div class="ui two column grid cards">
-        {{#if cc.showFeatures}}
-          <h4 class="ui horizontal divider header">
-            <i class="anchor icon"></i>
-            Features
-          </h4>
-          {{#each (slice 1 20 cc.visibleFeatures) as |feature|}}
-            {{#link-to 'cities.city.features' feature class="column"}}
-              <div class="ui fluid card">
-                <div class="image">
-                  <img src="{{feature.splash}}" style="max-width: 100%;">
-                </div>
-                <div class="content">
-                  <div class="header">{{feature.name}}</div>
-                  <div class="meta">
-                    <a>{{feature.type}}</a>
-                  </div>
-                  <div class="description">
-                    {{feature.comments}}
-                  </div>
-                </div>
-                <div class="extra content">
-                  <span class="right floated">
-                    Opened
-                  </span>
-                  <span>
-                    <i class="user icon"></i>
-                    {{feature.activating}}
-                  </span>
-                </div>
-              </div>
-            {{/link-to}}
-          {{else}}
-            <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
-              No Results
-            </h3>
-          {{/each}}
-        {{/if}}
-
-        {{#if cc.showInvestments}}
-          <h4 class="ui horizontal divider header">
-            <i class="anchor icon"></i>
-            Investments
-          </h4>
-          {{#each (sort-by "value:desc" "name" cc.visibleInvestments) as |investment|}}
-            {{#link-to 'cities.city.investments' investment class="column"}}
-              <div class="ui fluid card">
-                <div class="content">
-                  <div class="header">${{number-format investment.value decimals=0}}</div>
-                  <div class="meta">
-                    <a>{{investment.type}}</a>
-                  </div>
-                  <div class="description">
-                    {{investment.name}}
-                  </div>
-                </div>
-                <div class="extra content">
-                  <span class="right floated">
-                    Opened
-                  </span>
-                  <span>
-                    <i class="user icon"></i>
-                    {{investment.activating}}
-                  </span>
-                </div>
-                {{#ui-progress value=investment.value total=cc.maxInvestments class="ui bottom attached progress"}}
-                  <div class="bar"></div>
-                {{/ui-progress}}
-              </div>
-            {{/link-to}}
-          {{else}}
-            <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
-              No Results
-            </h3>
-          {{/each}}
-        {{/if}}
-      </div>
-    </div>
-  </div>
+  {{tabbed-results  visibleFeatures     = cc.visibleFeatures 
+                    showFeatures        = cc.showFeatures
+                    visibleInvestments  = cc.visibleInvestments
+                    showInvestments     = cc.showInvestments 
+                    maxInvestments      = cc.maxInvestments   }}
 </div>
