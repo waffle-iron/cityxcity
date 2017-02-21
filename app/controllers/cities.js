@@ -58,6 +58,7 @@ export default Ember.Controller.extend({
   showInvestments: false,
   showFeatures: false,
   showParcels: false,
+  basemap: 'default',
 
   choroplethLayer: 'forSaleLease',
   parcelsChoroplethMapping: Ember.computed('visibleParcels', 'choroplethLayer', function() {
@@ -109,7 +110,7 @@ export default Ember.Controller.extend({
     initMap(event) {
       let map = event.target;
       this.set('mapInstance', map);
-      map.zoomControl.setPosition('bottomright');
+      map.zoomControl.setPosition('topright');
     },
     composeList(option, optionsList) {
       let list = this.get(optionsList).split('|');
@@ -158,7 +159,7 @@ export default Ember.Controller.extend({
     updateNewPoint(map) {
       let currentCity = this.get('currentCity');
       let center = map.target.getCenter();
-      
+
       Ember.run.next(this, () => {
         currentCity.setProperties({
           'newPointLatitude': center.lat,
@@ -166,6 +167,19 @@ export default Ember.Controller.extend({
         });
       });
 
+    },
+    currentMapState(map) {
+      let center = map.target.getCenter();
+      let zoom = map.target.getZoom();
+      let layerPoint = map.target.project(center).divideBy(256).floor();
+
+      Ember.run.next(this, () => {
+        this.setProperties({
+          layerPointx: layerPoint.x,
+          layerPointy: layerPoint.y,
+          layerPointz: zoom
+        });
+      });
     }
   },
 
