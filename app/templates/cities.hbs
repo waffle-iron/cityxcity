@@ -7,8 +7,39 @@
   <div class="map-results {{if (not hideSidebar) 'nine'}}{{if hideSidebar 'sixteen'}} wide column" style="padding: 0 !important;">
     <div class="cities-map">
       <i class="large circular white {{if (not hideSidebar) 'compress'}} link icon sidebar-tab {{if hideSidebar 'expand'}}" onclick={{action 'toggleSidebar'}} style="background-color:white"></i>
-      {{#leaflet-map onMove=(action 'updateNewPoint') onLoad=(action 'initMap') as |layers|}}
-        {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+
+      <div class="ui horizontal list basemap-menu">
+        <div class="item has-pointer" onclick={{action (mut basemap) 'default'}}>
+          <img src="http://c.basemaps.cartocdn.com/light_all/{{layerPointz}}/{{layerPointx}}/{{layerPointy}}.png" class="ui mini circular bordered image"/>
+          <div class="content">
+            <div class="header">Default</div>
+          </div>
+        </div>
+        <div class="item has-pointer" onclick={{action (mut basemap) 'osm'}}>
+          <img src="https://a.tile.openstreetmap.org/{{layerPointz}}/{{layerPointx}}/{{layerPointy}}.png" class="ui mini circular bordered image"/>
+          <div class="content">
+            <div class="header">OSM</div>
+          </div>
+        </div>
+        <div class="item has-pointer" onclick={{action (mut basemap) 'satellite'}}>
+          <img src="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{{layerPointz}}/{{layerPointy}}/{{layerPointx}}" class="ui mini circular bordered image"/>
+          <div class="content">
+            <div class="header">Satellite</div>
+          </div>
+        </div>
+      </div>
+
+      {{#leaflet-map onMove=(action 'updateNewPoint') onMoveend=(action 'currentMapState') onLoad=(action 'initMap') as |layers|}}
+
+        {{#if (eq basemap 'default')}}
+          {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
+        {{/if}}
+        {{#if (eq basemap 'osm')}}
+          {{tile-layer url='https://a.tile.openstreetmap.org/{z}/{x}/{y}.png'}}
+        {{/if}}
+        {{#if (eq basemap 'satellite')}}
+          {{tile-layer url='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'}}
+        {{/if}}
 
         {{#if currentCity.isPlottingPoint}}
           {{marker-layer lat=currentCity.newPointLatitude lng=currentCity.newPointLongitude}}
