@@ -1,2 +1,9 @@
 <h1>Add a new investment</h1>
-{{edit-investment model=model}}
+{{#edit-resource model=model as |field|}}
+  {{field.form.text-field "name"}}
+  {{field.form.text-field "address"}}
+  {{field.form.text-field "contact"}}
+  {{field.form.checkbox-field "activating"}}
+  {{field.form.text-field "value"}}
+  {{field.form.select-field "type" field.investmentTypes}}
+{{/edit-resource}}

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { describeComponent, it } from 'ember-mocha';
 import hbs from 'htmlbars-inline-precompile';
 
-describeComponent('edit-investment', 'Integration | Component | edit investment',
+describeComponent('edit-resource', 'Integration | Component | edit resource',
   {
     integration: true
   },
@@ -12,12 +12,12 @@ describeComponent('edit-investment', 'Integration | Component | edit investment'
       // Handle any actions with this.on('myAction', function(val) { ... });
       // Template block usage:
       // this.render(hbs`
-      //   {{#edit-investment}}
+      //   {{#edit-resource}}
       //     template content
-      //   {{/edit-investment}}
+      //   {{/edit-resource}}
       // `);
 
-      this.render(hbs`{{edit-investment}}`);
+      this.render(hbs`{{edit-resource}}`);
       expect(this.$()).to.have.length(1);
     });
   }

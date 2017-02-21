@@ -1,2 +1,15 @@
-{{link-to '' 'cities.city.parcels' model class='large arrow left has-pointer icon' tagName='i'}}
-{{edit-parcel model=model}}
+<h2 class="ui header">
+  <i class="block layout icon"></i>
+  <div class="content">
+    {{model.name}}
+    <div class="sub header">{{model.assetType}}</div>
+  </div>
+</h2>
+
+{{#edit-resource model=model as |field|}}
+  {{field.text-field "name"}}
+  {{field.text-field "address"}}
+  {{field.text-field "contact"}}
+  {{field.checkbox-field "employer"}}
+  {{field.checkbox-field "activating"}}
+{{/edit-resource}}
