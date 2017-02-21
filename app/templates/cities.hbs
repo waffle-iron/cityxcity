@@ -62,7 +62,10 @@
           {{#if showInvestments}}
             {{#each visibleInvestments as |investment|}}
               {{#if (and investment.latitude investment.id)}}
-                {{marker-layer lat=investment.latitude lng=investment.longitude opacity=0.5 onClick=(action 'linkTo' 'cities.city.investments' investment)}}
+                {{marker-layer  lat=investment.latitude 
+                                lng=investment.longitude 
+                                opacity=(if investment.isSelected 1 '0.5')
+                                onClick=(action 'linkTo' 'cities.city.investments' investment)}}
               {{/if}}
             {{/each}}
           {{/if}}
