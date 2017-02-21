@@ -12,6 +12,14 @@ export default DS.Model.extend({
   marked: DS.attr('boolean'),
   forSale: DS.attr('boolean'),
   geom: DS.attr(),
+  latitude: Ember.computed('geojson', function() {
+    let geojson=this.get('geojson');
+    return L.geoJSON(geojson).getBounds().getCenter().lat;
+  }),
+  longitude: Ember.computed('geojson', function() {
+    let geojson=this.get('geojson');
+    return L.geoJSON(geojson).getBounds().getCenter().lng;
+  }),
   geojson: Ember.computed('geom', function() {
     let geojson = Ember.Object.create();
     let properties = Object.keys(this.toJSON()).removeObjects(['geom','city']);
@@ -22,7 +30,11 @@ export default DS.Model.extend({
 
     return geojson;
   }),
-  city: DS.belongsTo('city')
+  city: DS.belongsTo('city'),
+
+  isSelected: DS.attr('boolean', {
+    defaultValue: false
+  })
 });
 
 export const PARCEL_PARAMS = ['groundFloorVacancyMin','groundFloorVacancyMax','landuseTypes','forSale','forLease','yearBuiltMin','yearBuiltMax'];

@@ -64,8 +64,10 @@ export default Ember.Controller.extend({
   parcelsChoroplethMapping: Ember.computed('visibleParcels', 'choroplethLayer', function() {
     return (feature) => {
       let color = setChoroplethColor(feature, this.get('choroplethLayer'), PARCEL_MAP_CONFIG);
+      let stroke = true;
       return {
-        color
+        color,
+        stroke
       }
     }
   }),

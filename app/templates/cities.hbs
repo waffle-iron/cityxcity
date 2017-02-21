@@ -49,7 +49,10 @@
           {{#if showFeatures}}
             {{#each visibleFeatures as |feature|}}
               {{#if (and feature.latitude feature.id)}}
-                {{marker-layer lat=feature.latitude lng=feature.longitude opacity=0.5 onClick=(action 'linkTo' 'cities.city.features' feature)}}
+                {{marker-layer  lat=feature.latitude 
+                                lng=feature.longitude 
+                                opacity=(if feature.isSelected 1 '0.5')
+                                onClick=(action 'linkTo' 'cities.city.features' feature)}}
               {{/if}}
             {{/each}}
           {{/if}}
@@ -68,7 +71,12 @@
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}
             {{#if parcel.geom}}
-              {{geojson-layer geoJSON=parcel.geojson style=parcelsChoroplethMapping onClick=(action 'linkTo' 'cities.city.parcels' parcel)}}
+              {{geojson-layer geoJSON=parcel.geojson 
+                              style=parcelsChoroplethMapping 
+                              onClick=(action 'linkTo' 'cities.city.parcels' parcel)}}
+              {{#if parcel.isSelected}}
+                {{marker-layer lat=parcel.latitude lng=parcel.longitude opacity=0.5}}
+              {{/if}}
             {{/if}}
           {{/each}}
         {{/if}}

@@ -49,7 +49,7 @@
     "ember-data": "^2.11.0",
     "ember-export-application-global": "^1.0.5",
     "ember-form-for": "2.0.0-alpha.15",
-    "ember-leaflet": "3.0.7",
+    "ember-leaflet": "3.0.9",
     "ember-leaflet-cartodb": "git://github.com/allthesignals/ember-leaflet-cartodb.git",
     "ember-leaflet-marker-cluster": "0.0.5",
     "ember-load-initializers": "^0.5.1",

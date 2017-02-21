@@ -10,7 +10,10 @@ export default DS.Model.extend({
   longitude: DS.attr("number"),
   value: DS.attr("number"),
   type: DS.attr("string"),
-  city: DS.belongsTo("city")
+  city: DS.belongsTo("city"),
+  isSelected: DS.attr('boolean', {
+    defaultValue: false
+  })
 });
 
 export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax'];

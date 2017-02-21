@@ -23,7 +23,11 @@ export default DS.Model.extend({
   }),
   latitude: DS.attr("number"),
   longitude: DS.attr("number"),
-  city: DS.belongsTo("city")
+  city: DS.belongsTo("city"),
+
+  isSelected: DS.attr('boolean', {
+    defaultValue: false
+  })
 });
 
 export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer'];
