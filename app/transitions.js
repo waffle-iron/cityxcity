@@ -1,7 +1,14 @@
 export default function(){
   this.transition(
-    this.fromRoute('cities.city.city-filters'),
-    this.use('toLeft'),
-    this.reverse('toRight')
+    this.toRoute('cities.city.features'),
+    this.use('fade')
+  )
+  this.transition(
+    this.toRoute('cities.city.parcels'),
+    this.use('fade')
+  )
+  this.transition(
+    this.toRoute('cities.city.investments'),
+    this.use('fade')
   )
 };

@@ -1,17 +1,18 @@
-<div class="parcels">
-  <h2 class="ui header">
-    <img class="ui bordered circular image" src={{model.splash}}/>
-    <div class="content">
-      {{model.name}}
-      <div class="sub header">{{model.type}}</div>
-    </div>
-  </h2>
-  {{enumerate-properties 
-    model=model
-    properties=(array 'name' 'value' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
-  {{resource-nav-menu 
-    session=session 
-    routeSegment='edit-parcel'
-    model=model}}
-</div>
-<br/><br/><br/>
+{{#liquid-bind model use="toLeft" class="parcels" as |currentModel|}}
+  {{!-- <div class="parcels"> --}}
+    <h2 class="ui header">
+      <img class="ui bordered circular image" style="min-width: 60px;" src={{model.splash}}/>
+      <div class="content">
+        {{model.name}}
+        <div class="sub header">{{model.type}}</div>
+      </div>
+    </h2>
+    {{enumerate-properties 
+      model=model
+      properties=(array 'name' 'value' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
+    {{resource-nav-menu 
+      session=session 
+      routeSegment='edit-parcel'
+      model=model}}
+  {{!-- </div> --}}
+{{/liquid-bind}}

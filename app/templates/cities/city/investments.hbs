@@ -1,4 +1,4 @@
-<div class="investments">
+{{#liquid-bind model use="toLeft" class="investments" as |currentModel|}}
   <h2 class="ui header">
     <i class="dollar icon"></i>
     <div class="content">
@@ -13,5 +13,4 @@
     session=session 
     routeSegment='edit-investment'
     model=model}}
-</div>
-<br/><br/><br/>
+{{/liquid-bind}}

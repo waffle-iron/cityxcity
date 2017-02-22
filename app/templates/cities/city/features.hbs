@@ -1,6 +1,6 @@
-<div class="features">
+{{#liquid-bind model use="toLeft" class="features" as |currentModel|}}
   <h2 class="ui header">
-    <img class="ui circular image" src={{model.splash}}/>
+    <img class="ui circular image" style="min-width: 60px;" src={{model.splash}}/>
     <div class="content">
       {{model.name}}
       <div class="sub header">{{model.assetType}}</div>
@@ -13,5 +13,4 @@
     session=session 
     routeSegment='edit-feature'
     model=model}}
-</div>
-<br/><br/><br/>
+{{/liquid-bind}}

@@ -36,9 +36,7 @@ export default DS.Model.extend({
   }),
   city: DS.belongsTo('city'),
 
-  isSelected: DS.attr('boolean', {
-    defaultValue: false
-  })
+  isSelected: false
 });
 
 export const PARCEL_PARAMS = ['groundFloorVacancyMin','groundFloorVacancyMax','landuseTypes','forSale','forLease','yearBuiltMin','yearBuiltMax'];
