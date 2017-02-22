@@ -16,8 +16,6 @@ export default Ember.Mixin.create({
       longitude,
       zoom
     });
-
-    window.currentCity = currentCity;
   },
   actions: {
     didTransition() { 

@@ -107,7 +107,7 @@ export default Ember.Controller.extend({
 
     selectCity(city) {
       let id = city.get('id');
-      this.transitionToRoute('cities.city', id);
+      this.transitionToRoute('cities.city.city-filters', id);
     },
     initMap(event) {
       let map = event.target;
