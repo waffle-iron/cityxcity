@@ -22,6 +22,18 @@ export default Ember.Route.extend({
     willTransition(transition) {
       let currentCity = this.get('currentCity');
       currentCity.set('isPlottingPoint', false)
+    },
+    submitRoute(object) {
+      let currentCity = this.get('currentCity');
+      
+      object.setProperties({
+        latitude: currentCity.get('newPointLatitude'),
+        longitude: currentCity.get('newPointLongitude')
+      });
+      
+      return object.save().then((model)=> {
+        this.transitionTo('cities.city.features', model);
+      });
     }
   }
 });

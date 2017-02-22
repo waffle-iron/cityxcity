@@ -143,7 +143,7 @@ export default Ember.Controller.extend({
       Ember.run.next(this, () => {
         $('.list-results')
           .transition({
-            animation: 'slide right',
+            animation: 'fade right',
             className: {
               'hidden': 'hidden-custom'
             },
@@ -168,12 +168,12 @@ export default Ember.Controller.extend({
           'newPointLongitude': center.lng 
         });
       });
-
     },
     currentMapState(map) {
       let center = map.target.getCenter();
       let zoom = map.target.getZoom();
       let layerPoint = map.target.project(center).divideBy(256).floor();
+      let currentCity = this.get('currentCity');
 
       Ember.run.next(this, () => {
         this.setProperties({
@@ -181,7 +181,15 @@ export default Ember.Controller.extend({
           layerPointy: layerPoint.y,
           layerPointz: zoom
         });
+
+        currentCity.setProperties({
+          'selectedPointLatitude': currentCity.newPointLatitude,
+          'selectedPointLongitude': currentCity.newPointLongitude 
+        });
       });
+    },
+    zoomChanged(map) {
+      console.log("zoom changed");
     }
   },
 

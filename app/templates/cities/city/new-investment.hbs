@@ -1,9 +1,17 @@
-<h1>Add a new investment</h1>
-{{#edit-resource model=model as |field|}}
-  {{field.form.text-field "name"}}
-  {{field.form.text-field "address"}}
-  {{field.form.text-field "contact"}}
-  {{field.form.checkbox-field "activating"}}
-  {{field.form.text-field "value"}}
-  {{field.form.select-field "type" field.investmentTypes}}
-{{/edit-resource}}
+<div class="investments">
+  <h2 class="ui header">
+    <i class="dollar icon"></i>
+    <div class="content">
+      {{if model.name model.name 'Create New Investment'}}
+      <div class="sub header">{{model.assetType}}</div>
+    </div>
+  </h2>
+  {{#edit-resource model=model submitRoute=(route-action 'submitRoute') as |field|}}
+    {{field.form.text-field "name"}}
+    {{field.form.text-field "address"}}
+    {{field.form.text-field "contact"}}
+    {{field.form.checkbox-field "activating"}}
+    {{field.form.text-field "value"}}
+    {{field.form.select-field "type" field.investmentTypes}}
+  {{/edit-resource}}
+</div>

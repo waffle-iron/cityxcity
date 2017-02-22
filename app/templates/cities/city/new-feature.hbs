@@ -1,5 +1,12 @@
-<h1>Create a new feature</h1>
-{{#edit-resource model=model as |field|}}
+<div class="investments">
+  <h2 class="ui header">
+    <img class="ui circular image" src='https://maps.googleapis.com/maps/api/streetview?size=450x450&location={{currentCity.selectedPointLatitude}},{{currentCity.selectedPointLongitude}}&key=AIzaSyCO654zBIabvjSOV4Ys59Pku8pmzM387ps'/>
+    <div class="content">
+      {{if model.name model.name 'Create New Feature'}}
+      <div class="sub header">{{model.assetType}}</div>
+    </div>
+  </h2>
+{{#edit-resource model=model submitRoute=(route-action 'submitRoute') as |field|}}
   {{field.form.text-field "name"}}
   {{field.form.text-field "address"}}
   {{field.form.text-field "contact"}}
@@ -9,3 +16,4 @@
   {{!-- these options should be pulled in from the model.. --}}
   {{field.form.select-field "assetType" field.assetTypes}}
 {{/edit-resource}}
+</div>

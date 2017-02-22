@@ -1,11 +1,11 @@
-{{#form-for model submit=(action 'submit') class="ui form" as |f|}}
-  {{yield (hash form=f assetTypes=assetTypes investmentTypes=investmentTypes)}}
-  <div class="ui horizontal list resource-nav-menu">
-    {{#link-to (concat 'cities.city.' modelName) model class='item'}}
-      <i class='large black circular arrow link left icon' style="background-color: white;"></i>
-    {{/link-to}}
-    <div class="item" onclick={{action 'submit' model}}>
-      <i class='large black circular link save icon' style="background-color: white;"></i>
-    </div>
+<div class="ui horizontal list resource-nav-menu">
+  {{#link-to (concat 'cities.city.' modelName) model class='item'}}
+    <i class='large black circular arrow link left icon' style="background-color: white;"></i>
+  {{/link-to}}
+  <div class="item" onclick={{action submitRoute model}}>
+    <i class='large black circular link {{if model.isSaving 'loading spinner icon' 'save icon'}}' style="background-color: white;"></i>
   </div>
+</div>
+{{#form-for model class="ui form" as |f|}}
+  {{yield (hash form=f assetTypes=assetTypes investmentTypes=investmentTypes)}}
 {{/form-for}}

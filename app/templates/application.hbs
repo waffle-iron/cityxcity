@@ -1,34 +1,25 @@
 <nav>
   <div class="ui menu">
-    <div class="cubes item">
-      {{#link-to 'application' class='cities-link'}}
-        <i class="grid layout icon"></i>
-      {{/link-to}}
-    </div>
-    {{#ui-dropdown class="dropdown item" selected=currentCity.city.name}}
-      <div class="default text">Select Your City</div>
-      <i class="dropdown icon"></i>
-      <div class="menu">
-        {{#each model as |city|}}
-          {{#link-to 'cities.city.city-filters' city.id class="item" tagName='a'}}
-            {{city.name}}
-          {{/link-to}}
-        {{/each}}
+    <div class="left menu" id="add-data">
+      <div class="cubes item">
+        {{#link-to 'application' class='cities-link'}}
+          <i class="grid layout icon"></i>
+        {{/link-to}}
       </div>
-    {{/ui-dropdown}}
-
-  {{!--     This is asking for surprise breaking later - maybe this is ember wormhole or a sophisticated component? --}}
-      {{#if (and session.isAuthenticated currentCity.city)}}
-        {{#link-to 'cities.city.new-feature' class='item'}}
-          <i class="add circle icon"></i>
-          Add Feature
-        {{/link-to}}
-
-        {{#link-to 'cities.city.new-investment' class='item'}}
-          <i class="add circle icon"></i>
-          Add Investment
-        {{/link-to}}
-      {{/if}}
+      {{#ui-dropdown class="dropdown item" selected=currentCity.city.name}}
+        <div class="default text">Select Your City</div>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          {{#each model as |city|}}
+            {{#link-to 'cities.city.city-filters' city.id class="item" tagName='a'}}
+              {{city.name}}
+            {{/link-to}}
+          {{/each}}
+        </div>
+      {{/ui-dropdown}}
+    </div>
+    
+    {{!--     This is asking for surprise breaking later - maybe this is ember wormhole or a sophisticated component? --}}
 
     <div class="right menu">
       <div class="item">

@@ -5,10 +5,19 @@ export default Ember.Mixin.create({
   positionMap() {
     let currentCity = this.get('currentCity');
     let model = this.modelFor(this.routeName);
+    let latitude = model.get('latitude');
+    let longitude = model.get('longitude');
+    let zoom = 25;
+
     model.set('isSelected', true);
-    currentCity.set('latitude', model.get('latitude'));
-    currentCity.set('longitude', model.get('longitude'));
-    currentCity.set('zoom', 17);
+
+    currentCity.setProperties({
+      latitude,
+      longitude,
+      zoom
+    });
+
+    window.currentCity = currentCity;
   },
   actions: {
     didTransition() { 

@@ -4,8 +4,9 @@ export default Ember.Route.extend({
   currentCity: Ember.inject.service(),
   model(params) {
     let city = this.modelFor('cities.city');
+    let currentCity = this.get('currentCity');
+
     return this.store.createRecord('investment', {
-      // oof
       city: city.city
     });
   },
@@ -25,6 +26,18 @@ export default Ember.Route.extend({
       console.log('willTransition');
       let currentCity = this.get('currentCity');
       currentCity.set('isPlottingPoint', false);
+    },
+    submitRoute(object) {
+      let currentCity = this.get('currentCity');
+      
+      object.setProperties({
+        latitude: currentCity.get('newPointLatitude'),
+        longitude: currentCity.get('newPointLongitude')
+      });
+      
+      return object.save().then((model)=> {
+        this.transitionTo('cities.city.investments', model);
+      });
     }
   }
 });

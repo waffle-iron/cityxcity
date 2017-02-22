@@ -11,6 +11,10 @@ export default DS.Model.extend({
   vacancy: DS.attr('number'),
   marked: DS.attr('boolean'),
   forSale: DS.attr('boolean'),
+  splash: Ember.computed('latitude,longitude', function() {
+    let { latitude, longitude } = this.getProperties('latitude','longitude');
+    return `https://maps.googleapis.com/maps/api/streetview?size=450x450&location=${latitude},${longitude}&key=AIzaSyCO654zBIabvjSOV4Ys59Pku8pmzM387ps`;
+  }),
   geom: DS.attr(),
   latitude: Ember.computed('geojson', function() {
     let geojson=this.get('geojson');

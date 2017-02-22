@@ -1,15 +1,17 @@
-<h2 class="ui header">
-  <i class="block layout icon"></i>
-  <div class="content">
-    {{model.name}}
-    <div class="sub header">{{model.assetType}}</div>
-  </div>
-</h2>
+<div class="parcels">
+  <h2 class="ui header">
+    <img class="ui bordered circular image" src={{model.splash}}/>
+    <div class="content">
+      {{model.name}}
+      <div class="sub header">{{model.assetType}}</div>
+    </div>
+  </h2>
 
-{{#edit-resource model=model as |field|}}
-  {{field.form.text-field "name"}}
-  {{field.form.text-field "address"}}
-  {{field.form.text-field "contact"}}
-  {{field.form.checkbox-field "employer"}}
-  {{field.form.checkbox-field "activating"}}
-{{/edit-resource}}
+  {{#edit-resource model=model as |field|}}
+    {{field.form.text-field "name"}}
+    {{field.form.text-field "address"}}
+    {{field.form.text-field "contact"}}
+    {{field.form.checkbox-field "employer"}}
+    {{field.form.checkbox-field "activating"}}
+  {{/edit-resource}}
+</div>
