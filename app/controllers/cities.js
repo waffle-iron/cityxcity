@@ -114,6 +114,9 @@ export default Ember.Controller.extend({
       this.set('mapInstance', map);
       map.zoomControl.setPosition('topright');
     },
+    sendToBack(event) {
+      console.log(event);
+    },
     composeList(option, optionsList) {
       let list = this.get(optionsList).split('|');
       if(list.isAny('', option)) {

@@ -7,6 +7,8 @@ export default DS.Model.extend({
   //   let { latitude, longitude } = this.getProperties('latitude','longitude');
   //   return `https://maps.googleapis.com/maps/api/streetview?size=250x250&location=${latitude},${longitude}&key=AIzaSyCO654zBIabvjSOV4Ys59Pku8pmzM387ps`;
   // }),
+  imageOverlay: DS.attr('string'),
+  imageOverlayBBox: DS.attr(),
   splash: DS.attr('string'),
   latitude: DS.attr('number'),
   longitude: DS.attr('number'),

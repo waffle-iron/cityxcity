@@ -73,6 +73,13 @@
           {{/if}}
         {{/marker-cluster-layer}}
 
+
+        {{#each model as |city|}}
+          {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
+          {{/marker-layer}}
+          {{image-layer imageUrl=city.imageOverlay bounds=city.imageOverlayBBox opacity=0.8}}
+        {{/each}}
+
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}
             {{#if parcel.geom}}
@@ -80,16 +87,11 @@
                               style=parcelsChoroplethMapping 
                               onClick=(action 'linkTo' 'cities.city.parcels' parcel)}}
               {{#if parcel.isSelected}}
-                {{marker-layer lat=parcel.latitude lng=parcel.longitude opacity=0.5}}
+                {{marker-layer lat=parcel.latitude lng=parcel.longitude opacity=1}}
               {{/if}}
             {{/if}}
           {{/each}}
         {{/if}}
-
-        {{#each model as |city|}}
-          {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
-          {{/marker-layer}}
-        {{/each}}
 
       {{/leaflet-map}}
     </div>
