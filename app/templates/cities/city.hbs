@@ -10,5 +10,28 @@
       Add Investment
     {{/link-to}}
   {{/if}}
+  {{searchable-select content=searchables
+                      sortBy='title'
+                      on-change=(action 'transitionTo')
+                      cache=false
+                      class='item'}}
+{{!--   {{#ui-dropdown class="search selection" allowAdditions=true selected=selected_type_addition onChange=(action (mut selected_type_addition)) as |execute mapper|}}
+    <div class="default text">Types</div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <div class="item" data-value="">All Items</div>
+      {{#each searchables as |searchable|}}
+        <div class="item" data-value="{{map-value mapper searchable.title}}">
+          {{searchable.title}}
+        </div>
+      {{/each}}
+    </div>
+  {{/ui-dropdown}} --}}
+{{!--   <div class="item">
+    <div class="ui icon input">
+      <input type="text" placeholder="Search...">
+      <i class="search link icon"></i>
+    </div>
+  </div> --}}
 {{/ember-wormhole}}
 {{liquid-outlet}}
