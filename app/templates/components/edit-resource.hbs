@@ -9,3 +9,4 @@
 {{#form-for model class="ui form" as |f|}}
   {{yield (hash form=f assetTypes=assetTypes investmentTypes=investmentTypes)}}
 {{/form-for}}
+{{select-association chosenChildren=model.investments modelName='investment'}}
