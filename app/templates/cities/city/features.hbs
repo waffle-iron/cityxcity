@@ -9,6 +9,14 @@
   {{enumerate-properties 
     model=model
     properties=(array 'name' 'address' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
+
+  <h3>Related</h3>
+  {{tabbed-results  visibleInvestments  = model.investments
+                    showInvestments     = true   
+                    visibleFeatures     = model.relatedFeatures
+                    showFeatures        = true          }}
+
+
   {{resource-nav-menu 
     session=session 
     routeSegment='edit-feature'

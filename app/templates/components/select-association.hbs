@@ -1,0 +1,11 @@
+{{#power-select-multiple
+  options=options
+  selected=selected
+  placeholder=placeholder
+  searchField=searchField
+  onchange=(action (mut selected))
+  as |investment|
+}}
+  {{investment.name}}
+{{/power-select-multiple}}
+{{yield}}

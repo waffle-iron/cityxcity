@@ -1,0 +1,11 @@
+<div class="ui two column grid cards">
+  {{#each (sort-by sortBy resources) as |resource|}}
+    {{#link-to resourceRoute resource class="column"}}
+      {{yield (hash resource=resource)}}
+    {{/link-to}}
+  {{else}}
+    <h3 class="ui disabled header">
+      No Results
+    </h3>
+  {{/each}}
+</div>

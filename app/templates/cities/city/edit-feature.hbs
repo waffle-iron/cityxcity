@@ -1,4 +1,4 @@
-<div class="features">
+<div class="features ui basic">
   <h2 class="ui header">
     <img class="ui circular image" src={{model.splash}}/>
     <div class="content">
@@ -13,8 +13,32 @@
     {{field.form.text-field "contact"}}
     {{field.form.checkbox-field "employer"}}
     {{field.form.checkbox-field "activating"}}
-
     {{!-- these options should be pulled in from the model.. --}}
     {{field.form.select-field "assetType" field.assetTypes}}
   {{/edit-resource}}
+
+  <h3>Related Investments</h3>
+
+  {{select-association 
+      selected=model.investments 
+      modelName='investment' 
+      placeholder="Search for an investment"
+      searchField='name'}}
+  <div class="ui form">
+    <div class="field">
+      {{textarea value=model.relatedInvestmentsDescription placeholder='Describe these relationships a bit'}}
+    </div>
+  </div>
+
+  <h3>Related Features</h3>
+  {{select-association
+      selected=model.relatedFeatures
+      modelName='feature'
+      placeholder="Search for a feature"
+      searchField='name'}}
+  <div class="ui form">
+    <div class="field">
+      {{textarea value=model.relatedFeaturesDescription placeholder='Describe these relationships a bit'}}
+    </div>
+  </div>
 </div>
