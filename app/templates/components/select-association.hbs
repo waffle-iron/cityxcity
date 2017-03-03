@@ -1,12 +1,11 @@
-{{#ui-dropdown class="multiple selection" selected=(map-by 'id' chosenChildren) onChange=(action 'addChild')}}
-  <i class="dropdown icon"></i>
-  <div class="default text">Select Features</div>
-  <div class="menu">
-    {{#each children as |child|}}
-      <div class="item" data-value="{{child.id}}">
-        {{child.name}}
-      </div>
-    {{/each}}
-  </div>
-{{/ui-dropdown}}
+{{#power-select-multiple
+  options=options
+  selected=selected
+  placeholder=placeholder
+  searchField=searchField
+  onchange=(action (mut selected))
+  as |investment|
+}}
+  {{investment.name}}
+{{/power-select-multiple}}
 {{yield}}

@@ -1,5 +1,6 @@
 /* dependencies */
 @import "ember-searchable-select/style";
+@import "ember-power-select";
 
 html, body {
   height:100%;
@@ -126,3 +127,5 @@ main {
 }
 
 @import "cities-grid-component";
+
+@import "ember-power-select";
