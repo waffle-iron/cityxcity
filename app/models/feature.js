@@ -24,9 +24,14 @@ export default DS.Model.extend({
   latitude: DS.attr("number"),
   longitude: DS.attr("number"),
   city: DS.belongsTo("city"),
+
+
   relatedFeatures: DS.hasMany('feature', { inverse: 'relatedFeature' }),
   relatedFeature: DS.belongsTo('feature', { inverse: 'relatedFeatures' }),
+  relatedFeaturesDescription: DS.attr('string'),
+  
   investments: DS.hasMany('investment'),
+  relatedInvestmentsDescription: DS.attr('string'),
 
   isSelected: false
 });
