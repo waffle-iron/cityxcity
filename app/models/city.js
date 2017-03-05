@@ -12,6 +12,17 @@ export default DS.Model.extend({
   splash: DS.attr('string'),
   latitude: DS.attr('number'),
   longitude: DS.attr('number'),
+
+  cta_text: DS.attr('string'),
+  cta_contact: DS.attr('string'),
+  cta_contact_org: DS.attr('string'),
+  cta_contact_role: DS.attr('string'),
+  cta_contact_phone: DS.attr('string'),
+  cta_contact_email: DS.attr('string'),
+  feature_cta_default: DS.attr('string'),
+  investment_cta_default: DS.attr('string'),
+  parcel_cta_default: DS.attr('string'),
+
   features: DS.hasMany('feature'),
   fellows: DS.attr('boolean'),
   parcels: DS.hasMany('parcel'),
