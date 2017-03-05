@@ -1,20 +1,34 @@
 {{#ember-wormhole to="add-data"}}
+  <div class="item">
+    {{link-to 'Learn More' 'cities.city.index' tagName='div' class='ui inverted green button'}}
+  </div>
   {{#if (and session.isAuthenticated)}}
-    {{#link-to 'cities.city.new-feature' class='item'}}
-      <i class="add circle icon"></i>
-      Add Feature
-    {{/link-to}}
+    {{searchable-select content=searchables
+                        sortBy='title'
+                        on-change=(action 'transitionTo')
+                        cache=false
+                        prompt='Search Features / Investments'
+                        class='item'}}
+    {{#ui-dropdown class="dropdown item"}}
+      Add Data
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        {{#link-to 'cities.city.new-feature' class='item'}}
+          <i class="add circle icon"></i>
+          Add Feature
+        {{/link-to}}
 
-    {{#link-to 'cities.city.new-investment' class='item'}}
-      <i class="add circle icon"></i>
-      Add Investment
-    {{/link-to}}
+        {{#link-to 'cities.city.new-investment' class='item'}}
+          <i class="add circle icon"></i>
+          Add Investment
+        {{/link-to}}
+      </div>
+    {{/ui-dropdown}}
   {{/if}}
-  {{searchable-select content=searchables
-                      sortBy='title'
-                      on-change=(action 'transitionTo')
-                      cache=false
-                      prompt='Search Features / Investments'
-                      class='item'}}
+  <div class="item">
+    {{#if session.isAuthenticated}}
+      <a {{action 'invalidateSession'}}>Logout</a>
+    {{/if}}
+  </div>
 {{/ember-wormhole}}
-{{liquid-outlet}}
+{{outlet}}

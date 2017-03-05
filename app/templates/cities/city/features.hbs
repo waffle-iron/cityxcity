@@ -6,6 +6,21 @@
       <div class="sub header">{{model.assetType}}</div>
     </div>
   </h2>
+
+  <div class="ui green segment">
+    <strong>
+      Want to learn more about {{if model.name model.name 'this place'}}? 
+    </strong>
+    {{#if model.cta_contact}}
+      Contact {{model.cta_contact}}.
+    {{else}}
+      Contact MassDevelopment.
+    {{/if}}
+    <p>
+      {{model.cta_text}}
+    </p>
+  </div>
+
   {{enumerate-properties 
     model=model
     properties=(array 'name' 'address' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}

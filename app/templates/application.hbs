@@ -1,6 +1,6 @@
 <nav>
   <div class="ui menu">
-    <div class="left menu" id="add-data">
+    <div class="left menu">
       <div class="cubes item">
         {{#link-to 'application' class='cities-link'}}
           <i class="grid layout icon"></i>
@@ -19,14 +19,12 @@
       {{/ui-dropdown}}
     </div>
 
-    <div class="right menu">
-      <div class="item">
-        {{#if session.isAuthenticated}}
-          <a {{action 'invalidateSession'}}>Logout</a>
-        {{else}}
+    <div class="right menu" id="add-data">
+      {{#if (not session.isAuthenticated)}}
+        <div class="item">
           {{link-to 'Login' 'login' class='login-link'}}
-        {{/if}}
-      </div>
+        </div>
+      {{/if}}
     </div>
   </div>
 </nav>

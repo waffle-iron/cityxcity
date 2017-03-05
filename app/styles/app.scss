@@ -137,6 +137,11 @@ main {
   z-index: 5;
 }
 
+.ui-visibility-sticky {
+  // width: 100%;
+  background-color: white;
+}
+
 @import "cities-grid-component";
 
 @import "ember-power-select";

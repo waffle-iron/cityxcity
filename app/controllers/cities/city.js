@@ -25,6 +25,9 @@ export default Ember.Controller.extend({
       let route = inflector.pluralize(selected['type']);
       let model = this.store.peekRecord(selected['type'], selected.id);
       this.transitionToRoute(`cities.city.${route}`, model.get('city.id'), model);
+    },
+    invalidateSession() {
+      this.get('session').invalidate();
     }
   }
 });
