@@ -111,11 +111,14 @@ export default Ember.Controller.extend({
     },
     initMap(event) {
       let map = event.target;
+      let currentCity = this.get('currentCity');
       this.set('mapInstance', map);
+
       map.zoomControl.setPosition('topright');
       map.createPane('extrusions');
       map.getPane('extrusions').style.zIndex = 350;
       map.getPane('extrusions').style.pointerEvents = 'none';
+      currentCity.set('mapInstance', map);
     },
     composeList(option, optionsList) {
       let list = this.get(optionsList).split('|');

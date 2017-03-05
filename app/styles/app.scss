@@ -44,6 +44,11 @@ html, body {
   right: 15px;
 }
 
+.hidden {
+  display: none;
+  visibility: inherit;
+}
+
 .hidden-custom {
   display: none;
   visibility: inherit;
@@ -113,6 +118,12 @@ main {
 .detail-full-screen {
   background-color: white;
   
+}
+
+.map-popup {
+  position: absolute;
+  z-index: 9999;
+  max-width: 180px;
 }
 
 // .liquid-child { position: relative !important;}

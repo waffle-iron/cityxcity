@@ -70,17 +70,24 @@
           {{#if showFeatures}}
             {{#each visibleFeatures as |feature|}}
               {{#if (and feature.latitude feature.id)}}
-                {{circle-marker-layer  lat=feature.latitude 
-                                lng=feature.longitude 
-                                fill=true
-                                fillOpacity=0.9
-                                stroke=feature.isSelected
-                                color='black'
-                                weight=3
-                                opacity=0.3
-                                radius=(if feature.isSelected 10 6)
-                                fillColor='#5CA2D1'
-                                onClick=(action 'linkTo' 'cities.city.features' feature)}}
+                {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
+                  <img class="ui small image" src={{feature.splash}}/>
+                  <strong>{{feature.name}}</strong>
+                  {{#circle-marker-layer  lat=feature.latitude 
+                                  lng=feature.longitude 
+                                  fill=true
+                                  fillOpacity=0.9
+                                  stroke=feature.isSelected
+                                  color='black'
+                                  weight=3
+                                  opacity=0.3
+                                  radius=(if feature.isSelected 10 6)
+                                  fillColor='#5CA2D1'
+                                  onClick=(action 'linkTo' 'cities.city.features' feature)
+                                  onMouseover=(action popup.onMouseover)
+                                  onMouseout=(action popup.onMouseout)}}
+                  {{/circle-marker-layer}}
+                {{/map-popup}}
               {{/if}}
             {{/each}}
           {{/if}}
@@ -90,17 +97,23 @@
           {{#if showInvestments}}
             {{#each visibleInvestments as |investment|}}
               {{#if (and investment.latitude investment.id)}}
-                {{circle-marker-layer  lat=investment.latitude 
-                                lng=investment.longitude 
-                                fill=true
-                                fillOpacity=0.9
-                                stroke=investment.isSelected
-                                color='black'
-                                weight=3
-                                opacity=0.3
-                                radius=(if investment.isSelected 10 6)
-                                fillColor='#A53ED5'
-                                onClick=(action 'linkTo' 'cities.city.investments' investment)}}
+                {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
+                  <img class="ui small image" src={{investment.splash}}/>
+                  <strong>{{investment.name}}</strong>
+                  {{circle-marker-layer  lat=investment.latitude 
+                                  lng=investment.longitude 
+                                  fill=true
+                                  fillOpacity=0.9
+                                  stroke=investment.isSelected
+                                  color='black'
+                                  weight=3
+                                  opacity=0.3
+                                  radius=(if investment.isSelected 10 6)
+                                  fillColor='#A53ED5'
+                                  onClick=(action 'linkTo' 'cities.city.investments' investment)
+                                  onMouseover=(action popup.onMouseover)
+                                  onMouseout=(action popup.onMouseout)}}
+                {{/map-popup}}
               {{/if}}
             {{/each}}
           {{/if}}
