@@ -25,28 +25,37 @@
     {{field.form.text-field "related_link_url"}}
     {{field.form.text-field "relation_notes"}}
     {{field.form.checkbox-field "is_feature_owner_engaged"}}
-    {{field.form.text-field "priv_contact_name"}}
-    {{field.form.text-field "priv_contact_organization"}}
-    {{field.form.text-field "priv_contact_role"}}
-    {{field.form.text-field "priv_contact_phone"}}
-    {{field.form.text-field "priv_contact_email"}}
-    {{field.form.text-field "priv_contact_website"}}
     {{field.form.text-field "priv_notes"}}
     {{field.form.text-field "pub_notes"}}
     {{field.form.text-field "cta_text"}}
     {{field.form.text-field "cta_contact"}}
+
+    {{field.form.text-field "priv_contact_name"}}
+    {{#liquid-if model.priv_contact_name}}
+      {{field.form.text-field "priv_contact_organization"}}
+      {{field.form.text-field "priv_contact_role"}}
+      {{field.form.text-field "priv_contact_phone"}}
+      {{field.form.text-field "priv_contact_email"}}
+      {{field.form.text-field "priv_contact_website"}}
+    {{/liquid-if}}
+
     {{field.form.text-field "pub_contact_1"}}
-    {{field.form.text-field "pub_contact_org_1"}}
-    {{field.form.text-field "pub_contact_role_1"}}
-    {{field.form.text-field "pub_contact_phone_1"}}
-    {{field.form.text-field "pub_contact_email_1"}}
-    {{field.form.text-field "pub_contact_website_1"}}
+    {{#liquid-if model.pub_contact_1}}
+      {{field.form.text-field "pub_contact_org_1"}}
+      {{field.form.text-field "pub_contact_role_1"}}
+      {{field.form.text-field "pub_contact_phone_1"}}
+      {{field.form.text-field "pub_contact_email_1"}}
+      {{field.form.text-field "pub_contact_website_1"}}
+    {{/liquid-if}}
+
     {{field.form.text-field "pub_contact_2"}}
-    {{field.form.text-field "pub_contact_org_2"}}
-    {{field.form.text-field "pub_contact_role_2"}}
-    {{field.form.text-field "pub_contact_phone_2"}}
-    {{field.form.text-field "pub_contact_email_2"}}
-    {{field.form.text-field "pub_contact_website_2"}}
+    {{#liquid-if model.pub_contact_2}}
+      {{field.form.text-field "pub_contact_org_2"}}
+      {{field.form.text-field "pub_contact_role_2"}}
+      {{field.form.text-field "pub_contact_phone_2"}}
+      {{field.form.text-field "pub_contact_email_2"}}
+      {{field.form.text-field "pub_contact_website_2"}}
+    {{/liquid-if}}
     {{field.form.checkbox-field "is_collision_point"}}
 
     {{field.form.select-field "assetType" field.assetTypes}}

@@ -61,9 +61,7 @@ export default DS.Model.extend({
   pub_contact_website_2: DS.attr('string'),
   is_collision_point: DS.attr('boolean'),
 
-
   city: DS.belongsTo("city"),
-
 
   relatedFeatures: DS.hasMany('feature', { inverse: 'relatedFeature' }),
   relatedFeature: DS.belongsTo('feature', { inverse: 'relatedFeatures' }),
