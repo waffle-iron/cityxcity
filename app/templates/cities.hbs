@@ -47,19 +47,6 @@
           {{marker-layer lat=currentCity.newPointLatitude lng=currentCity.newPointLongitude}}
         {{/if}}
 
-        {{#if showParcels}}
-          {{#each visibleParcels as |parcel|}}
-            {{#if parcel.geom}}
-              {{geojson-layer geoJSON=parcel.geojson 
-                              style=parcelsChoroplethMapping 
-                              onClick=(action 'linkTo' 'cities.city.parcels' parcel)}}
-              {{#if parcel.isSelected}}
-                {{marker-layer lat=parcel.latitude lng=parcel.longitude opacity=1}}
-              {{/if}}
-            {{/if}}
-          {{/each}}
-        {{/if}}
-
         {{#each model as |city|}}
           {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
           {{/marker-layer}}
@@ -85,7 +72,8 @@
                                   fillColor='#5CA2D1'
                                   onClick=(action 'linkTo' 'cities.city.features' feature)
                                   onMouseover=(action popup.onMouseover)
-                                  onMouseout=(action popup.onMouseout)}}
+                                  onMouseout=(action popup.onMouseout)
+                                  pane='points'}}
                   {{/circle-marker-layer}}
                 {{/map-popup}}
               {{/if}}
@@ -100,7 +88,8 @@
                 {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
                   <img class="ui small image" src={{investment.splash}}/>
                   <strong>{{investment.name}}</strong>
-                  {{circle-marker-layer  lat=investment.latitude 
+                  {{circle-marker-layer  
+                                  lat=investment.latitude 
                                   lng=investment.longitude 
                                   fill=true
                                   fillOpacity=0.9
@@ -112,12 +101,28 @@
                                   fillColor='#A53ED5'
                                   onClick=(action 'linkTo' 'cities.city.investments' investment)
                                   onMouseover=(action popup.onMouseover)
-                                  onMouseout=(action popup.onMouseout)}}
+                                  onMouseout=(action popup.onMouseout)
+                                  pane='points'}}
                 {{/map-popup}}
               {{/if}}
             {{/each}}
           {{/if}}
         {{!-- {{/marker-cluster-layer}} --}}
+
+        {{#if showParcels}}
+          {{#each visibleParcels as |parcel|}}
+            {{#if parcel.geom}}
+              {{geojson-layer geoJSON=parcel.geojson 
+                              style=parcelsChoroplethMapping 
+                              onClick=(action 'linkTo' 'cities.city.parcels' parcel)
+                              pane='parcels'}}
+              {{#if parcel.isSelected}}
+                {{marker-layer lat=parcel.latitude lng=parcel.longitude opacity=1}}
+              {{/if}}
+            {{/if}}
+          {{/each}}
+        {{/if}}
+
 
       {{/leaflet-map}}
     </div>

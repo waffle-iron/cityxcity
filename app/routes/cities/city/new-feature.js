@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  templateName: 'cities/city/edit-feature',
   currentCity: Ember.inject.service(),
   model(params) {
     let city = this.modelFor('cities.city');

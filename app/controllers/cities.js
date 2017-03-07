@@ -115,9 +115,17 @@ export default Ember.Controller.extend({
       this.set('mapInstance', map);
 
       map.zoomControl.setPosition('topright');
+
+      map.createPane('points');
+      map.getPane('points').style.zIndex = 325;
+
       map.createPane('extrusions');
-      map.getPane('extrusions').style.zIndex = 350;
+      map.getPane('extrusions').style.zIndex = 950;
       map.getPane('extrusions').style.pointerEvents = 'none';
+
+      map.createPane('parcels');
+      map.getPane('parcels').style.zIndex = 375;
+
       currentCity.set('mapInstance', map);
     },
     composeList(option, optionsList) {

@@ -3,7 +3,6 @@ import { FEATURE_TYPES } from '../models/feature';
 import { INVESTMENT_TYPES } from '../models/investment';
 
 export default Ember.Component.extend({
-  //default action
   submitRoute: 'submit',
   investmentTypes: INVESTMENT_TYPES,
   assetTypes: FEATURE_TYPES,
@@ -21,7 +20,9 @@ export default Ember.Component.extend({
         longitude: currentCity.get('newPointLongitude')
       });
       
-      return object.save();
+      return object.save().then((model)=> {
+        this.get('router').transitionTo(`cities.city.${this.get('modelName')}`, model);
+      });
     }
   }
 });
