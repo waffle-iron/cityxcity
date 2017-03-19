@@ -1,6 +1,7 @@
 import isAnyFilter from '../utils/is-any-filter';
 import isTrueFilter from '../utils/is-true-filter';
 import isWithinFilter from '../utils/is-within-filter';
+import isLongitudinalFilter from '../utils/is-longitudinal-filter';
 
 export default function applyFilterTo(enumerable, config) {
   return {
@@ -42,5 +43,7 @@ function findFilterFunction(filterType) {
       return isTrueFilter
     case 'isWithin':
       return isWithinFilter
+    case 'isLongitudinal':
+      return isLongitudinalFilter
   }
 }

@@ -29,9 +29,9 @@
         </div>
       </div>
 
-      {{#leaflet-map  onMove=(action 'updateNewPoint') 
-                      onMoveend=(action 'currentMapState') 
-                      onLoad=(action 'initMap') as |layers|}}
+      {{#leaflet-map  onMove    = (action 'updateNewPoint'  ) 
+                      onMoveend = (action 'currentMapState' ) 
+                      onLoad    = (action 'initMap'         ) as |layers|}}
 
         {{#if (eq basemap 'default')}}
           {{layers.tile url="http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"}}
@@ -125,6 +125,14 @@
 
 
       {{/leaflet-map}}
+      {{log featuresOpenDates}}
+      {{c3-chart  size=(hash 
+                    height=120
+                  ) 
+                  data=data
+                  axis=axis
+      }}
+      {{!-- {{dates-histogram data=featuresOpenDates}} --}}
     </div>
   </div>
 </div>

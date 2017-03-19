@@ -19,12 +19,10 @@ export default Ember.Route.extend({
   
   actions: {
     didTransition() {
-      console.log('didTransition');
       let currentCity = this.get('currentCity');
       currentCity.set('isPlottingPoint', true);
     },
     willTransition(transition) {
-      console.log('willTransition');
       let currentCity = this.get('currentCity');
       currentCity.set('isPlottingPoint', false);
     },

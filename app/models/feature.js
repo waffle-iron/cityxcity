@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import { faker } from 'ember-cli-mirage';
 
 export default DS.Model.extend({
   name: DS.attr("string"),
@@ -22,6 +23,29 @@ export default DS.Model.extend({
     return false;
   }),
   
+  fake_open_or_closed: Ember.computed(function() {
+    let number = 5;
+    let array = [];
+
+    for(var count=0; count < number; count++) {
+      array.push({  status: faker.list.cycle( "open", "closed")(count),  
+                    quarter: faker.date.past() });
+    }
+
+    return array;
+  }),
+  datesOpen: Ember.computed('fake_open_or_closed.@each', function() {
+    let structured = this.get('fake_open_or_closed')
+                .filter((obj) => { return obj.status == 'open'; })
+                .map((el) => { 
+                  let normalizedMonth = new Date();
+                  normalizedMonth.setFullYear(el.quarter.getFullYear(),el.quarter.getMonth(),1);
+                  return { date: normalizedMonth };
+                });
+
+    return structured;
+  }),
+
   latitude: DS.attr("number"),
   longitude: DS.attr("number"),
   is_addressy: DS.attr('boolean'),
@@ -73,7 +97,7 @@ export default DS.Model.extend({
   isSelected: false
 });
 
-export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer'];
+export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer','fake_open_or_closed'];
 export const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
 export const FEATURE_FILTERS_CONFIG = [
       { 
@@ -95,5 +119,10 @@ export const FEATURE_FILTERS_CONFIG = [
         property: 'employer',
         filter: 'employer',
         filterType: 'isTrue'
+      },
+      {
+        property: 'fake_open_or_closed',
+        filter: 'fake_open_or_closed',
+        filterType: 'isLongitudinal'
       }
     ];

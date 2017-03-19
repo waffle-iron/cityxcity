@@ -14,7 +14,6 @@ export default UISearch.extend({
   updateSource: Ember.observer('source', function() {
     Ember.run.schedule('afterRender', this, () => {
       var that = this;
-      console.log('inserting');
       $('.ui.search')
         .search({
           source : this.get('source'),

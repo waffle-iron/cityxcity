@@ -3,6 +3,7 @@ import arrayify from '../utils/arrayify';
 import applyFiltersTo, { getFilter } from '../utils/apply-filter-to';
 import setChoroplethColor from '../utils/set-choropleth-color';
 import { number_format } from 'ember-string-helpers/utils/functions';
+import { nest } from 'd3-collection';
 
 import {  FEATURE_PARAMS, 
           FEATURE_TYPES,
@@ -35,6 +36,49 @@ export default Ember.Controller.extend({
   activating: null,
   featureOpen: null,
   employer: null,
+  fake_open_or_closed: null,
+  featuresOpenDates: Ember.computed('currentCity.city.features.[]', function() {
+    let dates = Ember.A();
+    this.get('currentCity.city.features').forEach((feature) => { dates.pushObjects(feature.get('datesOpen')); });
+    let grouped = nest()
+                .key((d) => { return d.date })
+                .rollup((d) => { return d.length; })
+                .entries(dates)
+                .sortBy((el) => { return el.key; });
+
+    grouped = grouped.map((el) => { 
+      let date = new Date(el.key);
+      return {  value: el.value, 
+                key: `${date.getFullYear()}-${date.getMonth()}-01` } 
+    });
+
+    return grouped;
+  }),
+
+  data: Ember.computed('featuresOpenDates', function() {
+    let that = this;
+    return {
+      onclick(d) { 
+        that.set('fake_open_or_closed', d.x);
+      },
+      x: 'x',
+      type: 'bar',
+      json: this.get('featuresOpenDates'),
+      keys: { 
+          x: 'key',
+          value: ['value']
+      }
+    }
+  }),
+
+  axis: {
+    x: {
+      type: 'timeseries',
+      tick: {
+        format: '%Y-%m'
+      }
+    }
+  },
 
   // investments
   investmentTypes: '',
@@ -203,7 +247,9 @@ export default Ember.Controller.extend({
       });
     },
     zoomChanged(map) {
-      console.log("zoom changed");
+    },
+    updateDate(date){
+      this.set('fake_open_or_closed', new Date(date));
     }
   },
 
