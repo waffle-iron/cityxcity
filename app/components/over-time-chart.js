@@ -36,16 +36,25 @@ export default Ember.Component.extend({
   size: {
     height: 120
   },
+
+ regions: Ember.computed('selection', function() {
+  let selection = new Date(this.get('selection'));
   
-  selectPoint: function(d) {
-    this.set('selection', d.x);
-  },
+  let start = `${selection.getFullYear()}-${selection.getMonth()}-01`;
+  let addMonth = new Date(selection.setMonth(selection.getMonth()+1));
+  console.log(addMonth);
+  let end = `${addMonth.getFullYear()}-${addMonth.getMonth()}-01`;
+
+  return [
+    { axis: 'x', start: start, end: end, class: 'regionX' }
+  ];
+ }),
 
   onrendered: Ember.computed(function(c3) {
     var that = this;
     return function() {
       d3.selectAll('.c3-event-rect')
-        .on('click', (d) => {
+        .on('click', (d,element) => {
           that.set('selection', d.x);
         });
     }
