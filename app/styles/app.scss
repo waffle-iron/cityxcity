@@ -150,17 +150,3 @@ main {
 @import "cities-grid-component";
 
 @import "ember-power-select";
-
-.chart { width:250px; margin-left:5%;}
-.chart .title { margin-bottom:-12px; font-size:13px;}
-.x-scale { width:249px; color:#333; font-size:8px;}
-.x-scale div { float:left; text-align:right; border-right:1px solid #eee; height:11px; padding-right:2px;}
-.x-label { text-align:left; width:100%; padding-top:10px; font-size:10px;height:18px;}
-.frequency-graph .x-scale div {text-align:right;}
-.y-label {transform: rotate(90deg);transform-origin: left top 0; padding: 6px 0 0 26px; text-align:left; height:1px; font-size:10px;}
-.y-scale { float:left; text-align:right; color:#333; font-size:8px; height:196px; margin-top:8px;}
-.y-scale div { border-top:1px solid #eee; width:11px; padding-right:3px; margin-top:1px;}
-.chart-body { background-color:#f7f7f7; border-top:10px solid #f7f7f7; width:230px;overflow:hidden;}
-.chart-bar { font: 10px sans-serif; background-color:#b29959; text-align: center; padding: 1px; margin-top:100%; color: white; float:left; transition: all .5s ease-in-out; position:relative; border-right: 1px solid #f7f7f7;}
-.chart-bar p { margin: 5px 3px 0 3px;}
-.chart-body .placeholder-text { color: #e0e0e0; margin-top:66px}

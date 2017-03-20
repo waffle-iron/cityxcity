@@ -125,14 +125,7 @@
 
 
       {{/leaflet-map}}
-      {{log featuresOpenDates}}
-      {{c3-chart  size=(hash 
-                    height=120
-                  ) 
-                  data=data
-                  axis=axis
-      }}
-      {{!-- {{dates-histogram data=featuresOpenDates}} --}}
+      {{over-time-chart dates=featuresOpenDates selection=fake_open_or_closed}}
     </div>
   </div>
 </div>

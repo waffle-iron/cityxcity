@@ -56,6 +56,29 @@ export default DS.Model.extend({
   pub_contact_email_2: DS.attr('string'),
   pub_contact_website_2: DS.attr('string'),
 
+  fake_open_or_closed: Ember.computed(function() {
+    let number = 5;
+    let array = [];
+
+    for(var count=0; count < number; count++) {
+      array.push({  status: faker.list.cycle( "open", "closed")(count), 
+                    quarter: faker.date.past() });
+    }
+
+    return array;
+  }),
+  datesOpen: Ember.computed('fake_open_or_closed.@each', function() {
+    let structured = this.get('fake_open_or_closed')
+                .filter((obj) => { return obj.status == 'open'; })
+                .map((el) => { 
+                  let normalizedMonth = new Date();
+                  normalizedMonth.setFullYear(el.quarter.getFullYear(),el.quarter.getMonth(),1);
+                  return { date: normalizedMonth, type: 'investment' };
+                });
+
+    return structured;
+  }),
+
   city: DS.belongsTo("city"),
   isSelected: false
 });
@@ -72,5 +95,10 @@ export const INVESTMENT_FILTERS_CONFIG = [
         property: 'value',
         filter: ['valueMin', 'valueMax'],
         filterType: 'isWithin'
+      },
+      {
+        property: 'fake_open_or_closed',
+        filter: 'fake_open_or_closed',
+        filterType: 'isLongitudinal'
       }
     ];

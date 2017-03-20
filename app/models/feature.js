@@ -40,7 +40,7 @@ export default DS.Model.extend({
                 .map((el) => { 
                   let normalizedMonth = new Date();
                   normalizedMonth.setFullYear(el.quarter.getFullYear(),el.quarter.getMonth(),1);
-                  return { date: normalizedMonth };
+                  return { date: normalizedMonth, type: 'feature' };
                 });
 
     return structured;

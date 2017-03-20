@@ -37,48 +37,40 @@ export default Ember.Controller.extend({
   featureOpen: null,
   employer: null,
   fake_open_or_closed: null,
-  featuresOpenDates: Ember.computed('currentCity.city.features.[]', function() {
+  featuresOpenDates: Ember.computed('currentCity.city.features.[]', 'currentCity.city.investments.[]', function() {
     let dates = Ember.A();
     this.get('currentCity.city.features').forEach((feature) => { dates.pushObjects(feature.get('datesOpen')); });
+    this.get('currentCity.city.investments').forEach((investment) => { dates.pushObjects(investment.get('datesOpen')); });
+
     let grouped = nest()
                 .key((d) => { return d.date })
+                .key((d) => { return d.type })
                 .rollup((d) => { return d.length; })
+                // .key((d) => { return d.key })
                 .entries(dates)
                 .sortBy((el) => { return el.key; });
 
     grouped = grouped.map((el) => { 
       let date = new Date(el.key);
-      return {  value: el.value, 
-                key: `${date.getFullYear()}-${date.getMonth()}-01` } 
+      let obj = { key: `${date.getFullYear()}-${date.getMonth()}-01` };
+      let type1 = el.values[0];
+      let type2 = el.values[1];
+
+      if(type1) {
+        obj[type1.key] = type1.value;
+      }
+
+      if(type2) {
+        obj[type2.key] = type2.value;
+      }
+      
+      return obj;
     });
+
+    console.log(grouped);
 
     return grouped;
   }),
-
-  data: Ember.computed('featuresOpenDates', function() {
-    let that = this;
-    return {
-      onclick(d) { 
-        that.set('fake_open_or_closed', d.x);
-      },
-      x: 'x',
-      type: 'bar',
-      json: this.get('featuresOpenDates'),
-      keys: { 
-          x: 'key',
-          value: ['value']
-      }
-    }
-  }),
-
-  axis: {
-    x: {
-      type: 'timeseries',
-      tick: {
-        format: '%Y-%m'
-      }
-    }
-  },
 
   // investments
   investmentTypes: '',
