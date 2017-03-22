@@ -7,7 +7,9 @@
     "semantic-ui": "^2.2.6",
     "leaflet": "1.0.2",
     "nouislider": "^8.0.1",
-    "leaflet.markercluster": "^1.0.0"
+    "leaflet.markercluster": "^1.0.0",
+    "d3": "3.5.17",
+    "c3": "^0.4.11"
   },
   "devDependencies": {
     "squel": "^5.5.0"
