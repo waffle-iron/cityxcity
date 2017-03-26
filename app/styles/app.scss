@@ -25,6 +25,8 @@ div,h1,h2,h3,h4,h5,h6,span,em,li,ul {
 // colors
 $primary-color: #0A4650;
 $gray: #E1E1E1;
+$red: #B40028;
+$secondary-color: #00AFAA;
 
 html, body {
   height:100%;
@@ -197,6 +199,40 @@ main {
   background: $primary-color;
   color: rgba(255, 255, 255, 0.9);
   font-family: 'Dosis-SemiBold';
+}
+
+.ui.label.filters-label {
+  color: $primary-color;
+  border: 2px solid $primary-color;
+  background-color: white;
+}
+
+.ui.label.filters-label:hover {
+  border: 2px solid $primary-color;
+  background-color: $primary-color;
+  color: white;
+}
+
+.ui.label.tdi-blue {
+  background: $secondary-color;
+  border: 2px solid $primary-color;
+}
+
+.ui.label.tdi-blue:hover {
+  background-color: $primary-color;
+  border: 2px solid $primary-color;
+}
+
+.ui.tdi-blue.divider:not(.vertical):not(.horizontal) {
+  border-top: 2px solid $primary-color;
+}
+
+.tdi-semi-bold.title {
+  font-family: 'Dosis-SemiBold' !important;
+}
+
+.ui.accordion .title.tdi-semi-bold:not(.ui) {
+  font-size: 1.429em;
 }
 
 .Searchable-select__option, .Searchable-select__input {

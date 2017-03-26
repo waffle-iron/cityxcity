@@ -4,33 +4,16 @@
     <a class="item" data-tab="investments">Investments</a>
   </div>
   <div class="ui tab active" data-tab="features">
-    <div class="ui two column grid cards">
+    <div class="ui two column stackable grid cards">
       {{#each (sort-by "name" visibleFeatures) as |feature|}}
-        {{#link-to 'cities.city.features' feature class="column"}}
-          <div class="ui fluid card">
-            <div class="image">
-              <img src="{{feature.splash}}" style="max-width: 100%;">
-            </div>
-            <div class="content">
-              <div class="header">{{feature.feature_name}}</div>
-              <div class="meta">
-                <a>{{feature.type}}</a>
-              </div>
-              <div class="description">
-                {{feature.comments}}
-              </div>
-            </div>
-            <div class="extra content">
-              <span class="right floated">
-                Opened
-              </span>
-              <span>
-                <i class="user icon"></i>
-                {{feature.activating}}
-              </span>
-            </div>
-          </div>
-        {{/link-to}}
+        <div class="column">
+          {{#tdi-card route='cities.city.features' 
+                      modelContext=feature 
+                      image=feature.splash
+                      height=150}}
+            {{feature.feature_name}}
+          {{/tdi-card}}
+        </div>
       {{else}}
         <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
           No Results

@@ -1,10 +1,10 @@
 <div class="cities ui grid">
-  <div class="list-results ui segment four wide column" id="sidebar">
+  <div class="list-results ui segment five wide column" id="sidebar">
     <div class="city-details">
       {{outlet}}
     </div>
   </div>
-  <div class="map-results {{if (not hideSidebar) 'twelve'}}{{if hideSidebar 'sixteen'}} wide column" style="padding: 0 !important; height:100%;">
+  <div class="map-results {{if (not hideSidebar) 'eleven'}}{{if hideSidebar 'sixteen'}} wide column" style="padding: 0 !important; height:100%;">
     <div class="cities-map">
       <i class="large circular white {{if (not hideSidebar) 'remove'}} link icon sidebar-tab {{if hideSidebar 'right arrow'}}" onclick={{action 'toggleSidebar'}} style="background-color:white"></i>
 

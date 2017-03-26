@@ -1,33 +1,20 @@
 <div class="ui three column stackable grid link cards">
   {{#each cities as |city|}}
     <div class="column">
-      {{#link-to 'cities.city.city-filters' city.id class="ui fluid card"}}
-        <div class="image">
-          <div class="card-image" style="height: 300px; background-image: url('{{city.splash}}'); background-size: cover;"></div>
-        </div>
-        <div class="content splash-inverted">
-          <span class="right floated">
-            {{#if city.fellows}}
-              <i class="user icon"></i>
-              Fellows
-            {{else}}
-              No Fellows
-            {{/if}}
-          </span>
-          {{city.name}}
-        </div>
-{{!--         <div class="content">
-          <div class="header">{{city.name}}</div>
-          <div class="meta">
-            {{#if city.fellows}}
-              <i class="user icon"></i>
-              Fellows
-            {{else}}
-              No Fellows
-            {{/if}}
-          </div>
-        </div> --}}
-      {{/link-to}}
+      {{#tdi-card route='cities.city.city-filters' 
+                  modelContext=city.id 
+                  image=city.splash
+                  height=300}}
+        <span class="right floated">
+          {{#if city.fellows}}
+            <i class="user icon"></i>
+            Fellows
+          {{else}}
+            No Fellows
+          {{/if}}
+        </span>
+        {{city.name}}
+      {{/tdi-card}}
     </div>
   {{/each}}
 </div>
