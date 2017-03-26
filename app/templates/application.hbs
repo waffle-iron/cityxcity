@@ -1,5 +1,5 @@
 <nav>
-  <div class="ui inverted menu">
+  <div class="ui inverted main menu">
     <div class="left menu" id="left-items">
       <div class="cubes item">
         {{#link-to 'application' class='cities-link'}}
@@ -23,6 +23,10 @@
       {{#if (not session.isAuthenticated)}}
         <div class="item">
           {{link-to 'Login' 'login' class='login-link'}}
+        </div>
+      {{else}}
+        <div class="item">
+          <div class="ui button" {{action 'invalidateSession'}}>Logout</div>
         </div>
       {{/if}}
     </div>

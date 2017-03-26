@@ -28,10 +28,5 @@
                         prompt='Search Features / Investments'
                         class='item'}}
   {{/if}}
-  <div class="item">
-    {{#if session.isAuthenticated}}
-      <a {{action 'invalidateSession'}}>Logout</a>
-    {{/if}}
-  </div>
 {{/ember-wormhole}}
 {{outlet}}

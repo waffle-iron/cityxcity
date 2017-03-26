@@ -4,7 +4,9 @@ import { faker } from 'ember-cli-mirage';
 import moment from 'moment';
 
 export default DS.Model.extend({
+  feature_name: DS.attr("string"),
   name: DS.attr("string"),
+  project: DS.attr("string"),
   address: DS.attr("string"),
   contact: DS.attr("string"),
   employer: DS.attr("boolean"),

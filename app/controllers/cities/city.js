@@ -4,17 +4,17 @@ export default Ember.Controller.extend({
   currentCity: Ember.inject.service(),
   session: Ember.inject.service('session'),
   citiesController: Ember.inject.controller('cities'),
-  searchables: Ember.computed('model.city.name', function() {
+  searchables: Ember.computed('model.city', 'model.city.features.[]', 'model.city.investments.[]', function() {
     let features = this.get('model.features');
     let investments = this.get('model.investments');
     let structured = [];
 
     features.forEach(function(feature) {
-      structured.push({ title: `${feature.get('name')} (Feature)`, id: feature.get('id'), type: 'feature' })
+      structured.push({ title: `${feature.get('feature_name')} (Feature)`, id: feature.get('id'), type: 'feature' })
     });
 
     investments.forEach(function(investment) {
-      structured.push({ title: `${investment.get('name')} (Investment)`, id: investment.get('id'), type: 'investment' })
+      structured.push({ title: `${investment.get('project')} (Investment)`, id: investment.get('id'), type: 'investment' })
     });
 
     return structured;

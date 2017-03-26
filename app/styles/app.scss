@@ -2,6 +2,30 @@
 @import "ember-searchable-select/style";
 @import "ember-power-select";
 
+@mixin font-face($name) {
+  @font-face {
+    font-family: $name;
+    src:  url("../fonts/#{$name}.eot?") format("eot"),
+    url("../fonts/#{$name}.woff") format("woff");
+  }
+}
+
+@include font-face('Dosis-ExtraLight');
+@include font-face('Dosis-Light');
+@include font-face('Dosis-ExtraBold');
+@include font-face('Dosis-Bold');
+@include font-face('Dosis-Medium');
+@include font-face('Dosis-Regular');
+@include font-face('Dosis-SemiBold');
+
+div,h1,h2,h3,h4,h5,h6,span,em,li,ul {
+    font-family: 'Dosis-Regular' !important;
+}
+
+// colors
+$primary-color: #0A4650;
+$gray: #E1E1E1;
+
 html, body {
   height:100%;
   margin: 0;
@@ -147,6 +171,34 @@ main {
   background-color: white;
 }
 
-@import "cities-grid-component";
 
-@import "ember-power-select";
+// Semantic UI overrides
+.ui.inverted.main.menu {
+  background: $primary-color;
+}
+
+.ui.header {
+  font-family: 'Dosis-Regular';
+}
+
+.ui.menu.main.inverted {
+  border-radius: 0;
+}
+
+.ui.header.splash {
+  color: $primary-color;
+}
+
+.ui.header.splash.semi-bold {
+  font-family: 'Dosis-ExtraBold';
+}
+
+.ui.card > .content.splash-inverted {
+  background: $primary-color;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Dosis-SemiBold';
+}
+
+.Searchable-select__option, .Searchable-select__input {
+  color: black;
+}

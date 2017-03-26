@@ -3,9 +3,20 @@
     <div class="column">
       {{#link-to 'cities.city.city-filters' city.id class="ui fluid card"}}
         <div class="image">
-          <div class="card-image" style="height: 420px; background-image: url('{{city.splash}}'); background-size: cover;"></div>
+          <div class="card-image" style="height: 300px; background-image: url('{{city.splash}}'); background-size: cover;"></div>
         </div>
-        <div class="content">
+        <div class="content splash-inverted">
+          <span class="right floated">
+            {{#if city.fellows}}
+              <i class="user icon"></i>
+              Fellows
+            {{else}}
+              No Fellows
+            {{/if}}
+          </span>
+          {{city.name}}
+        </div>
+{{!--         <div class="content">
           <div class="header">{{city.name}}</div>
           <div class="meta">
             {{#if city.fellows}}
@@ -15,7 +26,7 @@
               No Fellows
             {{/if}}
           </div>
-        </div>
+        </div> --}}
       {{/link-to}}
     </div>
   {{/each}}
