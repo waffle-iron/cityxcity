@@ -74,20 +74,53 @@
           <h4 class="ui header">
             Investment Types
           </h4>
-          <div class="ui equal width grid">
-            {{#each (chunk 7 cc.investmentTypeOptions) as |group|}}
-              <div class="column">
-                {{#each group as |option|}}
-                  <div class="ui vertical list">
-                    {{ui-checkbox 
-                      label=option 
-                      class="item"
-                      checked=(array-contains cc.investmentTypesArray option)
-                      onChange=(action 'composeList' option 'investmentTypes' target=cc)}}
-                    </div>
-                {{/each}}
-              </div>
+          <div class="ui vertical list">
+            {{#each cc.investmentTypeOptions as |option|}}
+              
+                {{ui-checkbox 
+                  label=option 
+                  class="item"
+                  checked=(array-contains cc.investmentTypesArray option)
+                  onChange=(action 'composeList' option 'investmentTypes' target=cc)}}
+                
             {{/each}}
+            </div>
+          <h4 class="ui header">
+            Investment Statuses
+          </h4>
+          <div class="ui horizontal list">
+            {{#each cc.investmentStatusesOptions as |option|}}
+              {{ui-checkbox 
+                label=option 
+                class="item"
+                checked=(array-contains cc.investmentStatusesArray option)
+                onChange=(action 'composeList' option 'investmentStatuses' target=cc)}}
+            {{/each}}
+          </div>
+          <h4 class="ui header">
+            Investment Source
+          </h4>
+          <div class="ui horizontal list">
+            {{#each cc.investmentSourcesOptions as |option|}}
+              {{ui-checkbox 
+                label=option 
+                class="item"
+                checked=(array-contains cc.investmentSourcesArray option)
+                onChange=(action 'composeList' option 'investmentSources' target=cc)}}
+            {{/each}}
+          </div>
+          <h4 class="ui header">
+            Investment Value
+          </h4>
+          <div class="ui basic segment">
+            {{log cc.amounts_estimates cc.amountsMin cc.amountsMax}}
+            {{range-slider start=(array cc.valueMin cc.valueMax)
+                           range=(hash min=cc.amountsMin max=cc.amountsMax)
+                           tooltips=cc.tooltipsConfig
+                           connect=true
+                           step=1
+                           on-change=(action "updateRanges" target=cc)
+            }}
           </div>
         </div>
 {{!--         <div class="ui basic segment">

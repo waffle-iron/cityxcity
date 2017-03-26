@@ -13,6 +13,7 @@ import {  FEATURE_PARAMS,
 import {  INVESTMENT_PARAMS,
           INVESTMENT_TYPES,
           INVESTMENT_STATUSES,
+          INVESTMENT_SOURCES,
           INVESTMENT_FILTERS_CONFIG } from '../models/investment';
 
 import {  PARCEL_PARAMS,
@@ -90,8 +91,22 @@ export default Ember.Controller.extend({
   investmentTypes: '',
   investmentTypesArray: Ember.computed('investmentTypes', arrayify('investmentTypes', '|')),
   investmentTypeOptions: INVESTMENT_TYPES,
-  valueMin: 1,
-  valueMax: 105000000,
+
+  investmentStatuses: '',
+  investmentStatusesArray: Ember.computed('investmentStatuses', arrayify('investmentStatuses', '|')),
+  investmentStatusesOptions: INVESTMENT_STATUSES,
+
+  investmentSources: '',
+  investmentSourcesArray: Ember.computed('investmentSources', arrayify('investmentSources', '|')),
+  investmentSourcesOptions: INVESTMENT_SOURCES,
+
+  allInvestments: Ember.computed.alias('currentCity.city.investments'),
+  amounts_estimates: Ember.computed.mapBy('allInvestments', 'amount_estimated'),
+  amountsMin: Ember.computed.min('amounts_estimates'),
+  amountsMax: Ember.computed.max('amounts_estimates'),
+
+  valueMin: 0,
+  valueMax: 20000000,
 
   // parcels 
   landuseTypes: '',

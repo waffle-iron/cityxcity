@@ -1,4 +1,5 @@
 import DS from 'ember-data';
+import moment from 'moment';
 
 export default DS.Model.extend({
   name: DS.attr("string"),
@@ -26,6 +27,11 @@ export default DS.Model.extend({
   amount_exact: DS.attr('number'),
   amount_estimated: DS.attr('string'),
   investment_status: DS.attr(),
+  investment_status_latest: Ember.computed('investment_status', function() {
+    let investment_status = this.get('investment_status');
+    investment_status = JSON.parse(investment_status);
+    return investment_status.sortBy((el) => { return moment(el.date) } )[investment_status.length - 1].status;
+  }),
   is_close_date_approx: DS.attr('boolean'),
   featured_photo: DS.attr('string'),
   pub_docs: DS.attr('string'),
@@ -83,9 +89,10 @@ export default DS.Model.extend({
   isSelected: false
 });
 
-export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax'];
+export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax', 'investmentStatuses', 'investmentSources'];
 export const INVESTMENT_TYPES  = ['Infrastructure','Finance','Assistance','Placemaking'];
 export const INVESTMENT_STATUSES  = ['Proposed','In Progress','Completed','Failed'];
+export const INVESTMENT_SOURCES = ['MassDevelopment','Public','Private'];
 export const INVESTMENT_FILTERS_CONFIG = [
       { 
         property: 'investment_type',
@@ -101,5 +108,15 @@ export const INVESTMENT_FILTERS_CONFIG = [
         property: 'fake_open_or_closed',
         filter: 'fake_open_or_closed',
         filterType: 'isLongitudinal'
+      },
+      {
+        property: 'investment_status_latest',
+        filter: 'investmentStatusesArray',
+        filterType: 'isAny'
+      },
+      { 
+        property: 'amount_estimated',
+        filter: 'investmentSourcesArray',
+        filterType: 'isAny'
       }
     ];
