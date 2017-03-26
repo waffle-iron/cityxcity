@@ -56,7 +56,7 @@ export default DS.Model.extend({
   non_addressy_location: DS.attr('string'),
   is_employer: DS.attr('boolean'),
   is_street_activating: DS.attr('boolean'),
-  is_tdi_assett: DS.attr('boolean'),
+  is_tdi_asset: DS.attr('boolean'),
   open_or_closed: DS.attr(),
   featured_photo: DS.attr('string'),
   pub_docs: DS.attr('string'),
@@ -101,7 +101,7 @@ export default DS.Model.extend({
   isSelected: false
 });
 
-export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer','fake_open_or_closed'];
+export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer','fake_open_or_closed','is_employer','is_street_activating','is_tdi_asset','is_feature_owner_engaged','is_collision_point'];
 export const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
 export const FEATURE_FILTERS_CONFIG = [
       { 
@@ -117,6 +117,31 @@ export const FEATURE_FILTERS_CONFIG = [
       {
         property: 'isOpen',
         filter: 'featureOpen',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'is_employer',
+        filter: 'is_employer',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'is_street_activating',
+        filter: 'is_street_activating',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'is_tdi_asset',
+        filter: 'is_tdi_asset',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'is_feature_owner_engaged',
+        filter: 'is_feature_owner_engaged',
+        filterType: 'isTrue'
+      },
+      {
+        property: 'is_collision_point',
+        filter: 'is_collision_point',
         filterType: 'isTrue'
       },
       {

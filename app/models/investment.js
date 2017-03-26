@@ -84,10 +84,11 @@ export default DS.Model.extend({
 });
 
 export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax'];
-export const INVESTMENT_TYPES  = ['MassDev Direct','State Direct (non-MassDev)','Other Public Agency','Private','Public-Private'];
+export const INVESTMENT_TYPES  = ['Infrastructure','Finance','Assistance','Placemaking'];
+export const INVESTMENT_STATUSES  = ['Proposed','In Progress','Completed','Failed'];
 export const INVESTMENT_FILTERS_CONFIG = [
       { 
-        property: 'type',
+        property: 'investment_type',
         filter: 'investmentTypesArray',
         filterType: 'isAny'
       },

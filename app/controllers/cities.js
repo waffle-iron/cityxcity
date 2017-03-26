@@ -12,6 +12,7 @@ import {  FEATURE_PARAMS,
 
 import {  INVESTMENT_PARAMS,
           INVESTMENT_TYPES,
+          INVESTMENT_STATUSES,
           INVESTMENT_FILTERS_CONFIG } from '../models/investment';
 
 import {  PARCEL_PARAMS,
@@ -19,12 +20,16 @@ import {  PARCEL_PARAMS,
           PARCEL_FILTERS_CONFIG,
           PARCEL_MAP_CONFIG } from '../models/parcel';
 
-const SPECIAL_QUERYP_CONFIG = [ { 'activating' : { type: 'boolean' }}, 
-                                { 'featureOpen': { type: 'boolean' }}, 
-                                { 'forSale'    : { type: 'boolean' }}, 
-                                { 'forLease'   : { type: 'boolean' }},
-                                { 'employer'   : { type: 'boolean' }}];
-
+const SPECIAL_QUERYP_CONFIG = [ { 'activating'                : { type: 'boolean' }}, 
+                                { 'featureOpen'               : { type: 'boolean' }}, 
+                                { 'forSale'                   : { type: 'boolean' }}, 
+                                { 'forLease'                  : { type: 'boolean' }},
+                                { 'employer'                  : { type: 'boolean' }},
+                                { 'is_employer'               : { type: 'boolean' } },
+                                { 'is_street_activating'      : { type: 'boolean' } },
+                                { 'is_tdi_asset'             : { type: 'boolean' } },
+                                { 'is_feature_owner_engaged'  : { type: 'boolean' } },
+                                { 'is_collision_point'        : { type: 'boolean' } } ];
 export default Ember.Controller.extend({
   queryParams: ['showInvestments','showFeatures','showParcels']
                 .concat(Ember.copy(FEATURE_PARAMS).removeObject('fake_open_or_closed'), INVESTMENT_PARAMS, PARCEL_PARAMS, SPECIAL_QUERYP_CONFIG),

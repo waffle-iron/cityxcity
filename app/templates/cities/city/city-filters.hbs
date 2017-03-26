@@ -31,22 +31,33 @@
       </div>
       <div class="content">
         <div class="ui basic segment">
-          Feature
-          <div class="ui vertical list">
-            {{#each cc.assetTypeOptions as |option|}}
-              {{ui-checkbox 
-                label=option 
-                class="item"
-                checked=(array-contains cc.assetTypesArray option)
-                onChange=(action 'composeList' option 'assetTypes' target=cc)}}
-            {{/each}}
+          <h4 class="ui header">Feature Status</h4>
+          <div class="ui labels">
+             <a class="ui {{if cc.is_employer 'inverted tdi-blue' 'filters-label'}} label" onclick={{action (mut cc.is_employer) (not cc.is_employer)}}>Is Employer</a> 
+             <a class="ui {{if cc.is_street_activating 'inverted tdi-blue' 'filters-label'}} label" onclick={{action (mut cc.is_street_activating) (not cc.is_street_activating)}}>Is Street Activating</a> 
+             <a class="ui {{if cc.is_tdi_asset 'inverted tdi-blue' 'filters-label'}} label" onclick={{action (mut cc.is_tdi_asset) (not cc.is_tdi_asset)}}>Is TDI Asset</a> 
+             <a class="ui {{if cc.is_feature_owner_engaged 'inverted tdi-blue' 'filters-label'}} label" onclick={{action (mut cc.is_feature_owner_engaged) (not cc.is_feature_owner_engaged)}}>Is Owner Engaged</a> 
+             <a class="ui {{if cc.is_collision_point 'inverted tdi-blue' 'filters-label'}} label" onclick={{action (mut cc.is_collision_point) (not cc.is_collision_point)}}>Is Collision Point</a> 
           </div>
         </div>
         <div class="ui basic segment">
-          <div class="ui top attached label">Other Categories</div>
-          <div class="ui vertical list">
-            {{ui-checkbox label="Activating" class="item" checked=cc.activating onChange=(action (mut cc.activating))}}
-            {{ui-checkbox label="Open" class="item" checked=cc.featureOpen onChange=(action (mut cc.featureOpen))}}
+          <h4 class="ui header">
+            Feature Types
+          </h4>
+          <div class="ui equal width grid">
+            {{#each (chunk 7 cc.assetTypeOptions) as |group|}}
+              <div class="column">
+                {{#each group as |option|}}
+                  <div class="ui vertical list">
+                    {{ui-checkbox 
+                      label=option 
+                      class="item"
+                      checked=(array-contains cc.assetTypesArray option)
+                      onChange=(action 'composeList' option 'assetTypes' target=cc)}}
+                    </div>
+                {{/each}}
+              </div>
+            {{/each}}
           </div>
         </div>
       </div>
@@ -60,6 +71,26 @@
       </div>
       <div class="content">
         <div class="ui basic segment">
+          <h4 class="ui header">
+            Investment Types
+          </h4>
+          <div class="ui equal width grid">
+            {{#each (chunk 7 cc.investmentTypeOptions) as |group|}}
+              <div class="column">
+                {{#each group as |option|}}
+                  <div class="ui vertical list">
+                    {{ui-checkbox 
+                      label=option 
+                      class="item"
+                      checked=(array-contains cc.investmentTypesArray option)
+                      onChange=(action 'composeList' option 'investmentTypes' target=cc)}}
+                    </div>
+                {{/each}}
+              </div>
+            {{/each}}
+          </div>
+        </div>
+{{!--         <div class="ui basic segment">
           <div class="ui top attached label">Types</div>
           <div class="ui horizontal list">
             {{#each cc.investmentTypeOptions as |option|}}
@@ -81,7 +112,7 @@
                              on-change=(action "updateRanges" target=cc)
               }}
             </div>
-          </div>
+          </div> --}}
         </div>
     {{/if}}
 
