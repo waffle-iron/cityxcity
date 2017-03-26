@@ -8,12 +8,161 @@
   </h2>
 
   {{#edit-resource model=model as |field|}}
-    {{field.form.text-field "name"}}
-    {{field.form.text-field "address"}}
-    {{field.form.text-field "contact"}}
+    <form class="ui form">
+      <div class="ui dividing header">
+        Add Feature
+      </div>
+      <div class="field">
+        <label>Add feature name</label>
+        {{input type='text' name='name' value=model.name}}
+      </div>
+      <div class="ui dividing header">
+        Location
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          {{ui-checkbox class="toggle" 
+                        label="Is this feature locatable at a single address or small range of addresses?" 
+                        checked=model.is_addressy 
+                        onChange=(action (mut model.is_addressy))}}
+        </div>
+      </div>
 
-    {{field.form.text-field "is_addressy"}}
-    {{field.form.text-field "non_addressy_location"}}
+      {{#liquid-if model.is_addressy}}
+        <div class="field">
+          <label>Address Number</label>
+          {{input type='text' name='name' value=address_number}}
+        </div>
+        <div class="field">
+          <label>Street Name</label>
+          {{input type='text' name='name' value=street_name}}
+        </div>
+        <div class="field">
+          <label>Street Suffix</label>
+          {{input type='text' name='name' value=street_suffix}}
+        </div>
+      {{else}}
+        <div class="field">
+          <label>Describe the location (street intersection, etc.)</label>
+          {{input type='text' name='name' value=model.non_addressy_location}}
+        </div>
+      {{/liquid-if}}
+      <div class="ui dividing header">
+        Attributes
+      </div>
+      <div class="field">
+        <label>Select the feature type</label>
+        {{#ui-dropdown class="selection" selected=model.assetType onChange=(action (mut model.assetType))}}
+          <div class="default text">Select the feature type</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {{#each featureTypes as |type|}}
+              <div class="item" data-value="{{type}}">
+                {{type}}
+              </div>
+            {{/each}}
+          </div>
+        {{/ui-dropdown}}
+      </div>
+      {{#if model.assetType}}
+        <div class="field">
+          <label>Select the feature sub-type</label>
+          {{#ui-dropdown class="selection" selected=model.assetType onChange=(action (mut model.subtype))}}
+            <div class="default text">Select the feature sub-type</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {{#each (get field.assetSubTypes model.assetType) as |subtype|}}
+                <div class="item" data-value="{{subtype}}">
+                  {{subtype}}
+                </div>
+              {{/each}}
+            </div>
+          {{/ui-dropdown}}
+        </div>
+      {{/if}}
+      <div class="field">
+        <div class="ui checkbox">
+          {{ui-checkbox class="toggle" 
+                        label="Is this feature an employer?" 
+                        checked=model.employer 
+                        onChange=(action (mut model.employer))}}
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          {{ui-checkbox class="toggle" 
+                        label="Does this feature activate the street nearby?" 
+                        checked=model.activating 
+                        onChange=(action (mut model.activating))}}
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          {{ui-checkbox class="toggle" 
+                        label="Does this feature contribute to the goals of the TDI program?" 
+                        checked=model.is_tdi_asset 
+                        onChange=(action (mut model.is_tdi_asset))}}
+        </div>
+      </div>
+      <div class="field">
+        <div class="ui checkbox">
+          {{ui-checkbox class="toggle" 
+                        label="Is this feature a collision point for members of the community?" 
+                        checked=model.is_collision_point 
+                        onChange=(action (mut model.is_collision_point))}}
+        </div>
+      </div>
+
+      <div class="ui dividing header">
+        Related Investments
+      </div>
+
+      {{select-association 
+          selected=model.investments 
+          modelName='investment' 
+          placeholder="Search for an investment"
+          searchField='name'}}
+
+      <div class="field">
+        {{textarea value=model.relatedInvestmentsDescription placeholder='Describe these relationships a bit'}}
+      </div>
+
+      <div class="ui dividing header">
+        Related Features
+      </div>
+
+      {{select-association
+          selected=model.relatedFeatures
+          modelName='feature'
+          placeholder="Search for a feature"
+          searchField='name'}}
+
+      <div class="field">
+        {{textarea value=model.relatedFeaturesDescription placeholder='Describe these relationships a bit'}}
+      </div>
+
+    </form>
+  {{/edit-resource}}
+{{!-- 
+  {{#edit-resource model=model as |field|}}
+    {{field.form.text-field "name" label="Feature Name"}}
+
+    <div class="ui horizontal divider">
+      Location
+    </div>
+    {{ui-checkbox class="toggle" label="Is this feature locatable at a single address or small range of addresses?" checked=model.is_addressy onChange=(action (mut model.is_addressy))}}
+    {{#liquid-if model.is_addressy}}
+      
+      {{input value=street_name label='Street Name (No Suffix)'}}
+      {{input value=street_suffix label='Street Suffix'}}
+    {{else}}
+      {{field.form.text-field "non_addressy_location" label="Describe the location (street intersection, etc.)"}}
+    {{/liquid-if}}
+
+
+    
+    {{field.form.text-field "contact"}}
+    
     {{field.form.checkbox-field "employer"}}
     {{field.form.checkbox-field "activating"}}
     {{field.form.checkbox-field "is_tdi_assett"}}
@@ -59,31 +208,5 @@
     {{field.form.checkbox-field "is_collision_point"}}
 
     {{field.form.select-field "assetType" field.assetTypes}}
-  {{/edit-resource}}
-
-
-  <h3>Related Investments</h3>
-
-  {{select-association 
-      selected=model.investments 
-      modelName='investment' 
-      placeholder="Search for an investment"
-      searchField='name'}}
-  <div class="ui form">
-    <div class="field">
-      {{textarea value=model.relatedInvestmentsDescription placeholder='Describe these relationships a bit'}}
-    </div>
-  </div>
-
-  <h3>Related Features</h3>
-  {{select-association
-      selected=model.relatedFeatures
-      modelName='feature'
-      placeholder="Search for a feature"
-      searchField='name'}}
-  <div class="ui form">
-    <div class="field">
-      {{textarea value=model.relatedFeaturesDescription placeholder='Describe these relationships a bit'}}
-    </div>
-  </div>
+  {{/edit-resource}} --}}
 </div>

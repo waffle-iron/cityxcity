@@ -92,7 +92,7 @@ export const INVESTMENT_FILTERS_CONFIG = [
         filterType: 'isAny'
       },
       { 
-        property: 'value',
+        property: 'amount_exact',
         filter: ['valueMin', 'valueMax'],
         filterType: 'isWithin'
       },

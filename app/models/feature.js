@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import Ember from 'ember';
 import { faker } from 'ember-cli-mirage';
+import moment from 'moment';
 
 export default DS.Model.extend({
   name: DS.attr("string"),
@@ -48,7 +49,7 @@ export default DS.Model.extend({
 
   latitude: DS.attr("number"),
   longitude: DS.attr("number"),
-  is_addressy: DS.attr('boolean'),
+  is_addressy: DS.attr('boolean', { defaultValue: true }),
   non_addressy_location: DS.attr('string'),
   is_employer: DS.attr('boolean'),
   is_street_activating: DS.attr('boolean'),
@@ -126,3 +127,69 @@ export const FEATURE_FILTERS_CONFIG = [
         filterType: 'isLongitudinal'
       }
     ];
+
+export const FEATURE_SUBTYPES = {"Food":
+    ["Cafe",
+      "Restaurant",
+      "Fast-Food",
+      "Grocery Store",
+      "Market"],
+    "Business" :
+    ["General Office",
+      "General Industrial",
+      "Bank",
+      "Corporation Headquarters"],
+    "Retail" :
+    ["Convenience",
+      "Pharmacy",
+      "Household Goods",
+      "Services",
+      "Big Box Store",
+      "Other Retail"],
+    "Community":
+    ["Non-Profit",
+      "Groups or Associations",
+      "Church",
+      "Coworking Space"],
+    "Cultural & Entertainment" :
+    ["Theatre",
+      "Indoor Recreation",
+      "Outdoor Recreation",
+      "Museum",
+      "Art Center / Gallery",
+      "MakerSpace"],
+    "Health Care":
+    ["Care and Treatment Facility",
+      "Medical Office"],
+    "Eductation" :
+    ["Pre-School or Early Education Center",
+      "Public School",
+      "Private School",
+      "Vocational School",
+      "College or University"],
+    "Government" :
+      ["Fire Department",
+        "Library",
+        "Police Department",
+        "City Government",
+        "Social Services",
+        "Other Government Departments and Agencies",
+        "Post Office"],
+    "Temporary":
+    ["Pop-Up",
+      "Farmers Market",
+      "Event Location"],
+    "Park / Open Space":
+    ["Plaza",
+      "Alleyway",
+      "Pocket Park",
+      "Trails and Greenways",
+      "Community Garden / Farm"],
+    "Parking":
+    ["Municipal Lot",
+      "Paid Lot",
+      "Paid Structure"],
+    "Public Transit":
+    [ "Bus",
+      "Rail"]
+  }

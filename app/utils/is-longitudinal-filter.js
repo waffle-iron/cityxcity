@@ -1,4 +1,6 @@
 export default function isLongitudinalFilter(selectedDate, longitudinalField, model) {
+  if(!selectedDate) return true;
+
   // selectedDate, longitudinalField, model
   let truthState = 'open';
   let fieldDates = model.get(longitudinalField);

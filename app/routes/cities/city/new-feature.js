@@ -1,4 +1,5 @@
 import Ember from 'ember';
+import { FEATURE_TYPES } from '../../../models/feature';
 
 export default Ember.Route.extend({
   templateName: 'cities/city/edit-feature',
@@ -13,6 +14,7 @@ export default Ember.Route.extend({
   setupController(controller, model){ 
     this._super(controller, model);
     controller.set('currentCity', Ember.inject.service('currentCity'));
+    controller.set('featureTypes', FEATURE_TYPES);
   },
 
   actions: {

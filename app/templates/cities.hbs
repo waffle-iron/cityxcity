@@ -1,10 +1,10 @@
 <div class="cities ui grid">
-  <div class="list-results ui segment seven wide column" id="sidebar">
+  <div class="list-results ui segment four wide column" id="sidebar">
     <div class="city-details">
       {{outlet}}
     </div>
   </div>
-  <div class="map-results {{if (not hideSidebar) 'nine'}}{{if hideSidebar 'sixteen'}} wide column" style="padding: 0 !important; height:100%;">
+  <div class="map-results {{if (not hideSidebar) 'twelve'}}{{if hideSidebar 'sixteen'}} wide column" style="padding: 0 !important; height:100%;">
     <div class="cities-map">
       <i class="large circular white {{if (not hideSidebar) 'remove'}} link icon sidebar-tab {{if hideSidebar 'right arrow'}}" onclick={{action 'toggleSidebar'}} style="background-color:white"></i>
 
@@ -125,7 +125,14 @@
 
 
       {{/leaflet-map}}
-      {{over-time-chart dates=featuresOpenDates selection=fake_open_or_closed}}
+      <div class="ui links fluid menu">
+        {{#each featuresOpenDates as |date|}}
+          {{log date.date fake_open_or_closed}} 
+          <a class="item {{if (eq fake_open_or_closed date.date) 'active'}}" onclick={{action 'updateDate' date.date}}>{{date.alias}}</a>
+        {{/each}}
+      </div>
+{{!--       {{(group-by (map-by featuresOpenDates 'key') '')}}
+      {{over-time-chart dates=featuresOpenDates selection=fake_open_or_closed}} --}}
     </div>
   </div>
 </div>
