@@ -12,6 +12,7 @@ export default DS.Model.extend({
   employer: DS.attr("boolean"),
   activating: DS.attr("boolean"),
   assetType: DS.attr("string"),
+  feature_type: DS.attr("string"),
   subtype: DS.attr("string"),
   comment: DS.attr("string"),
   opendate: DS.attr("date"),
@@ -104,7 +105,7 @@ export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'emplo
 export const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
 export const FEATURE_FILTERS_CONFIG = [
       { 
-        property: 'assetType',
+        property: 'feature_type',
         filter: 'assetTypesArray',
         filterType: 'isAny'
       },
