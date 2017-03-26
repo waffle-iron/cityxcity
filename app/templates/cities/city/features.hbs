@@ -2,14 +2,14 @@
   <h2 class="ui header">
     <img class="ui circular image" style="min-height: 60px;" src={{model.splash}}/>
     <div class="content">
-      {{model.name}}
-      <div class="sub header">{{model.assetType}}</div>
+      {{model.feature_name}}
+      <div class="sub header">{{model.feature_type}}</div>
     </div>
   </h2>
 
   <div class="ui green segment">
     <strong>
-      Want to learn more about {{if model.name model.name 'this place'}}? 
+      Want to learn more about {{if model.feature_name model.feature_name 'this place'}}? 
     </strong>
     {{#if model.cta_contact}}
       Contact {{model.cta_contact}}.
@@ -23,7 +23,9 @@
 
   {{enumerate-properties 
     model=model
-    properties=(array 'name' 'address' 'contact' 'employer' 'activating' 'assetType' 'subtype' 'comment' 'opendate' 'closedate')}}
+    properties=(array 'feature_subtype' 'is_employer' 'is_street_activating' 'is_tdi_asset' 'priv_contact_name' 'priv_contact_organization' 'priv_contact_role' 'priv_contact_phone' 'priv_contact_email' 'priv_contact_website' 'priv_notes' 'pub_notes' 'cta_text' 'cta_contact' )}}
+
+
 
   <h3>Related</h3>
   {{tabbed-results  visibleInvestments  = model.investments

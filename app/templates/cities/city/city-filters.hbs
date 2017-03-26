@@ -31,8 +31,8 @@
       </div>
       <div class="content">
         <div class="ui basic segment">
-          <div class="ui top attached label">Types</div>
-          <div class="ui horizontal list">
+          Feature
+          <div class="ui vertical list">
             {{#each cc.assetTypeOptions as |option|}}
               {{ui-checkbox 
                 label=option 
@@ -44,7 +44,7 @@
         </div>
         <div class="ui basic segment">
           <div class="ui top attached label">Other Categories</div>
-          <div class="ui horizontal list">
+          <div class="ui vertical list">
             {{ui-checkbox label="Activating" class="item" checked=cc.activating onChange=(action (mut cc.activating))}}
             {{ui-checkbox label="Open" class="item" checked=cc.featureOpen onChange=(action (mut cc.featureOpen))}}
           </div>
