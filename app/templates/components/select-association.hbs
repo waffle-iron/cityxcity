@@ -4,8 +4,8 @@
   placeholder=placeholder
   searchField=searchField
   onchange=(action (mut selected))
-  as |investment|
+  as |resource|
 }}
-  {{investment.name}}
+  {{get resource searchField}}
 {{/power-select-multiple}}
 {{yield}}

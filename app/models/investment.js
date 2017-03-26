@@ -29,8 +29,12 @@ export default DS.Model.extend({
   investment_status: DS.attr(),
   investment_status_latest: Ember.computed('investment_status', function() {
     let investment_status = this.get('investment_status');
-    investment_status = JSON.parse(investment_status);
-    return investment_status.sortBy((el) => { return moment(el.date) } )[investment_status.length - 1].status;
+    if (investment_status) {
+      investment_status = JSON.parse(investment_status);  
+      return investment_status.sortBy((el) => { return moment(el.date) } )[investment_status.length - 1].status;
+    } else {
+      return [];
+    } 
   }),
   is_close_date_approx: DS.attr('boolean'),
   featured_photo: DS.attr('string'),
