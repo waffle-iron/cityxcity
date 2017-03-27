@@ -2,6 +2,7 @@ import DS from 'ember-data';
 import Ember from 'ember';
 import { faker } from 'ember-cli-mirage';
 import moment from 'moment';
+import config from '../config/environment';
 
 export default DS.Model.extend({
   feature_name: DS.attr("string"),
@@ -23,7 +24,7 @@ export default DS.Model.extend({
   }),
   iconUrl: Ember.computed('feature_type', function() {
     let featureType = this.get('feature_type').dasherize().replace('/','');
-    return `/images/icons/features/${featureType}.png`;
+    return `${config.prepend ? config.prepend : '/'}images/icons/features/${featureType}.png`;
   }),
 
   isOpen: Ember.computed('closedate', function() {
