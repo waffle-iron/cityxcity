@@ -1,6 +1,6 @@
 {{#liquid-bind model use="toLeft" class="investments" as |currentModel|}}
   <h2 class="ui header">
-    <i class="dollar icon"></i>
+    <img class="ui image" src={{model.iconUrl}}>
     <div class="content">
       {{model.project}}
       <div class="sub header">{{model.investment_type}}</div>

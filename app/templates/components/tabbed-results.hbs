@@ -27,7 +27,7 @@
         <div class="column">
           {{#tdi-card route='cities.city.investments' 
                       modelContext=investment 
-                      image=investment.featured_photo
+                      image=investment.iconUrl
                       height=100}}
             ${{number-format investment.amount_estimated decimals=0}} - {{investment.project}}
           {{/tdi-card}}
