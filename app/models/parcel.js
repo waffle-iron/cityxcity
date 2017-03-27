@@ -1,20 +1,28 @@
 import DS from 'ember-data';
 import Ember from 'ember';
+import { faker } from 'ember-cli-mirage';
 
 export default DS.Model.extend({
   name: DS.attr('string'),
   address: DS.attr('string'),
   contact: DS.attr('string'),
-  landUseType: DS.attr('number'),
+  landUseType: DS.attr('string'),
   yearBuilt: DS.attr('date'),
-  forLease: DS.attr('boolean'),
+  // forLease: DS.attr('boolean'),
   vacancy: DS.attr('number'),
   ground_floor_vacancy: DS.attr('string'),
   upper_floor_vacancy: DS.attr('string'),
   marked: DS.attr('boolean'),
-  forSale: DS.attr('boolean'),
+  // forSale: DS.attr('boolean'),
 
-  ownership_type: DS.attr('string'),
+  forLease: Ember.computed(function() {
+    return faker.random.boolean();
+  }),
+  forSale: Ember.computed(function() {
+    return faker.random.boolean();
+  }),
+
+  // ownership_type: DS.attr('string'),
   is_engaged_owner: DS.attr('boolean'),
   land_use: DS.attr('string'),
   zoning: DS.attr('string'),
@@ -62,7 +70,8 @@ export default DS.Model.extend({
   }),
   geojson: Ember.computed('geom', function() {
     let geojson = Ember.Object.create();
-    let properties = Object.keys(this.toJSON()).removeObjects(['geom','city']);
+    let computed_properties = ['forLease', 'forSale', 'vacancy'];
+    let properties = Object.keys(this.toJSON()).removeObjects(['geom','city']).concat(computed_properties);
 
     geojson.set('properties', this.getProperties(properties));
     geojson.set('type', 'Feature');
@@ -76,7 +85,7 @@ export default DS.Model.extend({
 });
 
 export const PARCEL_PARAMS = ['groundFloorVacancyMin','groundFloorVacancyMax','landuseTypes','forSale','forLease','yearBuiltMin','yearBuiltMax'];
-export const PARCEL_TYPES  = ['Residential','Commercial Office','Commercial Other','Industrial','Institutional, Other, or Unknown'];
+export const PARCEL_TYPES  = ['1','3','4','9'];
 export const PARCEL_FILTERS_CONFIG = [
   { 
     property: 'landUseType',
@@ -127,7 +136,7 @@ export const PARCEL_MAP_CONFIG = [
       },
       {
         key: 'landUseType',
-        value: 2,
+        value: 3,
         color: 'red'
       },
       {
@@ -138,45 +147,45 @@ export const PARCEL_MAP_CONFIG = [
       {
         key: 'landUseType',
         value: 9,
-        color: 'rgb(180,180,180)'
-      }
-    ]
-  },
-  {
-    setName: 'vacancy',
-    default_color: 'blue',
-    colorMap: [
-      {
-        key: 'vacancy',
-        value: 1,
-        color: 'red'
-      },
-      {
-        key: 'vacancy',
-        value: 2,
-        color: 'blue'
-      },
-      {
-        key: 'vacancy',
-        value: 3,
-        color: 'purple'
-      }
-    ]
-  },
-  {
-    setName: 'ownership',
-    default_color: 'blue',
-    colorMap: [
-      {
-        key: 'marked',
-        value: true,
-        color: 'red'
-      },
-      {
-        key: 'marked',
-        value: false,
-        color: 'blue'
+        color: 'green'
       }
     ]
   }
+  // {
+  //   setName: 'vacancy',
+  //   default_color: 'blue',
+  //   colorMap: [
+  //     {
+  //       key: 'vacancy',
+  //       value: 1,
+  //       color: 'red'
+  //     },
+  //     {
+  //       key: 'vacancy',
+  //       value: 2,
+  //       color: 'blue'
+  //     },
+  //     {
+  //       key: 'vacancy',
+  //       value: 3,
+  //       color: 'purple'
+  //     }
+  //   ]
+  // },
+  // {
+  //   setName: 'ownership',
+  //   default_color: 'blue',
+  //   colorMap: [
+  //     {
+  //       key: 'marked',
+  //       value: true,
+  //       color: 'red'
+  //     },
+  //     {
+  //       key: 'marked',
+  //       value: false,
+  //       color: 'blue'
+  //     }
+  //   ]
+  // }
 ];

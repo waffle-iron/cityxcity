@@ -24,7 +24,15 @@
   <div class="ui tab" data-tab="investments">
     <div class="ui two column grid cards">
       {{#each (sort-by "value:desc" "project" visibleInvestments) as |investment|}}
-        {{#link-to 'cities.city.investments' investment class="column"}}
+        <div class="column">
+          {{#tdi-card route='cities.city.investments' 
+                      modelContext=investment 
+                      image=investment.featured_photo
+                      height=100}}
+            ${{number-format investment.amount_estimated decimals=0}} - {{investment.project}}
+          {{/tdi-card}}
+        </div>
+{{!--         {{#link-to 'cities.city.investments' investment class="column"}}
           <div class="ui fluid card">
             <div class="content">
               <div class="header">${{number-format investment.value decimals=0}}</div>
@@ -48,7 +56,7 @@
               <div class="bar"></div>
             {{/ui-progress}}
           </div>
-        {{/link-to}}
+        {{/link-to}} --}}
       {{else}}
         <h3 style="margin: 0 auto; color: rgba(0,0,0,0.44);">
           No Results

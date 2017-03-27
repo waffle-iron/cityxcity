@@ -123,30 +123,7 @@
             }}
           </div>
         </div>
-{{!--         <div class="ui basic segment">
-          <div class="ui top attached label">Types</div>
-          <div class="ui horizontal list">
-            {{#each cc.investmentTypeOptions as |option|}}
-              {{ui-checkbox 
-                label=option 
-                class="item"
-                checked=(array-contains cc.investmentTypesArray option)
-                onChange=(action 'composeList' option 'investmentTypes' target=cc)}}
-            {{/each}}
-          </div>
-          <div class="ui divider"></div>
-            Investment Value:
-            <div class="ui basic segment">
-              {{range-slider start=(array cc.valueMin cc.valueMax)
-                             range=(hash min=1 max=200000000)
-                             tooltips=cc.tooltipsConfig
-                             connect=true
-                             step=1
-                             on-change=(action "updateRanges" target=cc)
-              }}
-            </div>
-          </div> --}}
-        </div>
+      </div>
     {{/if}}
 
     {{#if cc.showParcels}}
@@ -156,36 +133,32 @@
         Parcels Filters
       </div>
       <div class="content">
-        <div class="ui segment">
-          <div class="ui top attached label">Symbolize Map</div>
-          <div class="ui menu">
-            {{#if cc.showParcels}}
-              {{#each cc.parcelChoroplethSets as |colorSet|}}
-                <a class="item" {{action 'changeProperty' 'choroplethLayer' colorSet target=cc}}>
-                  {{colorSet}}
-                </a>
-              {{/each}}
-            {{/if}}
-          </div>
+        <h4 class="ui header">Symbolize Map</h4>
+        <div class="ui labels">
+          {{#each cc.parcelChoroplethSets as |colorSet|}}
+            <a class="ui {{if (eq colorSet cc.choroplethLayer) 'inverted tdi-blue' 'filters-label'}} label" {{action 'changeProperty' 'choroplethLayer' colorSet target=cc}}>
+              {{colorSet}}
+            </a> 
+          {{/each}}
         </div>
-        <div class="ui segment">
-          <div class="ui top attached label">Other Categories</div>
-          <div class="ui horizontal list">
-            {{ui-checkbox label="For Lease" class="item" checked=cc.forLease onChange=(action (mut forLease) target=cc)}}
-            {{ui-checkbox label="For Sale" class="item" checked=cc.forSale onChange=(action (mut forSale) target=cc)}}
-          </div>
+        <h4 class="ui header">
+          Tenure Status
+        </h4>
+        <div class="ui horizontal list">
+          {{ui-checkbox label="For Lease" class="item" checked=cc.forLease onChange=(action (mut cc.forLease) target=cc)}}
+          {{ui-checkbox label="For Sale" class="item" checked=cc.forSale onChange=(action (mut cc.forSale) target=cc)}}
         </div>
-        <div class="ui segment">
-          <div class="ui top attached label">Land Use Types</div>
-          <div class="ui horizontal list">
-            {{#each cc.landuseTypeOptions as |option|}}
-              {{ui-checkbox 
-                label=option  
-                class="item"
-                checked=(array-contains cc.landuseTypesArray option)
-                onChange=(action 'composeList' option 'landuseTypes' target=cc)}}
-            {{/each}}
-          </div>
+        <h4 class="ui header">
+          Land Use Type
+        </h4>
+        <div class="ui horizontal list">
+          {{#each cc.landuseTypeOptions as |option|}}
+            {{ui-checkbox 
+              label=(if (eq option '1') 'Residential' (if (eq option '3') 'Commercial' (if (eq option '4') 'Industrial' (if (eq option '9') 'Public'))))  
+              class="item"
+              checked=(array-contains cc.landuseTypesArray option)
+              onChange=(action 'composeList' option 'landuseTypes' target=cc)}}
+          {{/each}}
         </div>
       </div>
     {{/if}}
