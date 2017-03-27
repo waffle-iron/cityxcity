@@ -1,0 +1,8 @@
+{{#each orderedSnapshots as |snapshot|}}
+  <div class="ui divider"></div>
+  {{timeline-edit month=snapshot.date status=snapshot.status choices=choices}}
+{{/each}}
+<div class="ui button" {{action 'addNew'}}>
+Add
+</div>
+<div class="ui divider"></div>

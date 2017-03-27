@@ -48,8 +48,8 @@
         {{/if}}
 
         {{#each model as |city|}}
-          {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
-          {{/marker-layer}}
+{{!--           {{#marker-layer lat=city.latitude lng=city.longitude onClick=(action 'selectCity' city)}}
+          {{/marker-layer}} --}}
           {{image-layer pane='extrusions' imageUrl=city.imageOverlay bounds=city.imageOverlayBBox opacity=0.9}}
         {{/each}}
 

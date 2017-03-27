@@ -33,7 +33,10 @@ const SPECIAL_QUERYP_CONFIG = [ { 'activating'                : { type: 'boolean
                                 { 'is_collision_point'        : { type: 'boolean' } } ];
 export default Ember.Controller.extend({
   queryParams: ['showInvestments','showFeatures','showParcels']
-                .concat(Ember.copy(FEATURE_PARAMS).removeObject('fake_open_or_closed'), INVESTMENT_PARAMS, PARCEL_PARAMS, SPECIAL_QUERYP_CONFIG),
+                .concat(Ember.copy(FEATURE_PARAMS).removeObject('fake_open_or_closed'), 
+                        INVESTMENT_PARAMS, 
+                        PARCEL_PARAMS, 
+                        SPECIAL_QUERYP_CONFIG),
   currentCity: Ember.inject.service(),
 
   // features
@@ -44,6 +47,7 @@ export default Ember.Controller.extend({
   featureOpen: null,
   employer: null,
   fake_open_or_closed: null,
+  investments_fake_open_or_closed: null,
   featuresOpenDates: Ember.computed('currentCity.city.features.[]', 'currentCity.city.investments.[]', function() {
     let dates = Ember.A();
     this.get('currentCity.city.features').forEach((feature) => { dates.pushObjects(feature.get('datesOpen')); });
@@ -268,6 +272,7 @@ export default Ember.Controller.extend({
     },
     updateDate(date){
       this.set('fake_open_or_closed', new Date(date));
+      this.set('investments_fake_open_or_closed', new Date(date));
     }
   },
 

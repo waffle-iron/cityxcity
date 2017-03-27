@@ -1,0 +1,8 @@
+{{file-upload url="/api/upload" progress=progress message=message}}
+{{#if progress}}
+  <div class="ui green progress">
+    <div class="bar" style={{barStyle}}>
+    </div>
+    <div class="label">{{message}}</div>
+  </div>
+{{/if}}

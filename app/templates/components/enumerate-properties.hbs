@@ -7,10 +7,12 @@
   </thead>
   <tbody>
     {{#each properties as |property|}}
-      <tr>
-        <td>{{property}}</td>
-        <td>{{get model property}}</td>
-      </tr>
+      {{#if (is-not-empty (get model property))}}
+        <tr>
+          <td>{{humanize-string property}}</td>
+          <td>{{get model property}}</td>
+        </tr>
+      {{/if}}
     {{/each}}
   </tbody>
 </table>

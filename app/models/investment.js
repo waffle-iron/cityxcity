@@ -14,7 +14,7 @@ export default DS.Model.extend({
   type: DS.attr("string"),
 
   project: DS.attr('string'),
-  is_addressy: DS.attr('boolean'),
+  is_addressy: DS.attr('boolean', { defaultValue: true }),
   non_addressy_location: DS.attr('string'),
   source_type: DS.attr('string'),
   is_tdi_influenced: DS.attr('boolean'),
@@ -61,6 +61,10 @@ export default DS.Model.extend({
   pub_contact_email_2: DS.attr('string'),
   pub_contact_website_2: DS.attr('string'),
 
+  relatedInvestments: DS.hasMany('investment', { inverse: 'relatedInvestment' }),
+  relatedInvestment: DS.belongsTo('investment', { inverse: 'relatedInvestments' }),
+  feature: DS.hasMany('feature'),
+
   fake_open_or_closed: Ember.computed(function() {
     let number = 5;
     let array = [];
@@ -88,9 +92,9 @@ export default DS.Model.extend({
   isSelected: false
 });
 
-export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax', 'investmentStatuses', 'investmentSources'];
+export const INVESTMENT_PARAMS = ['investmentTypes', 'valueMin', 'valueMax', 'investmentStatuses', 'investmentSources','investments_fake_open_or_closed'];
 export const INVESTMENT_TYPES  = ['Infrastructure','Finance','Assistance','Placemaking'];
-export const INVESTMENT_STATUSES  = ['Proposed','In Progress','Completed','Failed'];
+export const INVESTMENT_STATUSES  = ['Proposed','In Progress','Completed'];
 export const INVESTMENT_SOURCES = ['MassDevelopment','Public','Private'];
 export const INVESTMENT_FILTERS_CONFIG = [
       { 
@@ -115,7 +119,7 @@ export const INVESTMENT_FILTERS_CONFIG = [
       },
       {
         property: 'fake_open_or_closed',
-        filter: 'fake_open_or_closed',
+        filter: 'investments_fake_open_or_closed',
         filterType: 'isLongitudinal'
       }
     ];

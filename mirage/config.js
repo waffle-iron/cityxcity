@@ -7,6 +7,10 @@ export default function() {
   this.get('cities');
   this.get('cities/:id');
 
+  this.post('/upload', function(context,request, test) {
+    return {};
+  });
+
   this.get('cities/:id/features', function({ cities }, { params }) {
     let city = cities.findBy({
       id: params.id

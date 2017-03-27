@@ -1,12 +1,14 @@
 <div class="ui horizontal list resource-nav-menu">
-  {{#link-to (concat 'cities.city.' modelName) model class='item'}}
-    <i class='large black circular arrow link left icon' style="background-color: white;"></i>
-  {{/link-to}}
+  {{#unless model.isNew}}
+    {{#link-to (concat 'cities.city.' modelName) model class='item'}}
+      <i class='large black circular arrow link left icon' style="background-color: white;"></i>
+    {{/link-to}}
+  {{/unless}}
   <div class="item" onclick={{action submitRoute model}}>
     <i class='large {{if model.hasDirtyAttributes 'green' 'black'}} circular link {{if model.isSaving 'loading spinner icon' 'save icon'}}' style="background-color: white;"></i>
   </div>
 </div>
 {{#form-for model class="ui form" as |f|}}
-  {{yield (hash form=f assetTypes=assetTypes investmentTypes=investmentTypes assetSubTypes=assetSubTypes)}}
+  {{yield (hash form=f assetTypes=assetTypes investmentTypes=investmentTypes assetSubTypes=assetSubTypes investmentSources=investmentSources)}}
 {{/form-for}}
 

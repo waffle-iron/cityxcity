@@ -1,73 +1,160 @@
-<div class="investments">
-  <h2 class="ui header">
-    <i class="dollar icon"></i>
-    <div class="content">
-      {{model.name}}
-      <div class="sub header">{{model.assetType}}</div>
-    </div>
-  </h2>
+{{#liquid-bind model use="toLeft" class="investments" as |currentModel|}}
+  <div class="investments">
+    <h2 class="ui header">
+      <i class="dollar icon"></i>
+      <div class="content">
+        {{model.project}}
+        <div class="sub header">{{model.type}}</div>
+      </div>
+    </h2>
 
-  {{#edit-resource model=model as |field|}}
-    {{field.form.text-field "name"}}
-    {{field.form.text-field "address"}}
-    {{field.form.text-field "contact"}}
-    {{field.form.checkbox-field "activating"}}
-    {{field.form.text-field "value"}}
+    {{#edit-resource model=model as |field|}}
+      <form class="ui form">
+        <div class="ui dividing header">
+          Add Investment
+        </div>
+        <div class="field">
+          <label>Add project name</label>
+          {{input type='text' name='name' value=model.project}}
+        </div>
+        <div class="ui dividing header">
+          Location
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            {{ui-checkbox class="toggle" 
+                          label="Is this feature locatable at a single address or small range of addresses?" 
+                          checked=model.is_addressy 
+                          onChange=(action (mut model.is_addressy))}}
+          </div>
+        </div>
 
-    {{field.form.text-field "project"}}
-    {{field.form.checkbox-field "is_addressy"}}
-    {{field.form.text-field "non_addressy_location"}}
-    {{field.form.text-field "source_type"}}
-    {{field.form.checkbox-field "is_tdi_influenced"}}
-    {{field.form.text-field "investment_type"}}
-    {{field.form.text-field "product_massdev"}}
-    {{field.form.text-field "product_public"}}
-    {{field.form.text-field "product_private"}}
-    {{field.form.checkbox-field "is_amount_known"}}
-    {{field.form.checkbox-field "is_amount_estimated"}}
-    {{field.form.checkbox-field "is_amount_public"}}
-    {{field.form.text-field "amount_exact"}}
-    {{field.form.text-field "amount_estimated"}}
-    {{field.form.text-field "investment_status"}}
-    {{field.form.checkbox-field "is_close_date_approx"}}
-    {{field.form.text-field "featured_photo"}}
-    {{field.form.text-field "pub_docs"}}
-    {{field.form.text-field "priv_docs"}}
-    {{field.form.text-field "related_link_title"}}
-    {{field.form.text-field "related_link_url"}}
-    {{field.form.text-field "relation_notes"}}
-    {{field.form.text-field "priv_notes"}}
-    {{field.form.text-field "pub_notes"}}
-    {{field.form.text-field "cta_text"}}
-    {{field.form.text-field "cta_contact"}}
+        {{#liquid-if model.is_addressy}}
+          <div class="field">
+            <label>Address Number</label>
+            {{input type='text' name='name' value=address_number}}
+          </div>
+          <div class="field">
+            <label>Street Name</label>
+            {{input type='text' name='name' value=street_name}}
+          </div>
+          <div class="field">
+            <label>Street Suffix</label>
+            {{input type='text' name='name' value=street_suffix}}
+          </div>
+        {{else}}
+          <div class="field">
+            <label>Describe the location (street intersection, etc.)</label>
+            {{input type='text' name='name' value=model.non_addressy_location}}
+          </div>
+        {{/liquid-if}}
+        <div class="ui dividing header">
+          Attributes
+        </div>
+        <div class="field">
+          <label>Add an investment status as needed.</label>
+          {{timeline-builder snapshots=model.open_or_closed choices=(array 'Proposed' 'In Progress' 'Completed' 'Failed')}}
+        </div>
+        <div class="field">
+          <label>Which type of investment is this?</label>
+          {{#ui-dropdown class="selection" selected=model.type onChange=(action (mut model.type))}}
+            <div class="default text">Select the investment type</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {{#each field.investmentTypes as |type|}}
+                <div class="item" data-value="{{type}}">
+                  {{type}}
+                </div>
+              {{/each}}
+            </div>
+          {{/ui-dropdown}}
+        </div>
+        <div class="field">
+          <label>Select the source of funding for this project.</label>
+          {{log field.investmentSources}}
+          {{#ui-dropdown class="selection" selected=model.source_type onChange=(action (mut model.source_type))}}
+            <div class="default text">Select the investment soiurce</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {{#each field.investmentSources as |type|}}
+                <div class="item" data-value="{{type}}">
+                  {{type}}
+                </div>
+              {{/each}}
+            </div>
+          {{/ui-dropdown}}
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            {{ui-checkbox class="toggle" 
+                          label="Is this investment influenced by the TDI program?" 
+                          checked=model.is_tdi_influenced 
+                          onChange=(action (mut model.is_tdi_influenced))}}
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            {{ui-checkbox class="toggle" 
+                          label="Is the investment amount known or can it be estimated?" 
+                          checked=model.is_amount_known 
+                          onChange=(action (mut model.is_amount_known))}}
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui checkbox">
+            {{ui-checkbox class="toggle" 
+                          label="Is this investment amount estimated?" 
+                          checked=model.is_amount_estimated 
+                          onChange=(action (mut model.is_amount_estimated))}}
+          </div>
+        </div>
+        {{#if model.is_amount_estimated}}
+          <div class="field">
+            <label>Enter an estimated investment amount (numbers only).</label>
+            {{input type='text' name='name' value=model.amount_estimated}}
+          </div>
+        {{else}}
+          <div class="field">
+            <label>Enter the exact investment amount.</label>
+            {{input type='text' name='name' value=model.amount_exact}}
+          </div>
+        {{/if}}
+        <div class="field">
+          <div class="ui checkbox">
+            {{ui-checkbox class="toggle" 
+                          label="Can the investment amount be publicly shared?" 
+                          checked=model.is_amount_public 
+                          onChange=(action (mut model.is_amount_public))}}
+          </div>
+        </div>
+        <div class="ui dividing header">
+          Documents and Links
+        </div>
+        <div class="field">
+          <label>Add an illustrative photo of this feature.</label>
+          {{file-field-progress}}
+        </div>
 
-    {{field.form.text-field "priv_contact_name"}}
-    {{#liquid-if model.priv_contact_name}}
-      {{field.form.text-field "priv_contact_organization"}}
-      {{field.form.text-field "priv_contact_role"}}
-      {{field.form.text-field "priv_contact_phone"}}
-      {{field.form.text-field "priv_contact_email"}}
-      {{field.form.text-field "priv_contact_website"}}
-    {{/liquid-if}}
+        <div class="field">
+          <label>Add any related documents. These are publicly visible.</label>
+          {{file-field-progress}}
+        </div>
 
-    {{field.form.text-field "pub_contact_1"}}
-    {{#liquid-if model.pub_contact_1}}
-      {{field.form.text-field "pub_contact_org_1"}}
-      {{field.form.text-field "pub_contact_role_1"}}
-      {{field.form.text-field "pub_contact_phone_1"}}
-      {{field.form.text-field "pub_contact_email_1"}}
-      {{field.form.text-field "pub_contact_website_1"}}
-    {{/liquid-if}}
+        <div class="field">
+          <label>Add any related documents. These are not publicly visible.</label>
+          {{file-field-progress}}
+        </div>
 
-    {{field.form.text-field "pub_contact_2"}}
-    {{#liquid-if model.pub_contact_2}}
-      {{field.form.text-field "pub_contact_org_2"}}
-      {{field.form.text-field "pub_contact_role_2"}}
-      {{field.form.text-field "pub_contact_phone_2"}}
-      {{field.form.text-field "pub_contact_email_2"}}
-      {{field.form.text-field "pub_contact_website_2"}}
-    {{/liquid-if}}
+        <div class="field">
+          <label>Enter the URL for any related website.</label>
+          {{input type='text' name='name' value=model.related_link_url}}
+        </div>
 
-    {{field.form.select-field "type" field.investmentTypes}}
-  {{/edit-resource}}
-</div>
+        <div class="field">
+          <label>Enter a label for this related website.</label>
+          {{input type='text' name='name' value=model.related_link_title}}
+        </div>
+      </form>
+    {{/edit-resource}}
+  </div>
+{{/liquid-bind}}

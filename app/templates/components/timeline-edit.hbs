@@ -1,0 +1,33 @@
+<div class="field">
+  {{#ui-dropdown class="field selection" selected=status onChange=(action (mut status))}}
+    <div class="default text">Select Status</div>
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      {{#each choices as |choice|}}
+        <div class="item" data-value="{{choice}}">
+          {{choice}}
+        </div>
+      {{/each}}
+    </div>
+  {{/ui-dropdown}}
+</div>
+<div class="ui fields">
+  <div class="field">
+    <label>Month</label>
+    {{#ui-dropdown class="selection" selected=month onChange=(action (mut month))}}
+      <div class="default text">Select Month</div>
+      <i class="dropdown icon"></i>
+      <div class="menu">
+        {{#each months as |month|}}
+          <div class="item" data-value="{{month}}">
+            {{month}}
+          </div>
+        {{/each}}
+      </div>
+    {{/ui-dropdown}}
+  </div>
+  <div class="six wide field">
+    <label>Year</label>
+    {{input type='text' name='name' value=year placeholder='YYYY'}}
+  </div>
+</div>

@@ -1,8 +1,9 @@
-<div class="features ui basic">
+{{#liquid-bind model use="toLeft" class="features" as |currentModel|}}
+  <div class="features">
   <h2 class="ui header">
     <img class="ui circular image" src={{model.splash}}/>
     <div class="content">
-      {{model.name}}
+      {{model.feature_name}}
       <div class="sub header">{{model.assetType}}</div>
     </div>
   </h2>
@@ -14,7 +15,7 @@
       </div>
       <div class="field">
         <label>Add feature name</label>
-        {{input type='text' name='name' value=model.name}}
+        {{input type='text' name='name' value=model.feature_name}}
       </div>
       <div class="ui dividing header">
         Location
@@ -56,7 +57,7 @@
           <div class="default text">Select the feature type</div>
           <i class="dropdown icon"></i>
           <div class="menu">
-            {{#each featureTypes as |type|}}
+            {{#each field.assetTypes as |type|}}
               <div class="item" data-value="{{type}}">
                 {{type}}
               </div>
@@ -80,6 +81,10 @@
           {{/ui-dropdown}}
         </div>
       {{/if}}
+      <div class="field">
+        <label>Add an open or close date as needed.</label>
+        {{timeline-builder snapshots=model.open_or_closed choices=(array 'open' 'closed')}}
+      </div>
       <div class="field">
         <div class="ui checkbox">
           {{ui-checkbox class="toggle" 
@@ -114,7 +119,35 @@
       </div>
 
       <div class="ui dividing header">
-        Related Investments
+        Documents and Links
+      </div>
+      <div class="field">
+        <label>Add an illustrative photo of this feature.</label>
+        {{file-field-progress}}
+      </div>
+
+      <div class="field">
+        <label>Add any related documents. These are publicly visible.</label>
+        {{file-field-progress}}
+      </div>
+
+      <div class="field">
+        <label>Add any related documents. These are not publicly visible.</label>
+        {{file-field-progress}}
+      </div>
+
+      <div class="field">
+        <label>Enter the URL for any related website.</label>
+        {{input type='text' name='name' value=model.related_link_url}}
+      </div>
+
+      <div class="field">
+        <label>Enter a label for this related website.</label>
+        {{input type='text' name='name' value=model.related_link_title}}
+      </div>
+
+      <div class="ui dividing header">
+        Related Features and Investments
       </div>
 
       {{select-association 
@@ -127,10 +160,6 @@
         {{textarea value=model.relatedInvestmentsDescription placeholder='Describe these relationships a bit'}}
       </div>
 
-      <div class="ui dividing header">
-        Related Features
-      </div>
-
       {{select-association
           selected=model.relatedFeatures
           modelName='feature'
@@ -141,72 +170,77 @@
         {{textarea value=model.relatedFeaturesDescription placeholder='Describe these relationships a bit'}}
       </div>
 
+      <div class="ui dividing header">
+        Contacts
+      </div>
+
+      <div class="field">
+        <label>Private Contact Name</label>
+        {{input type='text' name='name' value=model.priv_contact_name}}
+      </div>
+
+      {{#liquid-if model.priv_contact_name}} 
+        {{#each (array 'priv_contact_organization' 'priv_contact_role' 'priv_contact_phone' 'priv_contact_email' 'priv_contact_website') as |field|}}
+          <div class="field">
+            <label>{{humanize-string (replace-with field 'priv' '')}}</label>
+            {{input type='text' name='name' value=(get model field)}}
+          </div>
+        {{/each}}
+      {{/liquid-if}}
+
+      <div class="field">
+        <label>Public Contact Name</label>
+        {{input type='text' name='name' value=model.pub_contact_1}}
+      </div>
+ 
+      {{#liquid-if model.pub_contact_1}} 
+        {{#each (array 'pub_contact_org_1' 'pub_contact_role_1' 'pub_contact_phone_1' 'pub_contact_email_1' 'pub_contact_website_1') as |field|}}
+          <div class="field">
+            <label>{{humanize-string (replace-with (replace-with field 'pub' '') '_1' '')}}</label>
+            {{input type='text' name='name' value=(get model field)}}
+          </div>
+        {{/each}}
+      {{/liquid-if}}
+
+      <div class="field">
+        <label>Public Contact Name (2)</label>
+        {{input type='text' name='name' value=model.pub_contact_2}}
+      </div>
+
+      {{#liquid-if model.pub_contact_2}} 
+        {{#each (array 'pub_contact_org_2' 'pub_contact_role_2' 'pub_contact_phone_2' 'pub_contact_email_2' 'pub_contact_website_2') as |field|}}
+          <div class="field">
+            <label>{{humanize-string (replace-with (replace-with field 'pub' '') '_2' '')}}</label>
+            {{input type='text' name='name' value=(get model field)}}
+          </div>
+        {{/each}}
+      {{/liquid-if}}
+
+      <div class="ui dividing header">
+        Call to Action
+      </div>
+
+      <div class="field">
+        <label>Write new Call to Action text if you wish to override the default text for this feature.</label>
+        {{input type='text' name='name' value=model.cta_text}}
+      </div>
+
+      <div class="field">
+        <label>Select the contact revealed when a user clicks this feature's Call to Action button.</label>
+        {{#ui-dropdown class="selection" selected=model.cta_contact onChange=(action (mut model.cta_contact))}}
+          <div class="default text" data-value="">Select One</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {{#each (array 'District Default Contact' 'Public Contact 1' 'Public Contact 2') as |type|}}
+              <div class="item" data-value="{{type}}">
+                {{type}}
+              </div>
+            {{/each}}
+          </div>
+        {{/ui-dropdown}}
+      </div>
+
     </form>
   {{/edit-resource}}
-{{!-- 
-  {{#edit-resource model=model as |field|}}
-    {{field.form.text-field "name" label="Feature Name"}}
-
-    <div class="ui horizontal divider">
-      Location
-    </div>
-    {{ui-checkbox class="toggle" label="Is this feature locatable at a single address or small range of addresses?" checked=model.is_addressy onChange=(action (mut model.is_addressy))}}
-    {{#liquid-if model.is_addressy}}
-      
-      {{input value=street_name label='Street Name (No Suffix)'}}
-      {{input value=street_suffix label='Street Suffix'}}
-    {{else}}
-      {{field.form.text-field "non_addressy_location" label="Describe the location (street intersection, etc.)"}}
-    {{/liquid-if}}
-
-
-    
-    {{field.form.text-field "contact"}}
-    
-    {{field.form.checkbox-field "employer"}}
-    {{field.form.checkbox-field "activating"}}
-    {{field.form.checkbox-field "is_tdi_assett"}}
-    {{field.form.checkbox-field "open_or_closed"}}
-    {{field.form.text-field "featured_photo"}}
-    {{field.form.text-field "pub_docs"}}
-    {{field.form.text-field "priv_docs"}}
-    {{field.form.text-field "related_link_title"}}
-    {{field.form.text-field "related_link_url"}}
-    {{field.form.text-field "relation_notes"}}
-    {{field.form.checkbox-field "is_feature_owner_engaged"}}
-    {{field.form.text-field "priv_notes"}}
-    {{field.form.text-field "pub_notes"}}
-    {{field.form.text-field "cta_text"}}
-    {{field.form.text-field "cta_contact"}}
-
-    {{field.form.text-field "priv_contact_name"}}
-    {{#liquid-if model.priv_contact_name}}
-      {{field.form.text-field "priv_contact_organization"}}
-      {{field.form.text-field "priv_contact_role"}}
-      {{field.form.text-field "priv_contact_phone"}}
-      {{field.form.text-field "priv_contact_email"}}
-      {{field.form.text-field "priv_contact_website"}}
-    {{/liquid-if}}
-
-    {{field.form.text-field "pub_contact_1"}}
-    {{#liquid-if model.pub_contact_1}}
-      {{field.form.text-field "pub_contact_org_1"}}
-      {{field.form.text-field "pub_contact_role_1"}}
-      {{field.form.text-field "pub_contact_phone_1"}}
-      {{field.form.text-field "pub_contact_email_1"}}
-      {{field.form.text-field "pub_contact_website_1"}}
-    {{/liquid-if}}
-
-    {{field.form.text-field "pub_contact_2"}}
-    {{#liquid-if model.pub_contact_2}}
-      {{field.form.text-field "pub_contact_org_2"}}
-      {{field.form.text-field "pub_contact_role_2"}}
-      {{field.form.text-field "pub_contact_phone_2"}}
-      {{field.form.text-field "pub_contact_email_2"}}
-      {{field.form.text-field "pub_contact_website_2"}}
-    {{/liquid-if}}
-    {{field.form.checkbox-field "is_collision_point"}}
-
-    {{field.form.select-field "assetType" field.assetTypes}}
-  {{/edit-resource}} --}}
 </div>
+{{/liquid-bind}}

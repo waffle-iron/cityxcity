@@ -57,7 +57,7 @@ export default DS.Model.extend({
   is_employer: DS.attr('boolean'),
   is_street_activating: DS.attr('boolean'),
   is_tdi_asset: DS.attr('boolean'),
-  open_or_closed: DS.attr(),
+  open_or_closed: DS.attr('timeline'),
   featured_photo: DS.attr('string'),
   pub_docs: DS.attr('string'),
   priv_docs: DS.attr('string'),

@@ -1,19 +1,21 @@
 {{#ember-wormhole to="left-items"}}
-  {{#ui-dropdown class="dropdown item"}}
-    Add Data
-    <i class="dropdown icon"></i>
-    <div class="menu">
-      {{#link-to 'cities.city.new-feature' class='item'}}
-        <i class="add circle icon"></i>
-        Add Feature
-      {{/link-to}}
+  <div class="item">
+    {{#ui-dropdown class="dropdown ui button"}}
+      <i class="plus icon"></i>
+      Add Data
+      <div class="menu">
+        {{#link-to 'cities.city.new-feature' class='item'}}
+          <i class="add circle icon"></i>
+          Add Feature
+        {{/link-to}}
 
-      {{#link-to 'cities.city.new-investment' class='item'}}
-        <i class="add circle icon"></i>
-        Add Investment
-      {{/link-to}}
-    </div>
-  {{/ui-dropdown}}
+        {{#link-to 'cities.city.new-investment' class='item'}}
+          <i class="add circle icon"></i>
+          Add Investment
+        {{/link-to}}
+      </div>
+    {{/ui-dropdown}}
+  </div>
 {{/ember-wormhole}}
 
 {{#ember-wormhole to="right-items"}}

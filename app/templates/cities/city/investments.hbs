@@ -8,10 +8,11 @@
   </h2>
   {{enumerate-properties 
     model=model
-    properties=(array 'project' 'is_addressy' 'address' 'non_addressy_location' 'source_type' 'is_tdi_influenced' 'investment_type' 'product_massdev' 'product_public' 'product_private' 'is_amount_known' 'is_amount_estimated' 'is_amount_public' 'amount_exact' 'amount_estimated' 'is_close_date_approx' 'featured_photo' 'pub_docs' 'priv_docs' 'related_link_title' 'related_link_url' 'related_features' 'related_investments' 'relation_notes' 'priv_contact_name' 'priv_contact_organization' 'priv_contact_role' 'priv_contact_phone' 'priv_contact_email' 'priv_contact_website' 'priv_notes' 'pub_notes' 'cta_text' 'cta_contact' 'pub_contact_1' 'pub_contact_org_1' 'pub_contact_role_1' 'pub_contact_phone_1' 'pub_contact_email_1' 'pub_contact_website_1' 'pub_contact_2' 'pub_contact_org_2' 'pub_contact_role_2' 'pub_contact_phone_2' 'pub_contact_email_2' 'pub_contact_website_2'
+    properties=(array 'project' 'address' 'non_addressy_location' 'source_type' 'is_tdi_influenced' 'investment_type' 'product_massdev' 'product_public' 'product_private' 'is_amount_known' 'is_amount_estimated' 'is_amount_public' 'amount_exact' 'amount_estimated' 'investment_status' 'is_close_date_approx' 'featured_photo' 'pub_docs' 'related_link_title' 'related_link_url' 'related_features' 'related_investments' 'relation_notes' 'pub_notes' 'cta_text' 'cta_contact' 'pub_contact_1' 'pub_contact_org_1' 'pub_contact_role_1' 'pub_contact_phone_1' 'pub_contact_email_1' 'pub_contact_website_1' 'pub_contact_2' 'pub_contact_org_2' 'pub_contact_role_2' 'pub_contact_phone_2' 'pub_contact_email_2' 'pub_contact_website_2'
   )}}
   {{resource-nav-menu 
     session=session 
     routeSegment='edit-investment'
     model=model}}
 {{/liquid-bind}}
+
