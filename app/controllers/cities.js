@@ -5,6 +5,7 @@ import setChoroplethColor from '../utils/set-choropleth-color';
 import { number_format } from 'ember-string-helpers/utils/functions';
 import { nest } from 'd3-collection';
 import monthsBetween from '../utils/months-between';
+import config from '../config/environment';
 
 import {  FEATURE_PARAMS, 
           FEATURE_TYPES,
@@ -140,7 +141,7 @@ export default Ember.Controller.extend({
   parcelChoroplethSets: PARCEL_MAP_CONFIG.mapBy('setName'),
   iconCreateFunction: function(cluster) {
     // cluster.getChildCount()
-    return L.icon({ iconUrl: '/images/icons/investments/cluster.png', iconSize: [41,41] });
+    return L.icon({ iconUrl: `${config.prepend ? config.prepend : '/'}images/icons/investments/cluster.png`, iconSize: [41,41] });
   },
 
   currentFeature: null,
