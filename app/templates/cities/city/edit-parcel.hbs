@@ -1,50 +1,140 @@
-<div class="parcels">
-  <h2 class="ui header">
-    <img class="ui bordered circular image" src={{model.splash}}/>
-    <div class="content">
-      {{model.name}}
-      <div class="sub header">{{model.assetType}}</div>
-    </div>
-  </h2>
+{{#liquid-bind model use="toLeft" class="parcels" as |currentModel|}}
+  <div class="parcels">
+    <h2 class="ui header">
+      <img class="ui bordered circular image" src={{model.splash}}/>
+      <div class="content">
+        {{model.address}}
+        <div class="sub header">{{model.land_use}}</div>
+      </div>
+    </h2>
 
-  {{#edit-resource model=model as |field|}}
-    {{field.form.text-field "name"}}
-    {{field.form.text-field "address"}}
-    {{field.form.text-field "contact"}}
-    {{field.form.checkbox-field "employer"}}
-    {{field.form.checkbox-field "activating"}}
+    {{#edit-resource model=model as |field|}}
+      <form class="ui form">
+        <div class="field">
+          <label>What kind of entity owns this parcel?</label>
+          {{#ui-dropdown class="selection" selected=model.ownership_type onChange=(action (mut model.ownership_type))}}
+            <div class="default text">Select the parcel ownership type</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {{#each field.parcelOwnershipTypes as |type|}}
+                <div class="item" data-value="{{type}}">
+                  {{type}}
+                </div>
+              {{/each}}
+            </div>
+          {{/ui-dropdown}}
+        </div>
+        <div class="field">
+          <label>Is the owner of this parcel engaged with the TDI program or other community activities?</label>
+          {{timeline-builder snapshots=model.is_engaged_owner choices=(array 'yes' 'no')}}
+        </div>
+        <div class="field">
+          <label>Is this parcel for sale?</label>
+          {{timeline-builder snapshots=model.is_for_sale choices=(array 'yes' 'no')}}
+        </div>
+        <div class="field">
+          <label>Is this parcel for lease?</label>
+          {{timeline-builder snapshots=model.is_for_lease choices=(array 'yes' 'no')}}
+        </div>
+        <div class="field">
+          <label>Is this parcel a vacant lot (i.e., it has no structures on it)?</label>
+          {{timeline-builder snapshots=model.is_vacant_lot choices=(array 'yes' 'no')}}
+        </div>
+        <div class="field">
+          <label>Is the ground floor of this parcel's building(s) vacant?</label>
+          {{timeline-builder snapshots=model.ground_floor_vacancy choices=(array 'Not Vacant' 'Partially Vacant' 'Entirely Vacant')}}
+        </div>
+        <div class="field">
+          <label>Are the upper floors of this parcel's building(s) vacant?</label>
+          {{timeline-builder snapshots=model.upper_floor_vacancy choices=(array 'Not Vacant' 'Partially Vacant' 'Entirely Vacant')}}
+        </div>
+        <div class="ui dividing header">
+          Assessing Info
+        </div>
+        <div class="field">
+          <label>Land Use</label>
+          {{#ui-dropdown class="selection" selected=model.land_use onChange=(action (mut model.land_use))}}
+            <div class="default text">Select the feature type</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {{#each (array '1' '3' '4' '9') as |type|}}
+                <div class="item" data-value="{{type}}">
+                  {{if (eq type '1') 'Residential' (if (eq type '3') 'Commercial' (if (eq type '4') 'Industrial' (if (eq type '9') 'Public')))}}
+                </div>
+              {{/each}}
+            </div>
+          {{/ui-dropdown}}
+        </div>
+      <div class="ui dividing header">
+        Contacts
+      </div>
 
-    {{field.form.text-field "ownership_type"}}
-    {{field.form.checkbox-field "is_engaged_owner"}}
-    {{field.form.text-field "land_use"}}
-    {{field.form.text-field "zoning"}}
-    {{field.form.text-field "parcel_id"}}
-    {{field.form.text-field "own_contact_name"}}
-    {{field.form.text-field "own_contact_role"}}
-    {{field.form.text-field "own_contact_organization"}}
-    {{field.form.text-field "own_contact_phone"}}
-    {{field.form.text-field "own_contact_email"}}
-    {{field.form.text-field "priv_contact_name"}}
-    {{field.form.text-field "priv_contact_organization"}}
-    {{field.form.text-field "priv_contact_role"}}
-    {{field.form.text-field "priv_contact_phone"}}
-    {{field.form.text-field "priv_contact_email"}}
-    {{field.form.text-field "priv_contact_website"}}
-    {{field.form.text-field "priv_notes"}}
-    {{field.form.text-field "pub_notes"}}
-    {{field.form.text-field "cta_text"}}
-    {{field.form.text-field "cta_contact"}}
-    {{field.form.text-field "pub_contact_1"}}
-    {{field.form.text-field "pub_contact_org_1"}}
-    {{field.form.text-field "pub_contact_role_1"}}
-    {{field.form.text-field "pub_contact_phone_1"}}
-    {{field.form.text-field "pub_contact_email_1"}}
-    {{field.form.text-field "pub_contact_website_1"}}
-    {{field.form.text-field "pub_contact_2"}}
-    {{field.form.text-field "pub_contact_org_2"}}
-    {{field.form.text-field "pub_contact_role_2"}}
-    {{field.form.text-field "pub_contact_phone_2"}}
-    {{field.form.text-field "pub_contact_email_2"}}
-    {{field.form.text-field "pub_contact_website_2"}}
-  {{/edit-resource}}
-</div>
+      <div class="field">
+        <label>Private Contact Name</label>
+        {{input type='text' name='name' value=model.priv_contact_name}}
+      </div>
+
+      {{#liquid-if model.priv_contact_name}} 
+        {{#each (array 'priv_contact_organization' 'priv_contact_role' 'priv_contact_phone' 'priv_contact_email' 'priv_contact_website') as |field|}}
+          <div class="field">
+            <label>{{humanize-string (replace-with field 'priv' '')}}</label>
+            {{input type='text' name='name' value=(get model field)}}
+          </div>
+        {{/each}}
+      {{/liquid-if}}
+
+      <div class="field">
+        <label>Public Contact Name</label>
+        {{input type='text' name='name' value=model.pub_contact_1}}
+      </div>
+ 
+      {{#liquid-if model.pub_contact_1}} 
+        {{#each (array 'pub_contact_org_1' 'pub_contact_role_1' 'pub_contact_phone_1' 'pub_contact_email_1' 'pub_contact_website_1') as |field|}}
+          <div class="field">
+            <label>{{humanize-string (replace-with (replace-with field 'pub' '') '_1' '')}}</label>
+            {{input type='text' name='name' value=(get model field)}}
+          </div>
+        {{/each}}
+      {{/liquid-if}}
+
+      <div class="field">
+        <label>Public Contact Name (2)</label>
+        {{input type='text' name='name' value=model.pub_contact_2}}
+      </div>
+
+      {{#liquid-if model.pub_contact_2}} 
+        {{#each (array 'pub_contact_org_2' 'pub_contact_role_2' 'pub_contact_phone_2' 'pub_contact_email_2' 'pub_contact_website_2') as |field|}}
+          <div class="field">
+            <label>{{humanize-string (replace-with (replace-with field 'pub' '') '_2' '')}}</label>
+            {{input type='text' name='name' value=(get model field)}}
+          </div>
+        {{/each}}
+      {{/liquid-if}}
+
+      <div class="ui dividing header">
+        Call to Action
+      </div>
+
+      <div class="field">
+        <label>Write new Call to Action text if you wish to override the default text for this feature.</label>
+        {{input type='text' name='name' value=model.cta_text}}
+      </div>
+
+      <div class="field">
+        <label>Select the contact revealed when a user clicks this feature's Call to Action button.</label>
+        {{#ui-dropdown class="selection" selected=model.cta_contact onChange=(action (mut model.cta_contact))}}
+          <div class="default text" data-value="">Select One</div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            {{#each (array 'District Default Contact' 'Public Contact 1' 'Public Contact 2') as |type|}}
+              <div class="item" data-value="{{type}}">
+                {{type}}
+              </div>
+            {{/each}}
+          </div>
+        {{/ui-dropdown}}
+      </div>
+      </form>
+    {{/edit-resource}}
+  </div>
+{{/liquid-bind}}

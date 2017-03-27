@@ -113,7 +113,6 @@
             Investment Value
           </h4>
           <div class="ui basic segment">
-            {{log cc.amounts_estimates cc.amountsMin cc.amountsMax}}
             {{range-slider start=(array cc.valueMin cc.valueMax)
                            range=(hash min=cc.amountsMin max=cc.amountsMax)
                            tooltips=cc.tooltipsConfig

@@ -53,7 +53,7 @@
         </div>
         <div class="field">
           <label>Add an investment status as needed.</label>
-          {{timeline-builder snapshots=model.open_or_closed choices=(array 'Proposed' 'In Progress' 'Completed' 'Failed')}}
+          {{timeline-builder snapshots=model.investment_status choices=(array 'Proposed' 'In Progress' 'Completed' 'Failed')}}
         </div>
         <div class="field">
           <label>Which type of investment is this?</label>
@@ -71,7 +71,6 @@
         </div>
         <div class="field">
           <label>Select the source of funding for this project.</label>
-          {{log field.investmentSources}}
           {{#ui-dropdown class="selection" selected=model.source_type onChange=(action (mut model.source_type))}}
             <div class="default text">Select the investment soiurce</div>
             <i class="dropdown icon"></i>
@@ -153,6 +152,100 @@
         <div class="field">
           <label>Enter a label for this related website.</label>
           {{input type='text' name='name' value=model.related_link_title}}
+        </div>
+
+        <div class="ui dividing header">
+          Related Features and Investments
+        </div>
+
+        {{select-association 
+            selected=model.features 
+            modelName='feature' 
+            placeholder="Search for a feature"
+            searchField='feature_name'}}
+
+        <div class="field">
+          {{textarea value=model.relatedFeaturesDescription placeholder='Describe these relationships a bit'}}
+        </div>
+
+        {{select-association
+            selected=model.relatedInvestments
+            modelName='investment'
+            placeholder="Search for an investment"
+            searchField='project'}}
+
+        <div class="field">
+          {{textarea value=model.relatedInvestmentsDescription placeholder='Describe these relationships a bit'}}
+        </div>
+
+        <div class="ui dividing header">
+          Contacts
+        </div>
+
+        <div class="field">
+          <label>Private Contact Name</label>
+          {{input type='text' name='name' value=model.priv_contact_name}}
+        </div>
+
+        {{#liquid-if model.priv_contact_name}} 
+          {{#each (array 'priv_contact_organization' 'priv_contact_role' 'priv_contact_phone' 'priv_contact_email' 'priv_contact_website') as |field|}}
+            <div class="field">
+              <label>{{humanize-string (replace-with field 'priv' '')}}</label>
+              {{input type='text' name='name' value=(get model field)}}
+            </div>
+          {{/each}}
+        {{/liquid-if}}
+
+        <div class="field">
+          <label>Public Contact Name</label>
+          {{input type='text' name='name' value=model.pub_contact_1}}
+        </div>
+   
+        {{#liquid-if model.pub_contact_1}} 
+          {{#each (array 'pub_contact_org_1' 'pub_contact_role_1' 'pub_contact_phone_1' 'pub_contact_email_1' 'pub_contact_website_1') as |field|}}
+            <div class="field">
+              <label>{{humanize-string (replace-with (replace-with field 'pub' '') '_1' '')}}</label>
+              {{input type='text' name='name' value=(get model field)}}
+            </div>
+          {{/each}}
+        {{/liquid-if}}
+
+        <div class="field">
+          <label>Public Contact Name (2)</label>
+          {{input type='text' name='name' value=model.pub_contact_2}}
+        </div>
+
+        {{#liquid-if model.pub_contact_2}} 
+          {{#each (array 'pub_contact_org_2' 'pub_contact_role_2' 'pub_contact_phone_2' 'pub_contact_email_2' 'pub_contact_website_2') as |field|}}
+            <div class="field">
+              <label>{{humanize-string (replace-with (replace-with field 'pub' '') '_2' '')}}</label>
+              {{input type='text' name='name' value=(get model field)}}
+            </div>
+          {{/each}}
+        {{/liquid-if}}
+
+        <div class="ui dividing header">
+          Call to Action
+        </div>
+
+        <div class="field">
+          <label>Write new Call to Action text if you wish to override the default text for this feature.</label>
+          {{input type='text' name='name' value=model.cta_text}}
+        </div>
+
+        <div class="field">
+          <label>Select the contact revealed when a user clicks this feature's Call to Action button.</label>
+          {{#ui-dropdown class="selection" selected=model.cta_contact onChange=(action (mut model.cta_contact))}}
+            <div class="default text" data-value="">Select One</div>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+              {{#each (array 'District Default Contact' 'Public Contact 1' 'Public Contact 2') as |type|}}
+                <div class="item" data-value="{{type}}">
+                  {{type}}
+                </div>
+              {{/each}}
+            </div>
+          {{/ui-dropdown}}
         </div>
       </form>
     {{/edit-resource}}

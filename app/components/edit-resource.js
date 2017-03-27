@@ -3,12 +3,14 @@ import { FEATURE_TYPES } from '../models/feature';
 import { FEATURE_SUBTYPES } from '../models/feature';
 import { INVESTMENT_TYPES } from '../models/investment';
 import { INVESTMENT_SOURCES } from '../models/investment';
+import { PARCEL_OWNERSHIP_TYPES } from '../models/parcel';
 
 export default Ember.Component.extend({
   submitRoute: 'submit',
   investmentTypes: INVESTMENT_TYPES,
   investmentSources: INVESTMENT_SOURCES,
   assetTypes: FEATURE_TYPES,
+  parcelOwnershipTypes: PARCEL_OWNERSHIP_TYPES,
   assetSubTypes: Ember.computed(function(){
     return Ember.Object.create(FEATURE_SUBTYPES);
   }),

@@ -28,10 +28,8 @@ export default Ember.Component.extend({
       if(snapshots) {
         snapshots.pushObject({ date: `${year}-${month}`, status: choice });  
       } else {
-        console.log(snapshots);
         snapshots.pushObject({ date: `${year}-${month}`, status: choice });
       }
-      console.log(snapshots);
     }
   }
 });

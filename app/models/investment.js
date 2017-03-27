@@ -13,6 +13,11 @@ export default DS.Model.extend({
   value: DS.attr("number"),
   type: DS.attr("string"),
 
+  iconUrl: Ember.computed('source_type', 'investment_type', function() {
+    let { source_type, investment_type } = this.getProperties('source_type', 'investment_type');
+    return `/images/icons/investments/${source_type.decamelize()}/${investment_type.decamelize()}.png`;
+  }),
+
   project: DS.attr('string'),
   is_addressy: DS.attr('boolean', { defaultValue: true }),
   non_addressy_location: DS.attr('string'),
@@ -27,7 +32,7 @@ export default DS.Model.extend({
   is_amount_public: DS.attr('boolean'),
   amount_exact: DS.attr('number'),
   amount_estimated: DS.attr('string'),
-  investment_status: DS.attr(),
+  investment_status: DS.attr('timeline'),
   investment_status_latest: Ember.computed('investment_status', function() {
     return getLatest('investment_status', this);
   }),

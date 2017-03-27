@@ -21,6 +21,11 @@ export default DS.Model.extend({
     let { latitude, longitude } = this.getProperties('latitude','longitude');
     return `https://maps.googleapis.com/maps/api/streetview?size=450x450&location=${latitude},${longitude}&key=AIzaSyCO654zBIabvjSOV4Ys59Pku8pmzM387ps`;
   }),
+  iconUrl: Ember.computed('feature_type', function() {
+    let featureType = this.get('feature_type').dasherize().replace('/','');
+    return `/images/icons/features/${featureType}.png`;
+  }),
+
   isOpen: Ember.computed('closedate', function() {
     let closedate = this.get('closedate');
     if (!closedate) return true;
@@ -101,8 +106,10 @@ export default DS.Model.extend({
   isSelected: false
 });
 
+
+
 export const FEATURE_PARAMS = ['assetTypes', 'activating', 'featureOpen', 'employer','fake_open_or_closed','is_employer','is_street_activating','is_tdi_asset','is_feature_owner_engaged','is_collision_point'];
-export const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Government','Temporary','Park / Open Space','Parking','Public Transit'];
+export const FEATURE_TYPES  = ['Food','Business','Retail','Community','Cultural & Entertainment','Health Care','Eductation','Government','Temporary','Park / Open Space','Parking','Public Transit','Collision Point'];
 export const FEATURE_FILTERS_CONFIG = [
       { 
         property: 'feature_type',

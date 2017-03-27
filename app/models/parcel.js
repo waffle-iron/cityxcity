@@ -22,8 +22,13 @@ export default DS.Model.extend({
     return faker.random.boolean();
   }),
 
-  // ownership_type: DS.attr('string'),
-  is_engaged_owner: DS.attr('boolean'),
+  ownership_type: DS.attr('string'),
+  is_engaged_owner: DS.attr('timeline'),
+  is_for_sale: DS.attr('timeline'),
+  is_for_lease: DS.attr('timeline'),
+  is_vacant_lot: DS.attr('timeline'),
+  ground_floor_vacancy: DS.attr('timeline'),
+  upper_floor_vacancy: DS.attr('timeline'),
   land_use: DS.attr('string'),
   zoning: DS.attr('string'),
   parcel_id: DS.attr('string'),
@@ -86,6 +91,7 @@ export default DS.Model.extend({
 
 export const PARCEL_PARAMS = ['groundFloorVacancyMin','groundFloorVacancyMax','landuseTypes','forSale','forLease','yearBuiltMin','yearBuiltMax'];
 export const PARCEL_TYPES  = ['1','3','4','9'];
+export const PARCEL_OWNERSHIP_TYPES  = ['Publicly owned','Partner-Controlled','Privately owned'];
 export const PARCEL_FILTERS_CONFIG = [
   { 
     property: 'landUseType',

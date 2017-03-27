@@ -2,11 +2,18 @@ import DS from 'ember-data';
 
 export default DS.Transform.extend({
   deserialize(serialized) {
-    return JSON.parse(serialized);
+    if(serialized) {
+      return JSON.parse(serialized);  
+    } else {
+      return [];
+    }
   },
 
   serialize(deserialized) {
-  
-    return JSON.stringify(deserialized);
+    if(deserialized) {
+      return JSON.stringify(deserialized);  
+    } else {
+      return '[]';
+    }
   }
 });

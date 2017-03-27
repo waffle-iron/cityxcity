@@ -138,6 +138,10 @@ export default Ember.Controller.extend({
     }
   }),
   parcelChoroplethSets: PARCEL_MAP_CONFIG.mapBy('setName'),
+  iconCreateFunction: function(cluster) {
+    // cluster.getChildCount()
+    return L.icon({ iconUrl: '/images/icons/investments/cluster.png', iconSize: [41,41] });
+  },
 
   currentFeature: null,
   hideSidebar: false,
@@ -212,6 +216,7 @@ export default Ember.Controller.extend({
       this.set('currentFeature', feature);
     },
     linkTo(route, model) {
+      console.log(model.get('id'));
       this.transitionToRoute(route, model);
     },
     changeProperty(key, value) {

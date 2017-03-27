@@ -53,61 +53,48 @@
           {{image-layer pane='extrusions' imageUrl=city.imageOverlay bounds=city.imageOverlayBBox opacity=0.9}}
         {{/each}}
 
-        {{!-- {{#marker-cluster-layer}} --}}
+        {{#marker-cluster-layer}}
           {{#if showFeatures}}
             {{#each visibleFeatures as |feature|}}
               {{#if (and feature.latitude feature.id)}}
                 {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
+                  <strong>{{feature.feature_type}}</strong>
                   <img class="ui small image" src={{feature.splash}}/>
-                  <strong>{{feature.name}}</strong>
-                  {{#circle-marker-layer  lat=feature.latitude 
+                  <strong>{{feature.feature_name}}</strong>
+                  {{#marker-layer lat=feature.latitude 
                                   lng=feature.longitude 
-                                  fill=true
-                                  fillOpacity=0.9
-                                  stroke=feature.isSelected
-                                  color='black'
-                                  weight=3
-                                  opacity=0.3
-                                  radius=(if feature.isSelected 10 6)
-                                  fillColor='#5CA2D1'
+                                  icon=(icon iconUrl=feature.iconUrl iconSize=(array 25 41))
                                   onClick=(action 'linkTo' 'cities.city.features' feature)
                                   onMouseover=(action popup.onMouseover)
                                   onMouseout=(action popup.onMouseout)
                                   pane='points'}}
-                  {{/circle-marker-layer}}
+                  {{/marker-layer}}
                 {{/map-popup}}
               {{/if}}
             {{/each}}
           {{/if}}
-        {{!-- {{/marker-cluster-layer}} --}}
+        {{/marker-cluster-layer}}
 
-        {{!-- {{#marker-cluster-layer}} --}}
+        {{#marker-cluster-layer iconCreateFunction=iconCreateFunction}}
           {{#if showInvestments}}
             {{#each visibleInvestments as |investment|}}
               {{#if (and investment.latitude investment.id)}}
                 {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
-                  <img class="ui small image" src={{investment.splash}}/>
-                  <strong>{{investment.name}}</strong>
-                  {{circle-marker-layer  
-                                  lat=investment.latitude 
-                                  lng=investment.longitude 
-                                  fill=true
-                                  fillOpacity=0.9
-                                  stroke=investment.isSelected
-                                  color='black'
-                                  weight=3
-                                  opacity=0.3
-                                  radius=(if investment.isSelected 10 6)
-                                  fillColor='#A53ED5'
-                                  onClick=(action 'linkTo' 'cities.city.investments' investment)
-                                  onMouseover=(action popup.onMouseover)
-                                  onMouseout=(action popup.onMouseout)
-                                  pane='points'}}
+                  <img class="ui small image" style="max-height:300px;" src={{investment.featured_photo}}/>
+                  <strong>{{investment.project}}</strong>
+                    {{marker-layer  
+                        lat=investment.latitude 
+                        lng=investment.longitude 
+                        icon=(icon iconUrl=investment.iconUrl iconSize=(array 41 41))
+                        onClick=(action 'linkTo' 'cities.city.investments' investment)
+                        onMouseover=(action popup.onMouseover)
+                        onMouseout=(action popup.onMouseout)
+                        pane='points'}}
                 {{/map-popup}}
               {{/if}}
             {{/each}}
           {{/if}}
-        {{!-- {{/marker-cluster-layer}} --}}
+        {{/marker-cluster-layer}}
 
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}

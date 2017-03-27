@@ -8,7 +8,6 @@ export default EmberUploader.FileField.extend({
     });
 
     if (!Ember.isEmpty(files)) {
-      console.log(files);
       // this second argument is optional and can to be sent as extra data with the upload
       uploader.upload(files[0]);
     }
@@ -20,7 +19,6 @@ export default EmberUploader.FileField.extend({
     });
 
     uploader.on('didUpload', e => {
-      console.log(e);
       this.set('progress', 100);
       this.set('message', 'Success!');
     });
