@@ -53,7 +53,27 @@
           {{image-layer pane='extrusions' imageUrl=city.imageOverlay bounds=city.imageOverlayBBox opacity=0.9}}
         {{/each}}
 
-        {{#marker-cluster-layer}}
+        {{#marker-cluster-layer iconCreateFunction=iconCreateFunction}}
+          {{#if showInvestments}}
+            {{#each visibleInvestments as |investment|}}
+              {{#if (and investment.latitude investment.id)}}
+                {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
+                  <img class="ui small image" style="max-height:300px;" src={{investment.featured_photo}}/>
+                  <strong>{{investment.project}}</strong>
+                    {{marker-layer  
+                        lat=investment.latitude 
+                        lng=investment.longitude 
+                        icon=(icon iconUrl=investment.iconUrl iconSize=(array 41 41))
+                        onClick=(action 'linkTo' 'cities.city.investments' investment)
+                        onMouseover=(action popup.onMouseover)
+                        onMouseout=(action popup.onMouseout)}}
+                {{/map-popup}}
+              {{/if}}
+            {{/each}}
+          {{/if}}
+        {{/marker-cluster-layer}}
+
+        {{!-- {{#marker-cluster-layer}} --}}
           {{#if showFeatures}}
             {{#each visibleFeatures as |feature|}}
               {{#if (and feature.latitude feature.id)}}
@@ -73,28 +93,7 @@
               {{/if}}
             {{/each}}
           {{/if}}
-        {{/marker-cluster-layer}}
-
-        {{#marker-cluster-layer iconCreateFunction=iconCreateFunction}}
-          {{#if showInvestments}}
-            {{#each visibleInvestments as |investment|}}
-              {{#if (and investment.latitude investment.id)}}
-                {{#map-popup lat=feature.latitude lng=feature.longitude as |popup|}}
-                  <img class="ui small image" style="max-height:300px;" src={{investment.featured_photo}}/>
-                  <strong>{{investment.project}}</strong>
-                    {{marker-layer  
-                        lat=investment.latitude 
-                        lng=investment.longitude 
-                        icon=(icon iconUrl=investment.iconUrl iconSize=(array 41 41))
-                        onClick=(action 'linkTo' 'cities.city.investments' investment)
-                        onMouseover=(action popup.onMouseover)
-                        onMouseout=(action popup.onMouseout)
-                        pane='points'}}
-                {{/map-popup}}
-              {{/if}}
-            {{/each}}
-          {{/if}}
-        {{/marker-cluster-layer}}
+        {{!-- {{/marker-cluster-layer}} --}}
 
         {{#if showParcels}}
           {{#each visibleParcels as |parcel|}}

@@ -12,7 +12,7 @@ export default DS.Model.extend({
   employer: DS.attr("boolean"),
   activating: DS.attr("boolean"),
   assetType: DS.attr("string"),
-  feature_type: DS.attr("string"),
+  feature_type: DS.attr("string", { defaultValue: '' }),
   subtype: DS.attr("string"),
   comment: DS.attr("string"),
   opendate: DS.attr("date"),

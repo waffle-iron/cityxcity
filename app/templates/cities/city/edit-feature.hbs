@@ -4,7 +4,7 @@
     <img class="ui circular image" src={{model.splash}}/>
     <div class="content">
       {{model.feature_name}}
-      <div class="sub header">{{model.assetType}}</div>
+      <div class="sub header">{{model.feature_type}}</div>
     </div>
   </h2>
 
@@ -53,7 +53,7 @@
       </div>
       <div class="field">
         <label>Select the feature type</label>
-        {{#ui-dropdown class="selection" selected=model.assetType onChange=(action (mut model.assetType))}}
+        {{#ui-dropdown class="selection" selected=model.feature_type onChange=(action (mut model.feature_type))}}
           <div class="default text">Select the feature type</div>
           <i class="dropdown icon"></i>
           <div class="menu">
@@ -65,14 +65,14 @@
           </div>
         {{/ui-dropdown}}
       </div>
-      {{#if model.assetType}}
+      {{#if model.feature_type}}
         <div class="field">
           <label>Select the feature sub-type</label>
-          {{#ui-dropdown class="selection" selected=model.assetType onChange=(action (mut model.subtype))}}
+          {{#ui-dropdown class="selection" selected=model.subtype onChange=(action (mut model.subtype))}}
             <div class="default text">Select the feature sub-type</div>
             <i class="dropdown icon"></i>
             <div class="menu">
-              {{#each (get field.assetSubTypes model.assetType) as |subtype|}}
+              {{#each (get field.assetSubTypes model.feature_type) as |subtype|}}
                 <div class="item" data-value="{{subtype}}">
                   {{subtype}}
                 </div>
