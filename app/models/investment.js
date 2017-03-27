@@ -1,5 +1,6 @@
 import DS from 'ember-data';
 import moment from 'moment';
+import getLatest from '../utils/get-latest';
 
 export default DS.Model.extend({
   name: DS.attr("string"),
@@ -28,13 +29,7 @@ export default DS.Model.extend({
   amount_estimated: DS.attr('string'),
   investment_status: DS.attr(),
   investment_status_latest: Ember.computed('investment_status', function() {
-    let investment_status = this.get('investment_status');
-    if (investment_status) {
-      investment_status = JSON.parse(investment_status);  
-      return investment_status.sortBy((el) => { return moment(el.date) } )[investment_status.length - 1].status;
-    } else {
-      return [];
-    } 
+    return getLatest('investment_status', this);
   }),
   is_close_date_approx: DS.attr('boolean'),
   featured_photo: DS.attr('string'),
@@ -103,8 +98,18 @@ export const INVESTMENT_FILTERS_CONFIG = [
         filter: 'investmentTypesArray',
         filterType: 'isAny'
       },
+      {
+        property: 'investment_status_latest',
+        filter: 'investmentStatusesArray',
+        filterType: 'isAny'
+      },
       { 
-        property: 'amount_exact',
+        property: 'source_type',
+        filter: 'investmentSourcesArray',
+        filterType: 'isAny'
+      },
+      { 
+        property: 'amount_estimated',
         filter: ['valueMin', 'valueMax'],
         filterType: 'isWithin'
       },
@@ -112,15 +117,5 @@ export const INVESTMENT_FILTERS_CONFIG = [
         property: 'fake_open_or_closed',
         filter: 'fake_open_or_closed',
         filterType: 'isLongitudinal'
-      },
-      {
-        property: 'investment_status_latest',
-        filter: 'investmentStatusesArray',
-        filterType: 'isAny'
-      },
-      { 
-        property: 'amount_estimated',
-        filter: 'investmentSourcesArray',
-        filterType: 'isAny'
       }
     ];

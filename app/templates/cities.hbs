@@ -127,7 +127,6 @@
       {{/leaflet-map}}
       <div class="ui links fluid menu">
         {{#each featuresOpenDates as |date|}}
-          {{log date.date fake_open_or_closed}} 
           <a class="item {{if (eq fake_open_or_closed date.date) 'active'}}" onclick={{action 'updateDate' date.date}}>{{date.alias}}</a>
         {{/each}}
       </div>

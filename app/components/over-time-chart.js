@@ -42,7 +42,7 @@ export default Ember.Component.extend({
   
   let start = `${selection.getFullYear()}-${selection.getMonth()}-01`;
   let addMonth = new Date(selection.setMonth(selection.getMonth()+1));
-  console.log(addMonth);
+
   let end = `${addMonth.getFullYear()}-${addMonth.getMonth()}-01`;
 
   return [

@@ -52,9 +52,6 @@ export default Ember.Controller.extend({
     let min = dates[0];
     let max = dates[dates.length-1];
 
-
-    console.log( monthsBetween(min, max, 'YYYY-MM-01'));
-
     return monthsBetween(min, max, 'MMM \'YY');
 
     // let grouped = nest()
@@ -270,7 +267,6 @@ export default Ember.Controller.extend({
     zoomChanged(map) {
     },
     updateDate(date){
-      console.log(date);
       this.set('fake_open_or_closed', new Date(date));
     }
   },
