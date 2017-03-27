@@ -153,6 +153,7 @@ module.exports = function(environment) {
   };
 
   if (environment === 'development') {
+    ENV.prepend = '';
     // ENV['ember-cli-mirage'] = {
     //   enabled: false
     // }

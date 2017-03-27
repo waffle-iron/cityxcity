@@ -1,6 +1,7 @@
 import DS from 'ember-data';
 import moment from 'moment';
 import getLatest from '../utils/get-latest';
+import config from '../config/environment';
 
 export default DS.Model.extend({
   name: DS.attr("string"),
@@ -15,7 +16,7 @@ export default DS.Model.extend({
 
   iconUrl: Ember.computed('source_type', 'investment_type', function() {
     let { source_type, investment_type } = this.getProperties('source_type', 'investment_type');
-    return `/images/icons/investments/${source_type.decamelize()}/${investment_type.decamelize()}.png`;
+    return `${config.prepend}/images/icons/investments/${source_type.decamelize()}/${investment_type.decamelize()}.png`;
   }),
 
   project: DS.attr('string'),
