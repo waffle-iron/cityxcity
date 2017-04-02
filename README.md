@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/allthesignals/cityxcity.png?label=ready&title=Ready)](https://waffle.io/allthesignals/cityxcity)
 # Cityxcity
 
 This README outlines the details of collaborating on this Ember application.
